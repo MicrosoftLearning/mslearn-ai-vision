@@ -58,12 +58,12 @@ To train an image classification model, you need to create a Custom Vision proje
     - **Domains**: Food
 4. In the new project, click **\[+\] Add images**, and select all of the files in the **training-images/apple** folder you viewed previously. Then upload the image files, specifying the tag *apple*, like this:
 
-![Upload apple with apple tag](./images/upload_apples.jpg)
+![Upload apple with apple tag](../media/upload_apples.jpg)
    
 5. Repeat the previous step to upload the images in the **banana** folder with the tag *banana*, and the images in the **orange** folder with the tag *orange*.
 6. Explore the images you have uploaded in the Custom Vision project - there should be 15 images of each class, like this:
 
-![Tagged images of fruit - 15 apples, 15 bananas, and 15 oranges](./images/fruit.jpg)
+![Tagged images of fruit - 15 apples, 15 bananas, and 15 oranges](../media/fruit.jpg)
     
 7. In the Custom Vision project, above the images, click **Train** to train a classification model using the tagged images. Select the **Quick Training** option, and then wait for the training iteration to complete (this may take a minute or so).
 8. When the model iteration has been trained, review the *Precision*, *Recall*, and *AP* performance metrics - these measure the prediction accuracy of the classification model, and should all be high.
@@ -78,7 +78,7 @@ Now that you've trained the model, you can test it.
 2. In the **Image URL** box, type `https://aka.ms/apple-image` and click &#10132;
 3. View the predictions returned by your model - the probability score for *apple* should be the highest, like this:
 
-![An image with a class prediction of apple](./images/test-apple.jpg)
+![An image with a class prediction of apple](../media/test-apple.jpg)
 
 4. Close the **Quick Test** window.
 

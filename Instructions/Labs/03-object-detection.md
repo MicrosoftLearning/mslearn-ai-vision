@@ -61,23 +61,23 @@ To train an object detection model, you need to upload images that contain the c
 3. After the images have been uploaded, select the first one to open it.
 4. Hold the mouse over any object in the image until an automatically detected region is displayed like the image below. Then select the object, and if necessary resize the region to surround it.
 
-![The default region for an object](./images/object-region.jpg)
+![The default region for an object](../media/object-region.jpg)
 
 Alternatively, you can simply drag around the object to create a region.
 
 5. When the region surrounds the object, add a new tag with the appropriate object type (*apple*, *banana*, or *orange*) as shown here:
 
-![A tagged object in an image](./images/object-tag.jpg)
+![A tagged object in an image](../media/object-tag.jpg)
 
 6. Select and tag each other object in the image, resizing the regions and adding new tags as required.
 
-![Two tagged objects in an image](./images/object-tags.jpg)
+![Two tagged objects in an image](../media/object-tags.jpg)
 
 7. Use the **>** link on the right to go to the next image, and tag its objects. Then just keep working through the entire image collection, tagging each apple, banana, and orange.
 
 8. When you have finished tagging the last image, close the **Image Detail** editor and on the **Training Images** page, under **Tags**, select **Tagged** to see all of your tagged images:
 
-![Tagged images in a project](./images/tagged-images.jpg)
+![Tagged images in a project](../media/tagged-images.jpg)
 
 ## Use the Training API to upload images
 

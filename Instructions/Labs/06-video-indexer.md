@@ -40,15 +40,15 @@ The indexing process extracts insights from the video, which you can view in the
 
 1. In the Video Analyzer portal, when the video is indexed, select it to view it. You'll see the video player alongside a pane that shows insights extracted from the video.
 
-![Video Analyzer with a video player and Insights pane](./images/video-indexer-insights.png)
+![Video Analyzer with a video player and Insights pane](../media/video-indexer-insights.png)
 
 2. As the video plays, select the **Timeline** tab to view a transcript of the video audio.
 
-![Video Analyzer with a video player and Timeline pane showing the video transcript.](./images/video-indexer-transcript.png)
+![Video Analyzer with a video player and Timeline pane showing the video transcript.](../media/video-indexer-transcript.png)
 
 3. At the top right of the portal, select the **View** symbol (which looks similar to &#128455;), and in the list of insights, in addition to **Transcript**, select **OCR** and **Speakers**.
 
-![Video Analyzer view menu with Transcript, OCR, and Speakers selected](./images/video-indexer-view-menu.png)
+![Video Analyzer view menu with Transcript, OCR, and Speakers selected](../media/video-indexer-view-menu.png)
 
 4. Observe that the **Timeline** pane now includes:
     - Transcript of audio narration.
@@ -73,7 +73,7 @@ You can use Video Analyzer to search the video for insights.
 3. Select the beginning of the section where the presence of a bee is indicated, and view the video at that point (you may need to pause the video and select carefully - the bee only appears briefly!)
 4. Clear the **Search** box to show all insights for the video.
 
-![Video Analyzer search results for Bee](./images/video-indexer-search.png)
+![Video Analyzer search results for Bee](../media/video-indexer-search.png)
 
 ## Use Video Analyzer widgets
 
@@ -89,7 +89,7 @@ The Video Analyzer portal is a useful interface to manage video indexing project
 8. In File Explorer, open **analyze-video.html** in your browser to see the web page.
 9. Experiment with the widgets, using the **Insights** widget to search for insights and jump to them in the video.
 
-![Video Analyzer widgets in a web page](./images/video-indexer-widgets.png)
+![Video Analyzer widgets in a web page](../media/video-indexer-widgets.png)
 
 ## Use the Video Analyzer REST API
 
