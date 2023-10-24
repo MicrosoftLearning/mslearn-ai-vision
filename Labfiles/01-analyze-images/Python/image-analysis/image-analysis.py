@@ -36,7 +36,7 @@ def main():
         print(ex)
 
 
-def AnalyzeImage(image_file):
+def AnalyzeImage(image_file, cv_client):
     print('\nAnalyzing', image_file)
 
     # Specify features to be retrieved
@@ -45,6 +45,8 @@ def AnalyzeImage(image_file):
 
 
 def BackgroundForeground(image_file, cv_client):
+    print('\n')
+    
     # Remove the background from the image or generate a foreground matte
 
 
