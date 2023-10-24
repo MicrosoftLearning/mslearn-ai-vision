@@ -108,7 +108,7 @@ var cvClient = new VisionServiceOptions(
 
 ```Python
 # Authenticate Azure AI Vision client
-cv_client = ComputerVisionClient(cog_endpoint, cog_key)
+cv_client = sdk.VisionServiceOptions(cog_endpoint, cog_key)
 ```
 
 2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to two other functions (**AnalyzeImage** and **GetThumbnail**). These functions are not yet fully implemented.
