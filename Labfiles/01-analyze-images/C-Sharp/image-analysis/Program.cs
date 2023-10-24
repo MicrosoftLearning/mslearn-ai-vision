@@ -6,6 +6,7 @@ using System.IO;
 
 // Import namespaces
 
+
 namespace image_analysis
 {
     class Program
@@ -30,6 +31,7 @@ namespace image_analysis
 
                 // Authenticate Azure AI Vision client
 
+                
                 // Analyze image
                 AnalyzeImage(imageFile, cvClient);
 
@@ -50,13 +52,16 @@ namespace image_analysis
             var analysisOptions = new ImageAnalysisOptions()
             {
                 // Specify features to be retrieved
+
             };
 
             // Get image analysis
+
         }
         static void BackgroundForeground(string imageFile, VisionServiceOptions serviceOptions)
         {
             // Remove the background from the image or generate a foreground matte
+
         }
     }
 }
