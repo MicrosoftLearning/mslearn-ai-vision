@@ -46,7 +46,7 @@ In this exercise, you'll complete a partially implemented client application tha
 **C#**
 
 ```
-dotnet add package  Azure.AI.Vision.ImageAnalysis --prerelease
+dotnet add package Azure.AI.Vision.ImageAnalysis
 ```
 
 **Python**
