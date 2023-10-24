@@ -26,30 +26,26 @@ def main():
 
         # Authenticate Azure AI Vision client
 
-
         # Analyze image
-        AnalyzeImage(image_file)
+        AnalyzeImage(image_file, cv_client)
 
         # Generate thumbnail
-        GetThumbnail(image_file)
+        BackgroundForeground(image_file, cv_client)
 
     except Exception as ex:
         print(ex)
 
+
 def AnalyzeImage(image_file):
-    print('Analyzing', image_file)
+    print('\nAnalyzing', image_file)
 
     # Specify features to be retrieved
     
-    
     # Get image analysis
 
-        
 
-def GetThumbnail(image_file):
-    print('Generating thumbnail')
-
-    # Generate a thumbnail
+def BackgroundForeground(image_file, cv_client):
+    # Remove the background from the image or generate a foreground matte
 
 
 if __name__ == "__main__":
