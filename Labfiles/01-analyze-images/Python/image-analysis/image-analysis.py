@@ -10,6 +10,7 @@ import numpy as np
 # Import namespaces
 
 
+
 def main():
     global cv_client
 
@@ -26,6 +27,7 @@ def main():
 
         # Authenticate Azure AI Vision client
 
+        
         # Analyze image
         AnalyzeImage(image_file, cv_client)
 
@@ -40,14 +42,17 @@ def AnalyzeImage(image_file, cv_client):
     print('\nAnalyzing', image_file)
 
     # Specify features to be retrieved
-    
+
+
     # Get image analysis
+
 
 
 def BackgroundForeground(image_file, cv_client):
     print('\n')
     
     # Remove the background from the image or generate a foreground matte
+
 
 
 if __name__ == "__main__":
