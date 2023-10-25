@@ -177,9 +177,12 @@ if (result.Reason == ImageAnalysisResultReason.Analyzed)
 
     // Get image tags
 
+
     // Get objects in the image
 
+
     // Get people in the image
+
 }
 else
 {
@@ -215,7 +218,9 @@ if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
 
     # Get image tags
 
+
     # Get objects in the image
+
 
     # Get people in the image
 
