@@ -224,6 +224,7 @@ if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
 
     # Get people in the image
 
+
 else:
     error_details = sdk.ImageAnalysisErrorDetails.from_result(result)
     print(" Analysis failed.")
