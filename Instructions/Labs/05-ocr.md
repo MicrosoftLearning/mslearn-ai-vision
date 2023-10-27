@@ -426,7 +426,7 @@ python read-text.py
 
 ## Clean up resources
 
-If you're continuing to the next module, you can keep the Azure resources you've used if you're going to continue to use them. However, if you don't need them any longer, you can delete them to avoid incurring further charges. Here's how:
+If you're not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges. Here's how:
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 
