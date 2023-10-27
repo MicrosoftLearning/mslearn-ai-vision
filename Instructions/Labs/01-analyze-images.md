@@ -557,7 +557,7 @@ If you're not using the Azure resources created in this lab for other training m
 
 2. In the top search bar, search for *Azure AI services multi-service account*, and select the Azure AI services multi-service account resource you created in this lab.
 
-3. On the resource page, click **Delete** and follow the instructions to delete the resource.
+3. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
 ## More information
 
