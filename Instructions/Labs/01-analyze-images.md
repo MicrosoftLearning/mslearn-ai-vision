@@ -6,14 +6,14 @@ lab:
 
 # Analyze Images with Azure AI Vision
 
-Azure AI Vision is an artificial intelligence capability that enables software systems to interpret visual input by analyzing images. In Microsoft Azure, the **Vision** Azure AI service provides pre-built models for common computer vision tasks, including analysis of images to suggest captions and tags, detection of common objects, landmarks, celebrities, brands, and the presence of adult content. You can also use the Azure AI Vision service to analyze image color and formats, and to generate "smart-cropped" thumbnail images.
+Azure AI Vision is an artificial intelligence capability that enables software systems to interpret visual input by analyzing images. In Microsoft Azure, the **Vision** Azure AI service provides pre-built models for common computer vision tasks, including analysis of images to suggest captions and tags, detection of common objects and people. You can also use the Azure AI Vision service to remove the background or create a foreground matting of images.
 
 ## Clone the repository for this course
 
-If you have not already cloned **AI-102-AIEngineer** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+If you have not already cloned the **Azure AI Vision** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
 
 1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/AI-102-AIEngineer` repository to a local folder (it doesn't matter which folder).
+2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-vision` repository to a local folder (it doesn't matter which folder).
 3. When the repository has been cloned, open the folder in Visual Studio Code.
 4. Wait while additional files are installed to support the C# code projects in the repo.
 
@@ -40,19 +40,19 @@ In this exercise, you'll complete a partially implemented client application tha
 
 > **Note**: You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **15-computer-vision** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/01-analyze-images** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
 2. Right-click the **image-analysis** folder and open an integrated terminal. Then install the Azure AI Vision SDK package by running the appropriate command for your language preference:
 
 **C#**
 
 ```
-dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
+dotnet add package Azure.AI.Vision.ImageAnalysis --prerelease
 ```
 
 **Python**
 
 ```
-pip install azure-cognitiveservices-vision-computervision==0.7.0
+pip install azure-ai-vision
 ```
     
 3. View the contents of the **image-analysis** folder, and note that it contains a file for configuration settings:
@@ -70,18 +70,16 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 **C#**
 
 ```C#
-// import namespaces
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+// Import namespaces
+using Azure.AI.Vision.Common;
+using Azure.AI.Vision.ImageAnalysis;
 ```
 
 **Python**
 
 ```Python
 # import namespaces
-from azure.cognitiveservices.vision.computervision import ComputerVisionClient
-from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
-from msrest.authentication import CognitiveServicesCredentials
+import azure.ai.vision as sdk
 ```
     
 ## View the images you will analyze
@@ -101,19 +99,16 @@ Now you're ready to use the SDK to call the Vision service and analyze an image.
 
 ```C#
 // Authenticate Azure AI Vision client
-ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
-cvClient = new ComputerVisionClient(credentials)
-{
-    Endpoint = cogSvcEndpoint
-};
+var cvClient = new VisionServiceOptions(
+    cogSvcEndpoint,
+    new AzureKeyCredential(cogSvcKey));
 ```
 
 **Python**
 
 ```Python
 # Authenticate Azure AI Vision client
-credential = CognitiveServicesCredentials(cog_key) 
-cv_client = ComputerVisionClient(cog_endpoint, credential)
+cv_client = sdk.VisionServiceOptions(cog_endpoint, cog_key)
 ```
 
 2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to two other functions (**AnalyzeImage** and **GetThumbnail**). These functions are not yet fully implemented.
@@ -124,88 +119,118 @@ cv_client = ComputerVisionClient(cog_endpoint, credential)
 
 ```C#
 // Specify features to be retrieved
-List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
-{
-    VisualFeatureTypes.Description,
-    VisualFeatureTypes.Tags,
-    VisualFeatureTypes.Categories,
-    VisualFeatureTypes.Brands,
-    VisualFeatureTypes.Objects,
-    VisualFeatureTypes.Adult
-};
+Features =
+    ImageAnalysisFeature.Caption
+    | ImageAnalysisFeature.DenseCaptions
+    | ImageAnalysisFeature.Objects
+    | ImageAnalysisFeature.People
+    | ImageAnalysisFeature.Text
+    | ImageAnalysisFeature.Tags
 ```
 
 **Python**
 
 ```Python
 # Specify features to be retrieved
-features = [VisualFeatureTypes.description,
-            VisualFeatureTypes.tags,
-            VisualFeatureTypes.categories,
-            VisualFeatureTypes.brands,
-            VisualFeatureTypes.objects,
-            VisualFeatureTypes.adult]
+analysis_options = sdk.ImageAnalysisOptions()
+
+features = analysis_options.features = (
+    sdk.ImageAnalysisFeature.CAPTION |
+    sdk.ImageAnalysisFeature.DENSE_CAPTIONS |
+    sdk.ImageAnalysisFeature.TAGS |
+    sdk.ImageAnalysisFeature.OBJECTS |
+    sdk.ImageAnalysisFeature.PEOPLE
+)
 ```
     
 4. In the **AnalyzeImage** function, under the comment **Get image analysis**, add the following code (including the comments indicating where you will add more code later.):
 
 **C#**
 
-```C
+```C#
 // Get image analysis
-using (var imageData = File.OpenRead(imageFile))
-{    
-    var analysis = await cvClient.AnalyzeImageInStreamAsync(imageData, features);
+using var imageSource = VisionSource.FromFile(imageFile);
 
+using var analyzer = new ImageAnalyzer(serviceOptions, imageSource, analysisOptions);
+
+var result = analyzer.Analyze();
+
+if (result.Reason == ImageAnalysisResultReason.Analyzed)
+{
     // get image captions
-    foreach (var caption in analysis.Description.Captions)
+    if (result.Caption != null)
     {
-        Console.WriteLine($"Description: {caption.Text} (confidence: {caption.Confidence.ToString("P")})");
+        Console.WriteLine(" Caption:");
+        Console.WriteLine($"   \"{result.Caption.Content}\", Confidence {result.Caption.Confidence:0.0000}");
+    }
+
+    //get image dense captions
+    if (result.DenseCaptions != null)
+    {
+        Console.WriteLine(" Dense Captions:");
+        foreach (var caption in result.DenseCaptions)
+        {
+            Console.WriteLine($"   \"{caption.Content}\", Confidence {caption.Confidence:0.0000}");
+        }
+        Console.WriteLine($"\n");
     }
 
     // Get image tags
 
 
-    // Get image categories
-
-
-    // Get brands in the image
-
-
     // Get objects in the image
 
 
-    // Get moderation ratings
-    
+    // Get people in the image
 
-}            
+}
+else
+{
+    var errorDetails = ImageAnalysisErrorDetails.FromResult(result);
+    Console.WriteLine(" Analysis failed.");
+    Console.WriteLine($"   Error reason : {errorDetails.Reason}");
+    Console.WriteLine($"   Error code : {errorDetails.ErrorCode}");
+    Console.WriteLine($"   Error message: {errorDetails.Message}\n");
+}
 ```
 
 **Python**
 
 ```Python
 # Get image analysis
-with open(image_file, mode="rb") as image_data:
-    analysis = cv_client.analyze_image_in_stream(image_data , features)
+image = sdk.VisionSource(image_file)
 
-# Get image description
-for caption in analysis.description.captions:
-    print("Description: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
+image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
 
-# Get image tags
+result = image_analyzer.analyze()
+
+if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
+    # Get image captions
+    if result.caption is not None:
+        print("\nCaption:")
+        print(" Caption: '{}' (confidence: {:.2f}%)".format(result.caption.content, result.caption.confidence * 100))
+
+    # Get image dense captions
+    if result.dense_captions is not None:
+        print("\nDense Captions:")
+        for caption in result.dense_captions:
+            print(" Caption: '{}' (confidence: {:.2f}%)".format(caption.content, caption.confidence * 100))
+
+    # Get image tags
 
 
-# Get image categories 
+    # Get objects in the image
 
 
-# Get brands in the image
+    # Get people in the image
 
 
-# Get objects in the image
-
-
-# Get moderation ratings
-
+else:
+    error_details = sdk.ImageAnalysisErrorDetails.from_result(result)
+    print(" Analysis failed.")
+    print("   Error reason: {}".format(error_details.reason))
+    print("   Error code: {}".format(error_details.error_code))
+    print("   Error message: {}".format(error_details.message))
 ```
     
 5. Save your changes and return to the integrated terminal for the **image-analysis** folder, and enter the following command to run the program with the argument **images/street.jpg**:
@@ -234,15 +259,16 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 **C#**
 
-```C
+```C#
 // Get image tags
-if (analysis.Tags.Count > 0)
+if (result.Tags != null)
 {
-    Console.WriteLine("Tags:");
-    foreach (var tag in analysis.Tags)
+    Console.WriteLine($" Tags:");
+    foreach (var tag in result.Tags)
     {
-        Console.WriteLine($" -{tag.Name} (confidence: {tag.Confidence.ToString("P")})");
+        Console.WriteLine($"   \"{tag.Name}\", Confidence {tag.Confidence:0.0000}");
     }
+    Console.WriteLine($"\n");
 }
 ```
 
@@ -250,114 +276,13 @@ if (analysis.Tags.Count > 0)
 
 ```Python
 # Get image tags
-if (len(analysis.tags) > 0):
-    print("Tags: ")
-    for tag in analysis.tags:
-        print(" -'{}' (confidence: {:.2f}%)".format(tag.name, tag.confidence * 100))
+if result.tags is not None:
+    print("\nTags:")
+    for tag in result.tags:
+        print(" Tag: '{}' (confidence: {:.2f}%)".format(tag.name, tag.confidence * 100))
 ```
 
 2. Save your changes and run the program once for each of the image files in the **images** folder, observing that in addition to the image caption, a list of suggested tags is displayed.
-
-## Get image categories
-
-The Vision service can suggest *categories* for images, and within each category it can identify well-known landmarks.
-
-1. In the **AnalyzeImage** function, under the comment **Get image categories**, add the following code:
-
-**C#**
-
-```C
-// Get image categories
-List<LandmarksModel> landmarks = new List<LandmarksModel> {};
-Console.WriteLine("Categories:");
-foreach (var category in analysis.Categories)
-{
-    // Print the category
-    Console.WriteLine($" -{category.Name} (confidence: {category.Score.ToString("P")})");
-
-    // Get landmarks in this category
-    if (category.Detail?.Landmarks != null)
-    {
-        foreach (LandmarksModel landmark in category.Detail.Landmarks)
-        {
-            if (!landmarks.Any(item => item.Name == landmark.Name))
-            {
-                landmarks.Add(landmark);
-            }
-        }
-    }
-}
-
-// If there were landmarks, list them
-if (landmarks.Count > 0)
-{
-    Console.WriteLine("Landmarks:");
-    foreach(LandmarksModel landmark in landmarks)
-    {
-        Console.WriteLine($" -{landmark.Name} (confidence: {landmark.Confidence.ToString("P")})");
-    }
-}
-
-```
-
-**Python**
-
-```Python
-# Get image categories
-if (len(analysis.categories) > 0):
-    print("Categories:")
-    landmarks = []
-    for category in analysis.categories:
-        # Print the category
-        print(" -'{}' (confidence: {:.2f}%)".format(category.name, category.score * 100))
-        if category.detail:
-            # Get landmarks in this category
-            if category.detail.landmarks:
-                for landmark in category.detail.landmarks:
-                    if landmark not in landmarks:
-                        landmarks.append(landmark)
-
-    # If there were landmarks, list them
-    if len(landmarks) > 0:
-        print("Landmarks:")
-        for landmark in landmarks:
-            print(" -'{}' (confidence: {:.2f}%)".format(landmark.name, landmark.confidence * 100))
-
-```
-    
-2. Save your changes and run the program once for each of the image files in the **images** folder, observing that in addition to the image caption and tags, a list of suggested categories is displayed along with any recognized landmarks (in particular in the **building.jpg** image).
-
-## Get brands in an image
-
-Some brands are visually recognizable from logo's, even when the name of the brand is not displayed. The Vision service is trained to identify thousands of well-known brands.
-
-1. In the **AnalyzeImage** function, under the comment **Get brands in the image**, add the following code:
-
-**C#**
-
-```C
-// Get brands in the image
-if (analysis.Brands.Count > 0)
-{
-    Console.WriteLine("Brands:");
-    foreach (var brand in analysis.Brands)
-    {
-        Console.WriteLine($" -{brand.Name} (confidence: {brand.Confidence.ToString("P")})");
-    }
-}
-```
-
-**Python**
-
-```Python
-# Get brands in the image
-if (len(analysis.brands) > 0):
-    print("Brands: ")
-    for brand in analysis.brands:
-        print(" -'{}' (confidence: {:.2f}%)".format(brand.name, brand.confidence * 100))
-```
-    
-2. Save your changes and run the program once for each of the image files in the **images** folder, observing any brands that are identified (specifically, in the **person.jpg** image).
 
 ## Detect and locate objects in an image
 
@@ -367,144 +292,275 @@ if (len(analysis.brands) > 0):
 
 **C#**
 
-```C
+```C#
 // Get objects in the image
-if (analysis.Objects.Count > 0)
+if (result.Objects != null)
 {
-    Console.WriteLine("Objects in image:");
+    Console.WriteLine(" Objects:");
 
     // Prepare image for drawing
-    Image image = Image.FromFile(imageFile);
+    System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
     Graphics graphics = Graphics.FromImage(image);
     Pen pen = new Pen(Color.Cyan, 3);
     Font font = new Font("Arial", 16);
-    SolidBrush brush = new SolidBrush(Color.Black);
+    SolidBrush brush = new SolidBrush(Color.WhiteSmoke);
 
-    foreach (var detectedObject in analysis.Objects)
+    foreach (var detectedObject in result.Objects)
     {
-        // Print object name
-        Console.WriteLine($" -{detectedObject.ObjectProperty} (confidence: {detectedObject.Confidence.ToString("P")})");
+        Console.WriteLine($"   \"{detectedObject.Name}\", Confidence {detectedObject.Confidence:0.0000}");
 
         // Draw object bounding box
-        var r = detectedObject.Rectangle;
-        Rectangle rect = new Rectangle(r.X, r.Y, r.W, r.H);
+        var r = detectedObject.BoundingBox;
+        Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
         graphics.DrawRectangle(pen, rect);
-        graphics.DrawString(detectedObject.ObjectProperty,font,brush,r.X, r.Y);
-
+        graphics.DrawString(detectedObject.Name,font,brush,r.X, r.Y);
     }
+                    
     // Save annotated image
     String output_file = "objects.jpg";
     image.Save(output_file);
-    Console.WriteLine("  Results saved in " + output_file);   
+    Console.WriteLine("  Results saved in " + output_file + "\n");   
 }
+
 ```
 
 **Python**
 
 ```Python
 # Get objects in the image
-if len(analysis.objects) > 0:
-    print("Objects in image:")
+if result.objects is not None:
+    print("\nObjects in image:")
 
     # Prepare image for drawing
-    fig = plt.figure(figsize=(8, 8))
-    plt.axis('off')
     image = Image.open(image_file)
+    fig = plt.figure(figsize=(image.width/100, image.height/100))
+    plt.axis('off')
     draw = ImageDraw.Draw(image)
     color = 'cyan'
-    for detected_object in analysis.objects:
+
+    for detected_object in result.objects:
         # Print object name
-        print(" -{} (confidence: {:.2f}%)".format(detected_object.object_property, detected_object.confidence * 100))
+        print(" {} (confidence: {:.2f}%)".format(detected_object.name, detected_object.confidence * 100))
         
         # Draw object bounding box
-        r = detected_object.rectangle
+        r = detected_object.bounding_box
         bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
         draw.rectangle(bounding_box, outline=color, width=3)
-        plt.annotate(detected_object.object_property,(r.x, r.y), backgroundcolor=color)
+        plt.annotate(detected_object.name,(r.x, r.y), backgroundcolor=color)
+
     # Save annotated image
     plt.imshow(image)
+    plt.tight_layout(pad=0)
     outputfile = 'objects.jpg'
     fig.savefig(outputfile)
     print('  Results saved in', outputfile)
 ```
-    
+
 2. Save your changes and run the program once for each of the image files in the **images** folder, observing any objects that are detected. After each run, view the **objects.jpg** file that is generated in the same folder as your code file to see the annotated objects.
 
-## Get moderation ratings for an image
+## Detect and locate people in an image
 
-Some images may not be suitable for all audiences, and you may need to apply some moderation to identify images that are adult or violent in nature.
+*People detection* is a specific form of computer vision in which individual people within an image are identified and their location indicated by a bounding box.
 
-1. In the **AnalyzeImage** function, under the comment **Get moderation ratings**, add the following code:
-
-**C#**
-
-```C
-// Get moderation ratings
-string ratings = $"Ratings:\n -Adult: {analysis.Adult.IsAdultContent}\n -Racy: {analysis.Adult.IsRacyContent}\n -Gore: {analysis.Adult.IsGoryContent}";
-Console.WriteLine(ratings);
-```
-
-**Python**
-
-```Python
-# Get moderation ratings
-ratings = 'Ratings:\n -Adult: {}\n -Racy: {}\n -Gore: {}'.format(analysis.adult.is_adult_content,
-                                                                    analysis.adult.is_racy_content,
-                                                                    analysis.adult.is_gory_content)
-print(ratings)
-```
-    
-2. Save your changes and run the program once for each of the image files in the **images** folder, observing the ratings for each image.
-
-> **Note**: In the preceding tasks, you used a single method to analyze the image, and then incrementally added code to parse and display the results. The SDK also provides individual methods for suggesting captions, identifying tags, detecting objects, and so on - meaning that you can use the most appropriate method to return only the information you need, reducing the size of the data payload that needs to be returned. See the [.NET SDK documentation](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet) or [Python SDK documentation](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python) for more details.
-
-## Generate a thumbnail image
-
-In some cases, you may need to create a smaller version of an image named a *thumbnail*, cropping it to include the main visual subject within new image dimensions.
-
-1. In your code file, find the **GetThumbnail** function; and under the comment **Generate a thumbnail**, add the following code:
+1. In the **AnalyzeImage** function, under the comment **Get people in the image**, add the following code:
 
 **C#**
 
-```C
-// Generate a thumbnail
-using (var imageData = File.OpenRead(imageFile))
+```C#
+// Get people in the image
+if (result.People != null)
 {
-    // Get thumbnail data
-    var thumbnailStream = await cvClient.GenerateThumbnailInStreamAsync(100, 100,imageData, true);
+    Console.WriteLine($" People:");
 
-    // Save thumbnail image
-    string thumbnailFileName = "thumbnail.png";
-    using (Stream thumbnailFile = File.Create(thumbnailFileName))
+    // Prepare image for drawing
+    System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
+    Graphics graphics = Graphics.FromImage(image);
+    Pen pen = new Pen(Color.Cyan, 3);
+    Font font = new Font("Arial", 16);
+    SolidBrush brush = new SolidBrush(Color.WhiteSmoke);
+
+    foreach (var person in result.People)
     {
-        thumbnailStream.CopyTo(thumbnailFile);
+        // Draw object bounding box
+        var r = person.BoundingBox;
+        Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
+        graphics.DrawRectangle(pen, rect);
+
+        // Return the confidence of the person detected
+        //Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence {person.Confidence:0.0000}");
     }
 
-    Console.WriteLine($"Thumbnail saved in {thumbnailFileName}");
+    // Save annotated image
+    String output_file = "persons.jpg";
+    image.Save(output_file);
+    Console.WriteLine("  Results saved in " + output_file + "\n");
 }
 ```
 
 **Python**
 
 ```Python
-# Generate a thumbnail
-with open(image_file, mode="rb") as image_data:
-    # Get thumbnail data
-    thumbnail_stream = cv_client.generate_thumbnail_in_stream(100, 100, image_data, True)
+# Get people in the image
+if result.people is not None:
+    print("\nPeople in image:")
 
-# Save thumbnail image
-thumbnail_file_name = 'thumbnail.png'
-with open(thumbnail_file_name, "wb") as thumbnail_file:
-    for chunk in thumbnail_stream:
-        thumbnail_file.write(chunk)
+    # Prepare image for drawing
+    image = Image.open(image_file)
+    fig = plt.figure(figsize=(image.width/100, image.height/100))
+    plt.axis('off')
+    draw = ImageDraw.Draw(image)
+    color = 'cyan'
 
-print('Thumbnail saved in.', thumbnail_file_name)
+    for detected_people in result.people:
+        # Draw object bounding box
+        r = detected_people.bounding_box
+        bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
+        draw.rectangle(bounding_box, outline=color, width=3)
+
+        # Return the confidence of the person detected
+        #print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
+        
+    # Save annotated image
+    plt.imshow(image)
+    plt.tight_layout(pad=0)
+    outputfile = 'people.jpg'
+    fig.savefig(outputfile)
+    print('  Results saved in', outputfile)
+```
+
+2. (Optional) Uncomment the **Console.Writeline** command under the **Return the confidence of the person detected** section to review the confidence level returned that a person was detected at a particular position of the image.
+
+3. Save your changes and run the program once for each of the image files in the **images** folder, observing any objects that are detected. After each run, view the **objects.jpg** file that is generated in the same folder as your code file to see the annotated objects.
+
+> **Note**: In the preceding tasks, you used a single method to analyze the image, and then incrementally added code to parse and display the results. The SDK also provides individual methods for suggesting captions, identifying tags, detecting objects, and so on - meaning that you can use the most appropriate method to return only the information you need, reducing the size of the data payload that needs to be returned. See the [.NET SDK documentation](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet) or [Python SDK documentation](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python) for more details.
+
+## Remove the background or generate a foreground matte of an image
+
+In some cases, you may need to create remove the background of an image or might want to create a foreground matte of that image. Let's start with the background removal.
+
+1. In your code file, find the **BackgroundForeground** function; and under the comment **Remove the background from the image or generate a foreground matte**, add the following code:
+
+**C#**
+
+```C#
+// Remove the background from the image or generate a foreground matte
+Console.WriteLine($"\nRemove the background from the image or generate a foreground matte");
+
+using var imageSource = VisionSource.FromFile(imageFile);
+
+var analysisOptions = new ImageAnalysisOptions()
+{
+    // Set the image analysis segmentation mode to background or foreground
+    SegmentationMode = ImageSegmentationMode.BackgroundRemoval
+};
+
+using var analyzer = new ImageAnalyzer(serviceOptions, imageSource, analysisOptions);
+
+var result = analyzer.Analyze();
+
+// Remove the background or generate a foreground matte
+if (result.Reason == ImageAnalysisResultReason.Analyzed)
+{
+    using var segmentationResult = result.SegmentationResult;
+
+    var imageBuffer = segmentationResult.ImageBuffer;
+    Console.WriteLine($"\n Segmentation result:");
+    Console.WriteLine($"   Output image buffer size (bytes) = {imageBuffer.Length}");
+    Console.WriteLine($"   Output image height = {segmentationResult.ImageHeight}");
+    Console.WriteLine($"   Output image width = {segmentationResult.ImageWidth}");
+
+    string outputImageFile = "newimage.jpg";
+    using (var fs = new FileStream(outputImageFile, FileMode.Create))
+    {
+        fs.Write(imageBuffer.Span);
+    }
+    Console.WriteLine($"   File {outputImageFile} written to disk\n");
+}
+else
+{
+    var errorDetails = ImageAnalysisErrorDetails.FromResult(result);
+    Console.WriteLine(" Analysis failed.");
+    Console.WriteLine($"   Error reason : {errorDetails.Reason}");
+    Console.WriteLine($"   Error code : {errorDetails.ErrorCode}");
+    Console.WriteLine($"   Error message: {errorDetails.Message}");
+    Console.WriteLine(" Did you set the computer vision endpoint and key?\n");
+}
+```
+
+**Python**
+
+```Python
+# Remove the background from the image or generate a foreground matte
+print('\nRemove the background from the image or generate a foreground matte')
+
+image = sdk.VisionSource(image_file)
+
+analysis_options = sdk.ImageAnalysisOptions()
+
+# Set the image analysis segmentation mode to background or foreground
+analysis_options.segmentation_mode = sdk.ImageSegmentationMode.BACKGROUND_REMOVAL
+    
+image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
+
+result = image_analyzer.analyze()
+
+if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
+
+    image_buffer = result.segmentation_result.image_buffer
+    print(" Segmentation result:")
+    print("   Output image buffer size (bytes) = {}".format(len(image_buffer)))
+    print("   Output image height = {}".format(result.segmentation_result.image_height))
+    print("   Output image width = {}".format(result.segmentation_result.image_width))
+
+    output_image_file = "newimage.jpg"
+    with open(output_image_file, 'wb') as binary_file:
+        binary_file.write(image_buffer)
+    print("   File {} written to disk".format(output_image_file))
+
+else:
+
+    error_details = sdk.ImageAnalysisErrorDetails.from_result(result)
+    print(" Analysis failed.")
+    print("   Error reason: {}".format(error_details.reason))
+    print("   Error code: {}".format(error_details.error_code))
+    print("   Error message: {}".format(error_details.message))
+    print(" Did you set the computer vision endpoint and key?")
 ```
     
-2. Save your changes and run the program once for each of the image files in the **images** folder, opening the **thumbnail.jpg** file that is generated in the same folder as your code file for each image.
+2. Save your changes and run the program once for each of the image files in the **images** folder, opening the **newimage.jpg** file that is generated in the same folder as your code file for each image.  Notice how the background has been removed from each of the images.
+
+Let's now generate a foreground matte for our images.
+
+3. In your code file, find the **BackgroundForeground** function; and under the comment **Set the image analysis segmentation mode to background or foreground**, replace the code you added previously with the following code:
+
+**C#**
+
+```C#
+// Set the image analysis segmentation mode to background or foreground
+SegmentationMode = ImageSegmentationMode.ForegroundMatting
+```
+
+**Python**
+
+```Python
+# Set the image analysis segmentation mode to background or foreground
+analysis_options.segmentation_mode = sdk.ImageSegmentationMode.FOREGROUND_MATTING
+```
+
+4. Save your changes and run the program once for each of the image files in the **images** folder, opening the **newimage.jpg** file that is generated in the same folder as your code file for each image.  Notice how a foreground matte has been generated for your images.
+
+## Clean up resources
+
+If you're not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges. Here's how:
+
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+
+2. In the top search bar, search for *Azure AI services multi-service account*, and select the Azure AI services multi-service account resource you created in this lab.
+
+3. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
 ## More information
 
-In this exercise, you explored some of the image analysis and manipulation capabilities of the Azure AI Vision service. The service also includes capabilities for reading text, detecting faces, and other computer vision tasks.
+In this exercise, you explored some of the image analysis and manipulation capabilities of the Azure AI Vision service. The service also includes capabilities for detecting objects and people, and other computer vision tasks.
 
 For more information about using the **Azure AI Vision** service, see the [Azure AI Vision documentation](https://docs.microsoft.com/azure/cognitive-services/computer-vision/).

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Drawing;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Azure;
 
 // Import namespaces
 
@@ -15,8 +16,7 @@ namespace read_text
     class Program
     {
 
-        private static ComputerVisionClient cvClient;
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             try
             {
@@ -31,23 +31,20 @@ namespace read_text
 
 
                 // Menu for text reading functions
-                Console.WriteLine("1: Use Read API for image\n2: Use Read API for document\n3: Read handwriting\nAny other key to quit");
+                Console.WriteLine("\n1: Use Read API for image (Lincoln.jpg)\n2: Read handwriting (Note.jpg)\nAny other key to quit\n");
                 Console.WriteLine("Enter a number:");
                 string command = Console.ReadLine();
                 string imageFile;
+
                 switch (command)
                 {
                     case "1":
                         imageFile = "images/Lincoln.jpg";
-                        await GetTextRead(imageFile);
+                        GetTextRead(imageFile, cvClient);
                         break;
                     case "2":
-                        imageFile = "images/Rome.pdf";
-                        await GetTextRead(imageFile);
-                        break;
-                    case "3":
                         imageFile = "images/Note.jpg";
-                        await GetTextRead(imageFile);
+                        GetTextRead(imageFile, cvClient);
                         break;
                     default:
                         break;
@@ -60,11 +57,11 @@ namespace read_text
             }
         }
 
-        static async Task GetTextRead(string imageFile)
+        static void GetTextRead(string imageFile, VisionServiceOptions serviceOptions)
         {
-            Console.WriteLine($"Reading text in {imageFile}\n");
+            // Use Analyze image function to read text in image
 
-     
+
         }
     }
 }

@@ -10,6 +10,7 @@ import numpy as np
 # Import namespaces
 
 
+
 def main():
     global cv_client
 
@@ -26,30 +27,32 @@ def main():
 
         # Authenticate Azure AI Vision client
 
-
+        
         # Analyze image
-        AnalyzeImage(image_file)
+        AnalyzeImage(image_file, cv_client)
 
         # Generate thumbnail
-        GetThumbnail(image_file)
+        BackgroundForeground(image_file, cv_client)
 
     except Exception as ex:
         print(ex)
 
-def AnalyzeImage(image_file):
-    print('Analyzing', image_file)
+
+def AnalyzeImage(image_file, cv_client):
+    print('\nAnalyzing', image_file)
 
     # Specify features to be retrieved
-    
-    
+
+
     # Get image analysis
 
-        
 
-def GetThumbnail(image_file):
-    print('Generating thumbnail')
 
-    # Generate a thumbnail
+def BackgroundForeground(image_file, cv_client):
+    print('\n')
+    
+    # Remove the background from the image or generate a foreground matte
+
 
 
 if __name__ == "__main__":

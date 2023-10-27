@@ -23,15 +23,12 @@ def main():
 
 
         # Menu for text reading functions
-        print('1: Use Read API for image\n2: Use Read API for document\n3: Read handwriting\nAny other key to quit')
+        print('\n1: Use Read API for image (Lincoln.jpg)\n2: Read handwriting (Note.jpg)\nAny other key to quit\n')
         command = input('Enter a number:')
         if command == '1':
             image_file = os.path.join('images','Lincoln.jpg')
             GetTextRead(image_file)
         elif command =='2':
-            image_file = os.path.join('images','Rome.pdf')
-            GetTextRead(image_file)
-        elif command =='3':
             image_file = os.path.join('images','Note.jpg')
             GetTextRead(image_file)
                 
@@ -40,7 +37,9 @@ def main():
         print(ex)
 
 def GetTextRead(image_file):
-    print('Reading text in {}\n'.format(image_file))
+    print('\n')
+
+    # Use Analyze image function to read text in image
 
 
 

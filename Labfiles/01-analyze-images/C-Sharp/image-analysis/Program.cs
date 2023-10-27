@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+using System;
 using System.Drawing;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Azure;
+using System.IO;
 
 // Import namespaces
 
@@ -14,8 +12,7 @@ namespace image_analysis
     class Program
     {
 
-        private static ComputerVisionClient cvClient;
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             try
             {
@@ -32,17 +29,15 @@ namespace image_analysis
                     imageFile = args[0];
                 }
 
-
                 // Authenticate Azure AI Vision client
 
-
+                
                 // Analyze image
-                await AnalyzeImage(imageFile);
+                AnalyzeImage(imageFile, cvClient);
 
-                // Get thumbnail
-                await GetThumbnail(imageFile);
+                // Remove the background or generate a foreground matte from the image
+                BackgroundForeground(imageFile, cvClient);
 
-               
             }
             catch (Exception ex)
             {
@@ -50,25 +45,23 @@ namespace image_analysis
             }
         }
 
-        static async Task AnalyzeImage(string imageFile)
+        static void AnalyzeImage(string imageFile, VisionServiceOptions serviceOptions)
         {
-            Console.WriteLine($"Analyzing {imageFile}");
+            Console.WriteLine($"\nAnalyzing {imageFile} \n");
 
-            // Specify features to be retrieved
+            var analysisOptions = new ImageAnalysisOptions()
+            {
+                // Specify features to be retrieved
 
+            };
 
             // Get image analysis
-                
-        }
 
-        static async Task GetThumbnail(string imageFile)
+        }
+        static void BackgroundForeground(string imageFile, VisionServiceOptions serviceOptions)
         {
-            Console.WriteLine("Generating thumbnail");
-
-            // Generate a thumbnail
+            // Remove the background from the image or generate a foreground matte
 
         }
-
-
     }
 }
