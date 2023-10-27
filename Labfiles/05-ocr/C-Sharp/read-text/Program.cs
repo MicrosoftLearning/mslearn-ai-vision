@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Azure;
 
 // Import namespaces
 
@@ -16,7 +15,7 @@ namespace read_text
     class Program
     {
 
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             try
             {
@@ -31,7 +30,7 @@ namespace read_text
 
 
                 // Menu for text reading functions
-                Console.WriteLine("1: Use Read API for image (Lincoln.jpg)\n2: Read handwriting (Note.jpg)\nAny other key to quit");
+                Console.WriteLine("\n1: Use Read API for image (Lincoln.jpg)\n2: Read handwriting (Note.jpg)\nAny other key to quit\n");
                 Console.WriteLine("Enter a number:");
                 string command = Console.ReadLine();
                 string imageFile;
