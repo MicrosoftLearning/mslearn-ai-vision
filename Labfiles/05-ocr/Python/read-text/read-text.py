@@ -40,7 +40,9 @@ def main():
         print(ex)
 
 def GetTextRead(image_file):
-    print('Reading text in {}\n'.format(image_file))
+    print('\n')
+
+    # Use Analyze image function to read text in image
 
 
 
