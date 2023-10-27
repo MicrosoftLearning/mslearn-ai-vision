@@ -39,11 +39,11 @@ namespace read_text
                 {
                     case "1":
                         imageFile = "images/Lincoln.jpg";
-                        GetTextRead(imageFile);
+                        GetTextRead(imageFile, cvClient);
                         break;
                     case "2":
                         imageFile = "images/Note.jpg";
-                        GetTextRead(imageFile);
+                        GetTextRead(imageFile, cvClient);
                         break;
                     default:
                         break;
@@ -56,7 +56,7 @@ namespace read_text
             }
         }
 
-        static void GetTextRead(string imageFile)
+        static void GetTextRead(string imageFile, VisionServiceOptions serviceOptions)
         {
             // Use Analyze image function to read text in image
 
