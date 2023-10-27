@@ -123,7 +123,7 @@ using (var imageData = File.OpenRead(imageFile))
 {    
     var analysisOptions = new ImageAnalysisOptions()
     {
-        // Specify Text for the features to be retrieved
+        // Specify features to be retrieved
 
 
     };
@@ -217,7 +217,7 @@ if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
 **C#**
 
 ```C#
-// Specify Text for the features to be retrieved
+// Specify features to be retrieved
 Features =
     ImageAnalysisFeature.Text
 ```
@@ -225,7 +225,7 @@ Features =
 **Python**
 
 ```Python
-# Specify Text for the features to be retrieved
+# Specify features to be retrieved
 sdk.ImageAnalysisFeature.TEXT
 ```
 
@@ -287,7 +287,7 @@ if drawLinePolygon:
     draw.polygon(bounding_polygon, outline=color, width=3)
 ```
 
-8. In the **read-text/images** folder, select on **Lincoln.jpg** to view the file that your code processes.
+8. In the **read-text/images** folder, select **Lincoln.jpg** to view the file that your code processes.
 
 9. In the code file for your application, in the **Main** function, examine the code that runs if the user selects menu option **1**. This code calls the **GetTextRead** function, passing the path to the *Lincoln.jpg* image file.
 
