@@ -323,10 +323,24 @@ Console.WriteLine($"   Line: '{line.Content}', Bounding Polygon {pointsToString}
 print(" Line: '{}', Bounding Polygon: {}".format(line.content, bounding_polygon))
 ```
 
-14. When prompted, enter **1** and observe the output, which should be each line of text in the image with their respective position in the image.
+14. Save your changes and return to the integrated terminal for the **read-text** folder, and enter the following command to run the program:
+
+**C#**
+
+```
+dotnet run
+```
+
+**Python**
+
+```
+python read-text.py
+```
+
+15. When prompted, enter **1** and observe the output, which should be each line of text in the image with their respective position in the image.
 
 
-15. Return to the code file in Visual Studio Code, and find the comment **Return each word detected in the image and the position bounding box around each word with the confidence level of each word**. Then, under this comment, add the following code:
+16. Return to the code file in Visual Studio Code, and find the comment **Return each word detected in the image and the position bounding box around each word with the confidence level of each word**. Then, under this comment, add the following code:
 
 **C#**
 
@@ -366,9 +380,23 @@ for word in line.words:
     draw.polygon(bounding_polygon, outline=color, width=3)
 ```
 
-16. When prompted, enter **1** and observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
+17. Save your changes and return to the integrated terminal for the **read-text** folder, and enter the following command to run the program:
 
-17. In the **read-text** folder, select the **text.jpg** image and noticed how there's a polygon around each *word*.
+**C#**
+
+```
+dotnet run
+```
+
+**Python**
+
+```
+python read-text.py
+```
+
+18. When prompted, enter **1** and observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
+
+19. In the **read-text** folder, select the **text.jpg** image and noticed how there's a polygon around each *word*.
 
 ## Use the Azure AI Vision SDK to read handwritten text from an image
 
