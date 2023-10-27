@@ -164,8 +164,49 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-# Authenticate Azure AI Vision client
-cv_client = sdk.VisionServiceOptions(cog_endpoint, cog_key)
+# Use Analyze image function to read text in image
+print('Reading text in {}\n'.format(image_file))
+
+# Specify features to be retrieved
+analysis_options = sdk.ImageAnalysisOptions()
+
+features = analysis_options.features = (
+    # Specify Text for the features to be retrieved
+
+
+)
+
+# Get image analysis
+image = sdk.VisionSource(image_file)
+
+image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
+
+result = image_analyzer.analyze()
+
+if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
+
+    # Get image captions
+    if result.text is not None:
+        print("\nText:")
+
+        # Prepare image for drawing
+        image = Image.open(image_file)
+        fig = plt.figure(figsize=(image.width/100, image.height/100))
+        plt.axis('off')
+        draw = ImageDraw.Draw(image)
+        color = 'cyan'
+
+        for line in result.text.lines:
+            # Return the text detected in the image
+
+
+
+        # Save image
+        plt.imshow(image)
+        plt.tight_layout(pad=0)
+        outputfile = 'text.jpg'
+        fig.savefig(outputfile)
+        print('\n  Results saved in', outputfile)
 ```
 
 5. Now that the body of the **GetTextRead** function has been added, under the comment **Specify features to be retrieved**, add the following code to specify that you want to retrieve text:
@@ -182,11 +223,7 @@ Features =
 
 ```Python
 # Specify Text for the features to be retrieved
-analysis_options = sdk.ImageAnalysisOptions()
-
-features = analysis_options.features = (
-    sdk.ImageAnalysisFeature.TEXT
-)
+sdk.ImageAnalysisFeature.TEXT
 ```
 
 7. In the code file in Visual Studio Code, find the **GetTextRead** function, and under the **Return the text detected in the image** comment, add the following code (this code prints the image text to the console and generates the image **text.jpg** which highlights the image's text):
@@ -226,12 +263,25 @@ if (drawLinePolygon)
 **Python**
 
 ```Python
-# Specify features to be retrieved
-analysis_options = sdk.ImageAnalysisOptions()
+# Return the text detected in the image
+print(line.content)    
 
-features = analysis_options.features = (
-    sdk.ImageAnalysisFeature.TEXT
-)
+drawLinePolygon = True
+
+r = line.bounding_polygon
+bounding_polygon = ((r[0], r[1]),(r[2], r[3]),(r[4], r[5]),(r[6], r[7]))
+
+# Return each line detected in the image and the position bounding box around each line
+
+
+
+# Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+
+
+
+# Draw line bounding polygon
+if drawLinePolygon:
+    draw.polygon(bounding_polygon, outline=color, width=3)
 ```
 
 8. In the **read-text/images** folder, select on **Lincoln.jpg** to view the file that your code processes.
@@ -268,8 +318,9 @@ Console.WriteLine($"   Line: '{line.Content}', Bounding Polygon {pointsToString}
 
 **Python**
 
-```
-python read-text.py
+```Python
+# Return each line detected in the image and the position bounding box around each line
+print(" Line: '{}', Bounding Polygon: {}".format(line.content, bounding_polygon))
 ```
 
 14. When prompted, enter **1** and observe the output, which should be each line of text in the image with their respective position in the image.
@@ -303,8 +354,16 @@ foreach (var word in line.Words)
 
 **Python**
 
-```
-python read-text.py
+```Python
+# Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+for word in line.words:
+    r = word.bounding_polygon
+    bounding_polygon = ((r[0], r[1]),(r[2], r[3]),(r[4], r[5]),(r[6], r[7]))
+    print("  Word: '{}', Bounding Polygon: {}, Confidence: {}".format(word.content, bounding_polygon,word.confidence))
+
+    # Draw word bounding polygon
+    drawLinePolygon = False
+    draw.polygon(bounding_polygon, outline=color, width=3)
 ```
 
 16. When prompted, enter **1** and observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
@@ -336,6 +395,16 @@ python read-text.py
 4. When prompted, enter **2** and observe the output, which is the text extracted from the note image.
 
 5. In the **read-text** folder, select the **text.jpg** image and noticed how there's a polygon around each *word* of the note.
+
+## Clean up resources
+
+If you're continuing to the next module, you can keep the Azure resources you've used if you're going to continue to use them. However, if you don't need them any longer, you can delete them to avoid incurring further charges. Here's how:
+
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+
+2. In the top search bar, search for *Azure AI services multi-service account*, and select the Azure AI services multi-service account resource you created in this lab
+
+3. On the resource page, click **Delete** and follow the instructions to delete the resource.
 
 ## More information
 
