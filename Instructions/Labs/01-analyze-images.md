@@ -549,6 +549,16 @@ analysis_options.segmentation_mode = sdk.ImageSegmentationMode.FOREGROUND_MATTIN
 
 4. Save your changes and run the program once for each of the image files in the **images** folder, opening the **newimage.jpg** file that is generated in the same folder as your code file for each image.  Notice how a foreground matte has been generated for your images.
 
+## Clean up resources
+
+If you're continuing to the next module, you can keep the Azure resources you've used if you're going to continue to use them. However, if you don't need them any longer, you can delete them to avoid incurring further charges. Here's how:
+
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+
+2. In the top search bar, search for *Azure AI services multi-service account*, and select the Azure AI services multi-service account resource you created in this lab.
+
+3. On the resource page, click **Delete** and follow the instructions to delete the resource.
+
 ## More information
 
 In this exercise, you explored some of the image analysis and manipulation capabilities of the Azure AI Vision service. The service also includes capabilities for detecting objects and people, and other computer vision tasks.
