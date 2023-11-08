@@ -15,7 +15,7 @@ The ability to detect and analyze human faces is a core AI capability. In this e
 If you have not already done so, you must clone the code repository for this course:
 
 1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/AI-102-AIEngineer` repository to a local folder (it doesn't matter which folder).
+2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-vision` repository to a local folder (it doesn't matter which folder).
 3. When the repository has been cloned, open the folder in Visual Studio Code.
 4. Wait while additional files are installed to support the C# code projects in the repo.
 
@@ -42,7 +42,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
 > **Note**: You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **19-face** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **04-face** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
 2. Right-click the **computer-vision** folder and open an integrated terminal. Then install the Azure AI Vision SDK package by running the appropriate command for your language preference:
 
     **C#**

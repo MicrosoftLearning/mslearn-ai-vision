@@ -10,10 +10,10 @@ In this exercise, you will use the Custom Vision service to train an *object det
 
 ## Clone the repository for this course
 
-If you have already cloned **AI-102-AIEngineer** code repository to the environment where you're working on this lab, open it in Visual Studio Code; otherwise, follow these steps to clone it now.
+If you have already cloned **mslearn-ai-vision** code repository to the environment where you're working on this lab, open it in Visual Studio Code; otherwise, follow these steps to clone it now.
 
 1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/AI-102-AIEngineer` repository to a local folder (it doesn't matter which folder).
+2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-vision` repository to a local folder (it doesn't matter which folder).
 3. When the repository has been cloned, open the folder in Visual Studio Code.
 4. Wait while additional files are installed to support the C# code projects in the repo.
 
@@ -56,7 +56,7 @@ To train an object detection model, you need to create a Custom Vision project b
 
 To train an object detection model, you need to upload images that contain the classes you want the model to identify, and tag them to indicate bounding boxes for each object instance.
 
-1. In Visual Studio Code, view the training images in the **18-object-detection/training-images** folder where you cloned the repository. This folder contains images of fruit.
+1. In Visual Studio Code, view the training images in the **03-object-detection/training-images** folder where you cloned the repository. This folder contains images of fruit.
 2. In the Custom Vision portal, in your object detection project, select **Add images** and upload all of the images in the extracted folder.
 3. After the images have been uploaded, select the first one to open it.
 4. Hold the mouse over any object in the image until an automatically detected region is displayed like the image below. Then select the object, and if necessary resize the region to surround it.
@@ -88,7 +88,7 @@ You can use the graphical tool in the Custom Vision portal to tag your images, b
 1. Click the *settings* (&#9881;) icon at the top right of the **Training Images** page in the Custom Vision portal to view the project settings.
 2. Under **General** (on the left), note the **Project Id** that uniquely identifies this project.
 3. On the right, under **Resources** note that the key and endpoint are shown. These are the details for the *training* resource (you can also obtain this information by viewing the resource in the Azure portal).
-4. In Visual Studio Code, under the **18-object-detection** folder, expand the **C-Sharp** or **Python** folder depending on your language preference.
+4. In Visual Studio Code, under the **03-object-detection** folder, expand the **C-Sharp** or **Python** folder depending on your language preference.
 5. Right-click the **train-detector** folder and open an integrated terminal. Then install the Custom Vision Training package by running the appropriate command for your language preference:
 
 **C#**
@@ -164,7 +164,7 @@ Now you're ready to publish your trained model so that it can be used from a cli
 
 Now that you've published the image classification model, you can use it from a client application. Once again, you can choose to use **C#** or **Python**.
 
-1. In Visual Studio Code, browse to the **18-object-detection** folder and in the folder for your preferred language (**C-Sharp** or **Python**), expand the **test-detector** folder.
+1. In Visual Studio Code, browse to the **03-object-detection** folder and in the folder for your preferred language (**C-Sharp** or **Python**), expand the **test-detector** folder.
 2. Right-click the **test-detector** folder and open an integrated terminal. Then enter the following SDK-specific command to install the Custom Vision Prediction package:
 
 **C#**
