@@ -98,15 +98,15 @@ import azure.ai.vision as sdk
 ```C#
 // Authenticate Azure AI Vision client
 var cvClient = new VisionServiceOptions(
-    cogSvcEndpoint,
-    new AzureKeyCredential(cogSvcKey));
+    aiSvcEndpoint,
+    new AzureKeyCredential(aiSvcKey));
 ```
 
 **Python**
 
 ```Python
 # Authenticate Azure AI Vision client
-cv_client = sdk.VisionServiceOptions(cog_endpoint, cog_key)
+cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
 ```
 
 3. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to the **GetTextRead** function. This function isn't yet fully implemented.
@@ -439,4 +439,4 @@ If you're not using the Azure resources created in this lab for other training m
 
 ## More information
 
-For more information about using the **Azure AI Vision** service to read text, see the [Azure AI Vision documentation](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-recognizing-text).
+For more information about using the **Azure AI Vision** service to read text, see the [Azure AI Vision documentation](https://learn.microsoft.com/azure/ai-services/computer-vision/overview-ocr).

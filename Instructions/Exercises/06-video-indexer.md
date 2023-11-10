@@ -125,6 +125,6 @@ All interactions with the Video Analyzer REST API follow the same pattern:
 
 ## More information
 
-Recognition of people and celebrities is still available, but following the [Responsible AI Standard](https://aka.ms/aah91ff) those are restricted behind a Limited Access policy. These features include facial identification and celebrity recognition. To learn more and apply for access, see the [Limited Access for Azure AI Services](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access).
+Recognition of people and celebrities is still available, but following the [Responsible AI Standard](https://aka.ms/aah91ff) those are restricted behind a Limited Access policy. These features include facial identification and celebrity recognition. To learn more and apply for access, see the [Limited Access for Azure AI Services](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access).
 
 For more information about **Video Analyzer**, see the [Video Analyzer documentation](https://docs.microsoft.com/azure/azure-video-analyzer/video-analyzer-for-media-docs/).

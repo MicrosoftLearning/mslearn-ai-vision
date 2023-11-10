@@ -103,15 +103,15 @@ Now you're ready to use the SDK to call the Vision service and analyze an image.
 ```C#
 // Authenticate Azure AI Vision client
 var cvClient = new VisionServiceOptions(
-    cogSvcEndpoint,
-    new AzureKeyCredential(cogSvcKey));
+    aiSvcEndpoint,
+    new AzureKeyCredential(aiSvcKey));
 ```
 
 **Python**
 
 ```Python
 # Authenticate Azure AI Vision client
-cv_client = sdk.VisionServiceOptions(cog_endpoint, cog_key)
+cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
 ```
 
 2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to two other functions (**AnalyzeImage** and **GetThumbnail**). These functions are not yet fully implemented.
@@ -435,7 +435,7 @@ if result.people is not None:
 
 3. Save your changes and run the program once for each of the image files in the **images** folder, observing any objects that are detected. After each run, view the **objects.jpg** file that is generated in the same folder as your code file to see the annotated objects.
 
-> **Note**: In the preceding tasks, you used a single method to analyze the image, and then incrementally added code to parse and display the results. The SDK also provides individual methods for suggesting captions, identifying tags, detecting objects, and so on - meaning that you can use the most appropriate method to return only the information you need, reducing the size of the data payload that needs to be returned. See the [.NET SDK documentation](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet) or [Python SDK documentation](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python) for more details.
+> **Note**: In the preceding tasks, you used a single method to analyze the image, and then incrementally added code to parse and display the results. The SDK also provides individual methods for suggesting captions, identifying tags, detecting objects, and so on - meaning that you can use the most appropriate method to return only the information you need, reducing the size of the data payload that needs to be returned. See the [.NET SDK documentation](https://learn.microsoft.com/dotnet/api/overview/azure/cognitiveservices/computervision?view=azure-dotnet) or [Python SDK documentation](https://learn.microsoft.com/python/api/azure-cognitiveservices-vision-computervision/azure.cognitiveservices.vision.computervision) for more details.
 
 ## Remove the background or generate a foreground matte of an image
 
@@ -566,4 +566,4 @@ If you're not using the Azure resources created in this lab for other training m
 
 In this exercise, you explored some of the image analysis and manipulation capabilities of the Azure AI Vision service. The service also includes capabilities for detecting objects and people, and other computer vision tasks.
 
-For more information about using the **Azure AI Vision** service, see the [Azure AI Vision documentation](https://docs.microsoft.com/azure/cognitive-services/computer-vision/).
+For more information about using the **Azure AI Vision** service, see the [Azure AI Vision documentation](https://learn.microsoft.com/azure/ai-services/computer-vision/).

@@ -23,8 +23,8 @@ namespace read_text
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string cogSvcEndpoint = configuration["CognitiveServicesEndpoint"];
-                string cogSvcKey = configuration["CognitiveServiceKey"];
+                string aiSvcEndpoint = configuration["AIServicesEndpoint"];
+                string aiSvcKey = configuration["AIServicesKey"];
 
                 // Authenticate Azure AI Vision client
                 
