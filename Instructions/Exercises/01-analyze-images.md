@@ -114,7 +114,7 @@ var cvClient = new VisionServiceOptions(
 cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
 ```
 
-2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to two other functions (**AnalyzeImage** and **GetThumbnail**). These functions are not yet fully implemented.
+2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to two other functions (**AnalyzeImage** and **BackgroundForeground**). These functions are not yet fully implemented.
 
 3. In the **AnalyzeImage** function, under the comment **Specify features to be retrieved**, add the following code:
 

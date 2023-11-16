@@ -170,11 +170,10 @@ using (var imageData = File.OpenRead(imageFile))
 # Use Analyze image function to read text in image
 print('Reading text in {}\n'.format(image_file))
 
-# Specify features to be retrieved
 analysis_options = sdk.ImageAnalysisOptions()
 
 features = analysis_options.features = (
-    # Specify Text for the features to be retrieved
+    # Specify the features to be retrieved
 
 
 )
