@@ -17,7 +17,7 @@ If you haven't already done so, you must clone the code repository for this cour
 3. When the repository has been cloned, open the folder in Visual Studio Code.
 4. Wait while additional files are installed to support the C# code projects in the repo.
 
-    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
+    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**. If you are prompted with the Message *Detected an Azure Function Project in folder*, you can safely close that message.
 
 ## Provision an Azure AI Services resource
 
@@ -46,17 +46,19 @@ In this exercise, you'll complete a partially implemented client application tha
 1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles\05-ocr** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
 2. Right-click the **read-text** folder and open an integrated terminal. Then install the Azure AI Vision SDK package by running the appropriate command for your language preference:
 
-**C#**
+    **C#**
+    
+    ```csharp
+    dotnet add package Azure.AI.Vision.ImageAnalysis --prerelease
+    ```
 
-```
-dotnet add package Azure.AI.Vision.ImageAnalysis --prerelease
-```
+    > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
 
-**Python**
-
-```
-pip install azure-ai-vision
-```
+    **Python**
+    
+    ```python
+    pip install azure-ai-vision
+    ```
 
 3. View the contents of the **read-text** folder, and note that it contains a file for configuration settings:
     - **C#**: appsettings.json
