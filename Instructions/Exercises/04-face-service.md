@@ -111,7 +111,7 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
 
     ```Python
     # Authenticate Azure AI Vision client
-    cv_client = sdk.VisionServiceOptions(cog_endpoint, cog_key)
+    cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
     ```
 
 2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to a function named **AnalyzeImage**. This function is not yet fully implemented.
