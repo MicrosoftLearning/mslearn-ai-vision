@@ -38,7 +38,7 @@ def main():
 def AnalyzeImage(image_file, cv_client):
     print('\nAnalyzing', image_file)
 
-    # Specify features to be retrieved
+    # Specify features to be retrieved (PEOPLE)
 
 
     # Get image analysis
