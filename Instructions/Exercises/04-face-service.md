@@ -102,9 +102,9 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
 
     ```C#
     // Authenticate Azure AI Vision client
-     var cvClient = new VisionServiceOptions(
-        cogSvcEndpoint,
-        new AzureKeyCredential(cogSvcKey));
+    var cvClient = new VisionServiceOptions(
+        aiSvcEndpoint,
+        new AzureKeyCredential(aiSvcKey));
     ```
 
     **Python**
@@ -121,7 +121,7 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
     **C#**
 
     ```C#
-    // Specify features to be retrieved (faces)
+    // Specify features to be retrieved (PEOPLE)
     Features =
         ImageAnalysisFeature.People
     ```
@@ -129,7 +129,7 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
     **Python**
 
     ```Python
-    # Specify features to be retrieved (faces)
+    # Specify features to be retrieved (PEOPLE)
     analysis_options = sdk.ImageAnalysisOptions()
     
     features = analysis_options.features = (
@@ -151,24 +151,6 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
     
     if (result.Reason == ImageAnalysisResultReason.Analyzed)
     {
-        // get image captions
-        if (result.Caption != null)
-        {
-            Console.WriteLine(" Caption:");
-            Console.WriteLine($"   \"{result.Caption.Content}\", Confidence {result.Caption.Confidence:0.0000}");
-        }
-    
-        //get image dense captions
-        if (result.DenseCaptions != null)
-        {
-            Console.WriteLine(" Dense Captions:");
-            foreach (var caption in result.DenseCaptions)
-            {
-                Console.WriteLine($"   \"{caption.Content}\", Confidence {caption.Confidence:0.0000}");
-            }
-            Console.WriteLine($"\n");
-        }
-    
         // Get people in the image
         if (result.People != null)
         {
@@ -183,13 +165,17 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
         
             foreach (var person in result.People)
             {
-                // Draw object bounding box
-                var r = person.BoundingBox;
-                Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
-                graphics.DrawRectangle(pen, rect);
+                // Draw object bounding box if confidence > 50%
+                if (person.Confidence > 0.5)
+                {
+                    // Draw object bounding box
+                    var r = person.BoundingBox;
+                    Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
+                    graphics.DrawRectangle(pen, rect);
         
-                // Return the confidence of the person detected
-                Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence {person.Confidence:0.0000}");
+                    // Return the confidence of the person detected
+                    Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence {person.Confidence:0.0000}");
+                }
             }
         
             // Save annotated image
@@ -220,17 +206,6 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
     result = image_analyzer.analyze()
     
     if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
-        # Get image captions
-        if result.caption is not None:
-            print("\nCaption:")
-            print(" Caption: '{}' (confidence: {:.2f}%)".format(result.caption.content, result.caption.confidence * 100))
-    
-        # Get image dense captions
-        if result.dense_captions is not None:
-            print("\nDense Captions:")
-            for caption in result.dense_captions:
-                print(" Caption: '{}' (confidence: {:.2f}%)".format(caption.content, caption.confidence * 100))
-    
         # Get people in the image
         if result.people is not None:
             print("\nPeople in image:")
@@ -243,14 +218,16 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
             color = 'cyan'
         
             for detected_people in result.people:
-                # Draw object bounding box
-                r = detected_people.bounding_box
-                bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
-                draw.rectangle(bounding_box, outline=color, width=3)
-        
-                # Return the confidence of the person detected
-                print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
-                
+                # Draw object bounding box if confidence > 50%
+                if detected_people.confidence > 0.5:
+                    # Draw object bounding box
+                    r = detected_people.bounding_box
+                    bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
+                    draw.rectangle(bounding_box, outline=color, width=3)
+            
+                    # Return the confidence of the person detected
+                    print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
+                    
             # Save annotated image
             plt.imshow(image)
             plt.tight_layout(pad=0)
