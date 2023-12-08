@@ -66,7 +66,7 @@ In this exercise, you'll complete a partially implemented client application tha
 5. Note that the **computer-vision** folder contains a code file for the client application:
 
     - **C#**: Program.cs
-    - **Python**: detect-faces.py
+    - **Python**: detect-people.py
 
 6. Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Vision SDK:
 
@@ -254,7 +254,7 @@ Now you're ready to use the SDK to call the Vision service and detect faces in a
     **Python**
 
     ```
-    python detect-faces.py
+    python detect-people.py
     ```
 
 6. Observe the output, which should indicate the number of faces detected.
