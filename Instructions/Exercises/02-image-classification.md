@@ -27,14 +27,14 @@ If you don't already have one in your subscription, you'll need to provision an 
 2. In the top search bar, search for *Azure AI services*, select **Azure AI Services**, and create an Azure AI services multi-service account resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
-    - **Region**: *Choose from East US, France Central, Korea Central, North Europe, Southeast Asia, West Europe, West US, or East Asia\**
+    - **Region**: *Choose from East US, West Europe, West US, West US 2\**
     - **Name**: *Enter a unique name*
     - **Pricing tier**: Standard S0
 
-    \*Azure AI Vision 4.0 features are currently only available in these regions.
+    \*Azure AI Vision 4.0 custom model tags are currently only available in these regions.
 
 3. Select the required checkboxes and create the resource.
-4. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in a future step. Save them off or leave this browser tab open.
+<!--4. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in a future step. Save them off or leave this browser tab open.-->
 
 We also need a storage account to store the training images.
 
@@ -46,11 +46,23 @@ We also need a storage account to store the training images.
     - **Region**: *Choose the same region you used for your Azure AI Service resource*
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
-1. Once your storage account has been created, go the resource.
-1. Enable public access on the storage account. Navigate to **Configuration** in the Settings group, and enable *Allow Blob anonymous access*. Select **Save**
-1. In the left pane, select **Containers** and create a new container named `fruit`, and set **Anonymous access level** to *Container (anonymous read access for containers and blobs)*.
-1. Navigate to `fruit`, and upload the images in **02-image-classification\training-images** to that container.
+1. While your storage account is being created, go to Visual studio code, and expand the **02-image-classification** folder.
+1. In that folder, select **replace.ps1** and review the code. You'll see that it replaces the name of your storage account for the placeholder in a JSON file (the COCO file) we use in a later step. Replace the placeholder in the first line of the file with the name of your storage account. Save the file.
+1. Right-click and open an Integrated Terminal on **02-image-classification**, and run the following command.
 
+    ```powershell
+    ./replace.ps1
+    ```
+
+1. You can review the COCO file to ensure your storage account name is there. Select **training-images/training_labels.json** and view the first few entries. In the *absolute_url* field, you should see something similar to `"https://myStorage.blob.core.windows.net/fruit/...`.
+1. Close both the JSON and PowerShell file, and go back to your browser window.
+1. Your storage account should be complete. Go to your storage account.
+1. Enable public access on the storage account. In the left pane, navigate to **Configuration** in the **Settings** group, and enable *Allow Blob anonymous access*. Select **Save**
+1. In the left pane, select **Containers** and create a new container named `fruit`, and set **Anonymous access level** to *Container (anonymous read access for containers and blobs)*.
+
+    > **Note**: If the **Anonymous access level** is disabled, refresh the browser page.
+
+1. Navigate to `fruit`, and upload the images (and the one JSON file) in **02-image-classification\training-images** to that container.
 
 ## Create a custom model training project
 
@@ -68,7 +80,7 @@ Next, you will create a new training project for custom image classification in 
     - Select the box to "Allow Vision Studio to read and write to your blob storage"
 1. Select the **training_images** dataset.
 
-At this point in project creation, you would usually select **Create Azure ML Data Labeling Project** and label your images. You are encouraged to try this if you have time, but for the purposes of this lab we've already labeled the images for you and supplied the resulting COCO file.
+At this point in project creation, you would usually select **Create Azure ML Data Labeling Project** and label your images, which generates a COCO file. You are encouraged to try this if you have time, but for the purposes of this lab we've already labeled the images for you and supplied the resulting COCO file.
 
 1. Select **Add COCO file**
 1. In the dropdown, select **Import COCO file from a Blob Container**

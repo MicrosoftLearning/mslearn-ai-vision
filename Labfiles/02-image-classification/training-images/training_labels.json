@@ -6,7 +6,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164823.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164823.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164823.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164823.jpg",
       "date_captured": "2023-12-07T22:52:56.1086527Z"
     },
     {
@@ -15,7 +15,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164932.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164932.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164932.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164932.jpg",
       "date_captured": "2023-12-07T22:52:56.1086381Z"
     },
     {
@@ -24,7 +24,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164957.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164957.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164957.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164957.jpg",
       "date_captured": "2023-12-07T22:52:56.1087048Z"
     },
     {
@@ -33,7 +33,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165219.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165219.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165219.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165219.jpg",
       "date_captured": "2023-12-07T22:52:56.1086937Z"
     },
     {
@@ -42,7 +42,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164926jpg.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164926jpg.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164926jpg.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164926jpg.jpg",
       "date_captured": "2023-12-07T22:52:56.1086765Z"
     },
     {
@@ -51,7 +51,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164925.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164925.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164925.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164925.jpg",
       "date_captured": "2023-12-07T22:52:56.1086545Z"
     },
     {
@@ -60,7 +60,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164901.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164901.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164901.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164901.jpg",
       "date_captured": "2023-12-07T22:52:56.108699Z"
     },
     {
@@ -69,7 +69,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165236.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165236.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165236.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165236.jpg",
       "date_captured": "2023-12-07T22:52:56.1087188Z"
     },
     {
@@ -78,7 +78,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164760.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164760.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164760.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164760.jpg",
       "date_captured": "2023-12-07T22:52:56.1087144Z"
     },
     {
@@ -87,7 +87,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165108.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165108.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165108.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165108.jpg",
       "date_captured": "2023-12-07T22:52:56.1086463Z"
     },
     {
@@ -96,7 +96,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165220.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165220.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165220.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165220.jpg",
       "date_captured": "2023-12-07T22:52:56.1087029Z"
     },
     {
@@ -105,7 +105,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165232.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165232.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165232.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165232.jpg",
       "date_captured": "2023-12-07T22:52:56.1086564Z"
     },
     {
@@ -114,7 +114,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164918.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164918.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164918.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164918.jpg",
       "date_captured": "2023-12-07T22:52:56.1086359Z"
     },
     {
@@ -123,7 +123,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165152.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165152.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165152.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165152.jpg",
       "date_captured": "2023-12-07T22:52:56.1086681Z"
     },
     {
@@ -132,7 +132,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165157.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165157.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165157.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165157.jpg",
       "date_captured": "2023-12-07T22:52:56.1087245Z"
     },
     {
@@ -141,7 +141,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164830.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164830.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164830.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164830.jpg",
       "date_captured": "2023-12-07T22:52:56.108666Z"
     },
     {
@@ -150,7 +150,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165112.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165112.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165112.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165112.jpg",
       "date_captured": "2023-12-07T22:52:56.1086872Z"
     },
     {
@@ -159,7 +159,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165021.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165021.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165021.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165021.jpg",
       "date_captured": "2023-12-07T22:52:56.1086916Z"
     },
     {
@@ -168,7 +168,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165001.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165001.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165001.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165001.jpg",
       "date_captured": "2023-12-07T22:52:56.1086442Z"
     },
     {
@@ -177,7 +177,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164952.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164952.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164952.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164952.jpg",
       "date_captured": "2023-12-07T22:52:56.1086703Z"
     },
     {
@@ -186,7 +186,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165026.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165026.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165026.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165026.jpg",
       "date_captured": "2023-12-07T22:52:56.1086635Z"
     },
     {
@@ -195,7 +195,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164947.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164947.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164947.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164947.jpg",
       "date_captured": "2023-12-07T22:52:56.1086895Z"
     },
     {
@@ -204,7 +204,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165002.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165002.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165002.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165002.jpg",
       "date_captured": "2023-12-07T22:52:56.1086831Z"
     },
     {
@@ -213,7 +213,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164958.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164958.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164958.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164958.jpg",
       "date_captured": "2023-12-07T22:52:56.1086614Z"
     },
     {
@@ -222,7 +222,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164936.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164936.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164936.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164936.jpg",
       "date_captured": "2023-12-07T22:52:56.1086341Z"
     },
     {
@@ -231,7 +231,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165115.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165115.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165115.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165115.jpg",
       "date_captured": "2023-12-07T22:52:56.108701Z"
     },
     {
@@ -240,7 +240,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164811.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164811.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164811.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164811.jpg",
       "date_captured": "2023-12-07T22:52:56.1087166Z"
     },
     {
@@ -249,7 +249,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165027.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165027.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165027.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165027.jpg",
       "date_captured": "2023-12-07T22:52:56.1086507Z"
     },
     {
@@ -258,7 +258,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164804.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164804.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164804.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164804.jpg",
       "date_captured": "2023-12-07T22:52:56.1086321Z"
     },
     {
@@ -267,7 +267,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165047.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165047.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165047.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165047.jpg",
       "date_captured": "2023-12-07T22:52:56.1086851Z"
     },
     {
@@ -276,7 +276,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165016.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165016.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165016.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165016.jpg",
       "date_captured": "2023-12-07T22:52:56.1087066Z"
     },
     {
@@ -285,7 +285,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164759.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164759.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164759.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164759.jpg",
       "date_captured": "2023-12-07T22:52:56.1087109Z"
     },
     {
@@ -294,7 +294,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164819.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164819.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164819.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164819.jpg",
       "date_captured": "2023-12-07T22:52:56.1087209Z"
     },
     {
@@ -303,7 +303,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165126.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165126.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165126.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165126.jpg",
       "date_captured": "2023-12-07T22:52:56.1086263Z"
     },
     {
@@ -312,7 +312,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165234.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165234.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165234.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165234.jpg",
       "date_captured": "2023-12-07T22:52:56.1086404Z"
     },
     {
@@ -321,7 +321,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164919.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164919.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164919.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164919.jpg",
       "date_captured": "2023-12-07T22:52:56.1086486Z"
     },
     {
@@ -330,7 +330,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165147.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165147.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165147.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165147.jpg",
       "date_captured": "2023-12-07T22:52:56.1086969Z"
     },
     {
@@ -339,7 +339,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165202.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165202.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165202.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165202.jpg",
       "date_captured": "2023-12-07T22:52:56.1086813Z"
     },
     {
@@ -348,7 +348,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165223.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165223.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165223.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165223.jpg",
       "date_captured": "2023-12-07T22:52:56.1087088Z"
     },
     {
@@ -357,7 +357,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165046.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165046.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165046.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165046.jpg",
       "date_captured": "2023-12-07T22:52:56.1086724Z"
     },
     {
@@ -366,7 +366,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165020.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165020.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165020.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165020.jpg",
       "date_captured": "2023-12-07T22:52:56.1086794Z"
     },
     {
@@ -375,7 +375,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165033.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165033.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165033.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165033.jpg",
       "date_captured": "2023-12-07T22:52:56.1086746Z"
     },
     {
@@ -384,7 +384,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165132.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165132.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165132.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165132.jpg",
       "date_captured": "2023-12-07T22:52:56.1087227Z"
     },
     {
@@ -393,7 +393,7 @@
       "height": 768,
       "file_name": "IMG_20200229_165008.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_165008.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_165008.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_165008.jpg",
       "date_captured": "2023-12-07T22:52:56.1086582Z"
     },
     {
@@ -402,7 +402,7 @@
       "height": 768,
       "file_name": "IMG_20200229_164851.jpg",
       "coco_url": "AmlDatastore://fruit/IMG_20200229_164851.jpg",
-      "absolute_url": "https://abc.blob.core.windows.net/fruit/IMG_20200229_164851.jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164851.jpg",
       "date_captured": "2023-12-07T22:52:56.1086301Z"
     }
   ],
