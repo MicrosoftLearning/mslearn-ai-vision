@@ -27,7 +27,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 2. In the top search bar, search for *Azure AI services*, select **Azure AI Services**, and create an Azure AI services multi-service account resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
-    - **Region**: *Choose from East US, West Europe, West US, West US 2\**
+    - **Region**: *Choose from East US, West Europe, West US 2\**
     - **Name**: *Enter a unique name*
     - **Pricing tier**: Standard S0
 
@@ -38,7 +38,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 We also need a storage account to store the training images.
 
-1. Back in Azure portal, search for and select **Storage accounts**, and create a new storage account with the following settings:
+1. In Azure portal, search for and select **Storage accounts**, and create a new storage account with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource Group**: *Choose the same resource group you created your Azure AI Service resource in*
     - **Storage Account Name**: customclassifySUFFIX 
@@ -46,15 +46,15 @@ We also need a storage account to store the training images.
     - **Region**: *Choose the same region you used for your Azure AI Service resource*
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
-1. While your storage account is being created, go to Visual studio code, and expand the **02-image-classification** folder.
-1. In that folder, select **replace.ps1** and review the code. You'll see that it replaces the name of your storage account for the placeholder in a JSON file (the COCO file) we use in a later step. Replace the placeholder in the first line of the file with the name of your storage account. Save the file.
-1. Right-click and open an Integrated Terminal on **02-image-classification**, and run the following command.
+1. While your storage account is being created, go to Visual studio code, and expand the **Labfiles/02-image-classification** folder.
+1. In that folder, select **replace.ps1** and review the code. You'll see that it replaces the name of your storage account for the placeholder in a JSON file (the COCO file) we use in a later step. Replace the placeholder *in the first line only* of the file with the name of your storage account. Save the file.
+1. Right-click on the **02-image-classification** folder and open an Integrated Terminal. Run the following command.
 
     ```powershell
     ./replace.ps1
     ```
 
-1. You can review the COCO file to ensure your storage account name is there. Select **training-images/training_labels.json** and view the first few entries. In the *absolute_url* field, you should see something similar to `"https://myStorage.blob.core.windows.net/fruit/...`.
+1. You can review the COCO file to ensure your storage account name is there. Select **training-images/training_labels.json** and view the first few entries. In the *absolute_url* field, you should see something similar to *"https://myStorage.blob.core.windows.net/fruit/...*. If you don't see the change expected, make sure you updated only the first placeholder in the PowerShell script.
 1. Close both the JSON and PowerShell file, and go back to your browser window.
 1. Your storage account should be complete. Go to your storage account.
 1. Enable public access on the storage account. In the left pane, navigate to **Configuration** in the **Settings** group, and enable *Allow Blob anonymous access*. Select **Save**
@@ -62,7 +62,7 @@ We also need a storage account to store the training images.
 
     > **Note**: If the **Anonymous access level** is disabled, refresh the browser page.
 
-1. Navigate to `fruit`, and upload the images (and the one JSON file) in **02-image-classification\training-images** to that container.
+1. Navigate to `fruit`, and upload the images (and the one JSON file) in **Labfiles/02-image-classification/training-images** to that container.
 
 ## Create a custom model training project
 

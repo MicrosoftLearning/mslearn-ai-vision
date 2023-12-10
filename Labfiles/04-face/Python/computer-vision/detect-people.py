@@ -17,8 +17,8 @@ def main():
     try:
         # Get Configuration Settings
         load_dotenv()
-        ai_endpoint = os.getenv('COG_SERVICE_ENDPOINT')
-        ai_key = os.getenv('COG_SERVICE_KEY')
+        ai_endpoint = os.getenv('AI_SERVICE_ENDPOINT')
+        ai_key = os.getenv('AI_SERVICE_KEY')
 
         # Get image
         image_file = 'images/people.jpg'

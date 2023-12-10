@@ -23,8 +23,8 @@ namespace analyze_faces
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string cogSvcEndpoint = configuration["CognitiveServicesEndpoint"];
-                string cogSvcKey = configuration["CognitiveServiceKey"];
+                string cogSvcEndpoint = configuration["AIServicesEndpoint"];
+                string cogSvcKey = configuration["AIServiceKey"];
 
                 // Authenticate Face client
 

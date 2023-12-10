@@ -19,8 +19,8 @@ namespace detect_people
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string aiSvcEndpoint = configuration["CognitiveServicesEndpoint"];
-                string aiSvcKey = configuration["CognitiveServiceKey"];
+                string aiSvcEndpoint = configuration["AIServicesEndpoint"];
+                string aiSvcKey = configuration["AIServiceKey"];
 
                 // Get image
                 string imageFile = "images/people.jpg";
