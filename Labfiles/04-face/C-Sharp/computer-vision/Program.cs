@@ -1,38 +1,40 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Drawing;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Azure;
+using System.IO;
 
 // Import namespaces
 
 
-namespace detect_faces
+namespace detect_people
 {
     class Program
     {
 
-        private static ComputerVisionClient cvClient;
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             try
             {
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string cogSvcEndpoint = configuration["CognitiveServicesEndpoint"];
-                string cogSvcKey = configuration["CognitiveServiceKey"];
+                string aiSvcEndpoint = configuration["CognitiveServicesEndpoint"];
+                string aiSvcKey = configuration["CognitiveServiceKey"];
+
+                // Get image
+                string imageFile = "images/people.jpg";
+                if (args.Length > 0)
+                {
+                    imageFile = args[0];
+                }
 
                 // Authenticate Azure AI Vision client
 
+                
+                // Analyze image
+                AnalyzeImage(imageFile, cvClient);
 
-
-                // Detect faces in an image
-                string imageFile = "images/people.jpg";
-                await AnalyzeFaces(imageFile);
-               
             }
             catch (Exception ex)
             {
@@ -40,17 +42,18 @@ namespace detect_faces
             }
         }
 
-        static async Task AnalyzeFaces(string imageFile)
+        static void AnalyzeImage(string imageFile, VisionServiceOptions serviceOptions)
         {
-            Console.WriteLine($"Analyzing {imageFile}");
+            Console.WriteLine($"\nAnalyzing {imageFile} \n");
 
-            // Specify features to be retrieved (faces)
-            
+            var analysisOptions = new ImageAnalysisOptions()
+            {
+                // Specify features to be retrieved
 
+            };
 
             // Get image analysis
 
-                
         }
 
 

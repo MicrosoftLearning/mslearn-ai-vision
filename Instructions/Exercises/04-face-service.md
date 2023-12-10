@@ -48,13 +48,13 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
 
     ```
-    dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
+    dotnet add package Azure.AI.Vision.ImageAnalysis --prerelease
     ```
 
     **Python**
 
     ```
-    pip install azure-cognitiveservices-vision-computervision==0.7.0
+    pip install azure-ai-vision
     ```
     
 3. View the contents of the **computer-vision** folder, and note that it contains a file for configuration settings:
@@ -66,7 +66,7 @@ In this exercise, you'll complete a partially implemented client application tha
 5. Note that the **computer-vision** folder contains a code file for the client application:
 
     - **C#**: Program.cs
-    - **Python**: detect-faces.py
+    - **Python**: detect-people.py
 
 6. Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Vision SDK:
 
@@ -74,17 +74,15 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```C#
     // import namespaces
-    using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-    using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+    using Azure.AI.Vision.Common;
+    using Azure.AI.Vision.ImageAnalysis;
     ```
 
     **Python**
 
     ```Python
     # import namespaces
-    from azure.cognitiveservices.vision.computervision import ComputerVisionClient
-    from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
-    from msrest.authentication import CognitiveServicesCredentials
+    import azure.ai.vision as sdk
     ```
 
 ## View the image you will analyze
@@ -98,122 +96,152 @@ In this exercise, you will use the Azure AI Vision service to analyze an image o
 
 Now you're ready to use the SDK to call the Vision service and detect faces in an image.
 
-1. In the code file for your client application (**Program.cs** or **detect-faces.py**), in the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client**. Then, under this comment, add the following language-specific code to create and authenticate a Azure AI Vision client object:
+1. In the code file for your client application (**Program.cs** or **detect-people.py**), in the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client**. Then, under this comment, add the following language-specific code to create and authenticate a Azure AI Vision client object:
 
     **C#**
 
     ```C#
     // Authenticate Azure AI Vision client
-    ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
-    cvClient = new ComputerVisionClient(credentials)
-    {
-        Endpoint = cogSvcEndpoint
-    };
+    var cvClient = new VisionServiceOptions(
+        aiSvcEndpoint,
+        new AzureKeyCredential(aiSvcKey));
     ```
 
     **Python**
 
     ```Python
     # Authenticate Azure AI Vision client
-    credential = CognitiveServicesCredentials(cog_key) 
-    cv_client = ComputerVisionClient(cog_endpoint, credential)
+    cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
     ```
 
-2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to a function named **AnalyzeFaces**. This function is not yet fully implemented.
+2. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to a function named **AnalyzeImage**. This function is not yet fully implemented.
 
-3. In the **AnalyzeFaces** function, under the comment **Specify features to be retrieved (faces)**, add the following code:
+3. In the **AnalyzeImage** function, under the comment **Specify features to be retrieved (PEOPLE)**, add the following code:
 
     **C#**
 
     ```C#
-    // Specify features to be retrieved (faces)
-    List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
-    {
-        VisualFeatureTypes.Faces
-    };
+    // Specify features to be retrieved (PEOPLE)
+    Features =
+        ImageAnalysisFeature.People
     ```
 
     **Python**
 
     ```Python
-    # Specify features to be retrieved (faces)
-    features = [VisualFeatureTypes.faces]
+    # Specify features to be retrieved (PEOPLE)
+    analysis_options = sdk.ImageAnalysisOptions()
+    
+    features = analysis_options.features = (
+        sdk.ImageAnalysisFeature.PEOPLE
+    )    
     ```
 
-4. In the **AnalyzeFaces** function, under the comment **Get image analysis**, add the following code:
+4. In the **AnalyzeImage** function, under the comment **Get image analysis**, add the following code:
 
-**C#**
+    **C#**
 
-```C
-// Get image analysis
-using (var imageData = File.OpenRead(imageFile))
-{    
-    var analysis = await cvClient.AnalyzeImageInStreamAsync(imageData, features);
-
-    // Get faces
-    if (analysis.Faces.Count > 0)
+    ```C
+    // Get image analysis
+    using var imageSource = VisionSource.FromFile(imageFile);
+    
+    using var analyzer = new ImageAnalyzer(serviceOptions, imageSource, analysisOptions);
+    
+    var result = analyzer.Analyze();
+    
+    if (result.Reason == ImageAnalysisResultReason.Analyzed)
     {
-        Console.WriteLine($"{analysis.Faces.Count} faces detected.");
-
-        // Prepare image for drawing
-        Image image = Image.FromFile(imageFile);
-        Graphics graphics = Graphics.FromImage(image);
-        Pen pen = new Pen(Color.LightGreen, 3);
-        Font font = new Font("Arial", 3);
-        SolidBrush brush = new SolidBrush(Color.LightGreen);
-
-        // Draw and annotate each face
-        foreach (var face in analysis.Faces)
+        // Get people in the image
+        if (result.People != null)
         {
-            var r = face.FaceRectangle;
-            Rectangle rect = new Rectangle(r.Left, r.Top, r.Width, r.Height);
-            graphics.DrawRectangle(pen, rect);
-            string annotation = $"Person at approximately {r.Left}, {r.Top}";
-            graphics.DrawString(annotation,font,brush,r.Left, r.Top);
+            Console.WriteLine($" People:");
+        
+            // Prepare image for drawing
+            System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
+            Graphics graphics = Graphics.FromImage(image);
+            Pen pen = new Pen(Color.Cyan, 3);
+            Font font = new Font("Arial", 16);
+            SolidBrush brush = new SolidBrush(Color.WhiteSmoke);
+        
+            foreach (var person in result.People)
+            {
+                // Draw object bounding box if confidence > 50%
+                if (person.Confidence > 0.5)
+                {
+                    // Draw object bounding box
+                    var r = person.BoundingBox;
+                    Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
+                    graphics.DrawRectangle(pen, rect);
+        
+                    // Return the confidence of the person detected
+                    Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence {person.Confidence:0.0000}");
+                }
+            }
+        
+            // Save annotated image
+            String output_file = "detected_people.jpg";
+            image.Save(output_file);
+            Console.WriteLine("  Results saved in " + output_file + "\n");
         }
-
-        // Save annotated image
-        String output_file = "detected_faces.jpg";
-        image.Save(output_file);
-        Console.WriteLine(" Results saved in " + output_file);   
     }
-}        
-```
+    else
+    {
+        var errorDetails = ImageAnalysisErrorDetails.FromResult(result);
+        Console.WriteLine(" Analysis failed.");
+        Console.WriteLine($"   Error reason : {errorDetails.Reason}");
+        Console.WriteLine($"   Error code : {errorDetails.ErrorCode}");
+        Console.WriteLine($"   Error message: {errorDetails.Message}\n");
+    }
+    
+    ```
 
-**Python**
-
-```Python
-# Get image analysis
-with open(image_file, mode="rb") as image_data:
-    analysis = cv_client.analyze_image_in_stream(image_data , features)
-
-    # Get faces
-    if analysis.faces:
-        print(len(analysis.faces), 'faces detected.')
-
-        # Prepare image for drawing
-        fig = plt.figure(figsize=(8, 6))
-        plt.axis('off')
-        image = Image.open(image_file)
-        draw = ImageDraw.Draw(image)
-        color = 'lightgreen'
-
-        # Draw and annotate each face
-        for face in analysis.faces:
-            r = face.face_rectangle
-            bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
+    **Python**
+    
+    ```Python
+    # Get image analysis
+    image = sdk.VisionSource(image_file)
+    
+    image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
+    
+    result = image_analyzer.analyze()
+    
+    if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
+        # Get people in the image
+        if result.people is not None:
+            print("\nPeople in image:")
+        
+            # Prepare image for drawing
+            image = Image.open(image_file)
+            fig = plt.figure(figsize=(image.width/100, image.height/100))
+            plt.axis('off')
             draw = ImageDraw.Draw(image)
-            draw.rectangle(bounding_box, outline=color, width=5)
-            annotation = 'Person at approximately {}, {}'.format(r.left, r.top)
-            plt.annotate(annotation,(r.left, r.top), backgroundcolor=color)
-
-        # Save annotated image
-        plt.imshow(image)
-        outputfile = 'detected_faces.jpg'
-        fig.savefig(outputfile)
-
-        print('Results saved in', outputfile)
-```
+            color = 'cyan'
+        
+            for detected_people in result.people:
+                # Draw object bounding box if confidence > 50%
+                if detected_people.confidence > 0.5:
+                    # Draw object bounding box
+                    r = detected_people.bounding_box
+                    bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
+                    draw.rectangle(bounding_box, outline=color, width=3)
+            
+                    # Return the confidence of the person detected
+                    print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
+                    
+            # Save annotated image
+            plt.imshow(image)
+            plt.tight_layout(pad=0)
+            outputfile = 'detected_people.jpg'
+            fig.savefig(outputfile)
+            print('  Results saved in', outputfile)
+    
+    else:
+        error_details = sdk.ImageAnalysisErrorDetails.from_result(result)
+        print(" Analysis failed.")
+        print("   Error reason: {}".format(error_details.reason))
+        print("   Error code: {}".format(error_details.error_code))
+        print("   Error message: {}".format(error_details.message))
+    ```
 
 5. Save your changes and return to the integrated terminal for the **computer-vision** folder, and enter the following command to run the program:
 
@@ -226,11 +254,11 @@ with open(image_file, mode="rb") as image_data:
     **Python**
 
     ```
-    python detect-faces.py
+    python detect-people.py
     ```
 
 6. Observe the output, which should indicate the number of faces detected.
-7. View the **detected_faces.jpg** file that is generated in the same folder as your code file to see the annotated faces. In this case, your code has used the attributes of the face to label the location of the top left of the box, and the bounding box coordinates to draw a rectangle around each face.
+7. View the **detected_people.jpg** file that is generated in the same folder as your code file to see the annotated faces. In this case, your code has used the attributes of the face to label the location of the top left of the box, and the bounding box coordinates to draw a rectangle around each face.
 
 ## Prepare to use the Face SDK
 
@@ -242,13 +270,13 @@ While the **Azure AI Vision** service offers basic face detection (along with ma
     **C#**
 
     ```
-    dotnet add package Microsoft.Azure.CognitiveServices.Vision.Face --version 2.6.0-preview.1
+    dotnet add package Microsoft.Azure.CognitiveServices.Vision.Face --version 2.8.0-preview.3
     ```
 
     **Python**
 
     ```
-    pip install azure-cognitiveservices-vision-face==0.4.1
+    pip install azure-cognitiveservices-vision-face==0.6.0
     ```
     
 3. View the contents of the **face-api** folder, and note that it contains a file for configuration settings:
@@ -315,7 +343,7 @@ One of the most fundamental capabilities of the Face service is to detect faces 
 
     ```C#
     // Specify facial features to be retrieved
-    List<FaceAttributeType?> features = new List<FaceAttributeType?>
+    IList<FaceAttributeType> features = new FaceAttributeType[]
     {
         FaceAttributeType.Occlusion,
         FaceAttributeType.Blur,
@@ -342,16 +370,16 @@ using (var imageData = File.OpenRead(imageFile))
 {    
     var detected_faces = await faceClient.Face.DetectWithStreamAsync(imageData, returnFaceAttributes: features, returnFaceId: false);
 
-    if (detected_faces.Count > 0)
+    if (detected_faces.Count() > 0)
     {
-        Console.WriteLine($"{detected_faces.Count} faces detected.");
+        Console.WriteLine($"{detected_faces.Count()} faces detected.");
 
         // Prepare image for drawing
         Image image = Image.FromFile(imageFile);
         Graphics graphics = Graphics.FromImage(image);
         Pen pen = new Pen(Color.LightGreen, 3);
         Font font = new Font("Arial", 4);
-        SolidBrush brush = new SolidBrush(Color.Black);
+        SolidBrush brush = new SolidBrush(Color.White);
         int faceCount=0;
 
         // Draw and annotate each face
@@ -370,7 +398,7 @@ using (var imageData = File.OpenRead(imageFile))
             var r = face.FaceRectangle;
             Rectangle rect = new Rectangle(r.Left, r.Top, r.Width, r.Height);
             graphics.DrawRectangle(pen, rect);
-            string annotation = $"Face ID: {face.FaceId}";
+            string annotation = $"Face number {faceCount}";
             graphics.DrawString(annotation,font,brush,r.Left, r.Top);
         }
 
@@ -427,7 +455,7 @@ with open(image_file, mode="rb") as image_data:
             bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
             draw = ImageDraw.Draw(image)
             draw.rectangle(bounding_box, outline=color, width=5)
-            annotation = 'Face ID: {}'.format(face.face_id)
+            annotation = 'Face number {}'.format(face_count)
             plt.annotate(annotation,(r.left, r.top), backgroundcolor=color)
 
         # Save annotated image
