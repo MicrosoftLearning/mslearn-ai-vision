@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Classify images with a Azure AI Vision custom model'
+    title: 'Classify images with an Azure AI Vision custom model'
     module: 'Module 2 - Develop computer vision solutions with Azure AI Vision'
 ---
 
-# Classify images with a Azure AI Vision custom model
+# Classify images with an Azure AI Vision custom model
 
 Azure AI Vision enables you to train custom models to classify and detect objects with labels you specify. In this lab, we'll build a custom image classification model to classify images of fruit.
 
