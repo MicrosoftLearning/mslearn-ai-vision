@@ -49,7 +49,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
     
     ```csharp
-    dotnet add package Azure.AI.Vision.ImageAnalysis --prerelease
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 0.15.1-beta.1
     ```
 
     > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
@@ -57,7 +57,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
     
     ```python
-    pip install azure-ai-vision
+    pip install azure-ai-vision==0.15.1b1
     ```
 
 3. View the contents of the **read-text** folder, and note that it contains a file for configuration settings:
