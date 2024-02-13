@@ -38,7 +38,7 @@ def main():
         AnalyzeImage(image_file, image_data, cv_client)
         
         # Background removal
-        # BackgroundForeground(ai_endpoint, ai_key)
+        BackgroundForeground(ai_endpoint, ai_key, image_file)
 
     except Exception as ex:
         print(ex)
@@ -139,7 +139,7 @@ def AnalyzeImage(image_filename, image_data, cv_client):
         print('  Results saved in', outputfile)
 
 
-def BackgroundForeground(endpoint, key):
+def BackgroundForeground(endpoint, key, image_file):
     print('\nRemoving background from image...')
     
     # Define the API version and mode
@@ -153,10 +153,11 @@ def BackgroundForeground(endpoint, key):
         "Ocp-Apim-Subscription-Key": key, 
         "Content-Type": "application/json" 
     }
-    # You can change the url to use other images in the images folder,
-    # such as "building.jpg" or "person.jpg" to see different results.
+    
+    image_url="https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Labfiles/01-analyze-images/Python/image-analysis/{}?raw=true".format(image_file)  
+    
     body = {
-        "url": "https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Labfiles/01-analyze-images/Python/image-analysis/images/street.jpg?raw=true",
+        "url": image_url,
     }
         
     response = requests.post(url, headers=headers, json=body)
