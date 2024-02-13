@@ -1,14 +1,12 @@
 from dotenv import load_dotenv
 import os
-from array import array
 from PIL import Image, ImageDraw
 import sys
-import time
 from matplotlib import pyplot as plt
-import numpy as np
+from azure.core.exceptions import HttpResponseError
+import requests
 
 # Import namespaces
-
 
 
 def main():
@@ -25,34 +23,44 @@ def main():
         if len(sys.argv) > 1:
             image_file = sys.argv[1]
 
+        with open(image_file, "rb") as f:
+            image_data = f.read()
+
         # Authenticate Azure AI Vision client
 
         
         # Analyze image
-        AnalyzeImage(image_file, cv_client)
-
-        # Generate thumbnail
-        BackgroundForeground(image_file, cv_client)
+        AnalyzeImage(image_file, image_data, cv_client)
+        
+        # Background removal
+        BackgroundForeground(ai_endpoint, ai_key, image_file)
 
     except Exception as ex:
         print(ex)
 
 
-def AnalyzeImage(image_file, cv_client):
-    print('\nAnalyzing', image_file)
+def AnalyzeImage(image_filename, image_data, cv_client):
+    print('\nAnalyzing image...')
 
-    # Specify features to be retrieved
+    try:
+        # Get result with specified features to be retrieved
+        
 
+    except HttpResponseError as e:
+        print(f"Status code: {e.status_code}")
+        print(f"Reason: {e.reason}")
+        print(f"Message: {e.error.message}")
 
-    # Get image analysis
+    # Display analysis results
+    
 
-
-
-def BackgroundForeground(image_file, cv_client):
-    print('\n')
+def BackgroundForeground(endpoint, key, image_file):
+    # Define the API version and mode
+    api_version = "2023-02-01-preview"
+    mode="backgroundRemoval" # Can be "foregroundMatting" or "backgroundRemoval"
     
     # Remove the background from the image or generate a foreground matte
-
+    
 
 
 if __name__ == "__main__":

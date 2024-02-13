@@ -1,18 +1,22 @@
 using System;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Drawing;
 using Microsoft.Extensions.Configuration;
 using Azure;
-using System.IO;
 
 // Import namespaces
-
 
 namespace image_analysis
 {
     class Program
     {
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             try
             {
@@ -33,10 +37,10 @@ namespace image_analysis
 
                 
                 // Analyze image
-                AnalyzeImage(imageFile, cvClient);
+                AnalyzeImage(imageFile, client);
 
                 // Remove the background or generate a foreground matte from the image
-                BackgroundForeground(imageFile, cvClient);
+                await BackgroundForeground(imageFile, aiSvcEndpoint, aiSvcKey);
 
             }
             catch (Exception ex)
@@ -45,23 +49,25 @@ namespace image_analysis
             }
         }
 
-        static void AnalyzeImage(string imageFile, VisionServiceOptions serviceOptions)
+        static void AnalyzeImage(string imageFile, ImageAnalysisClient client)
         {
             Console.WriteLine($"\nAnalyzing {imageFile} \n");
 
-            var analysisOptions = new ImageAnalysisOptions()
-            {
-                // Specify features to be retrieved
+            // Use a file stream to pass the image data to the analyze call
+            using FileStream stream = new FileStream(imageFile,
+                                                     FileMode.Open);
 
-            };
-
-            // Get image analysis
+            // Get result with specified features to be retrieved
+            
+            
+            // Display analysis results
+            
 
         }
-        static void BackgroundForeground(string imageFile, VisionServiceOptions serviceOptions)
+        static async Task BackgroundForeground(string imageFile, string endpoint, string key)
         {
             // Remove the background from the image or generate a foreground matte
-
+            
         }
     }
 }
