@@ -72,21 +72,21 @@ In this exercise, you'll complete a partially implemented client application tha
 
     Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Vision SDK:
 
-**C#**
-
-```C#
-// Import namespaces
-using Azure.AI.Vision.ImageAnalysis;
-```
-
-**Python**
-
-```Python
-# import namespaces
-from azure.ai.vision.imageanalysis import ImageAnalysisClient
-from azure.ai.vision.imageanalysis.models import VisualFeatures
-from azure.core.credentials import AzureKeyCredential
-```
+    **C#**
+    
+    ```C#
+    // Import namespaces
+    using Azure.AI.Vision.ImageAnalysis;
+    ```
+    
+    **Python**
+    
+    ```Python
+    # import namespaces
+    from azure.ai.vision.imageanalysis import ImageAnalysisClient
+    from azure.ai.vision.imageanalysis.models import VisualFeatures
+    from azure.core.credentials import AzureKeyCredential
+    ```
     
 ## View the images you will analyze
 

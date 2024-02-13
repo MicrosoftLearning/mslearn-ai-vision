@@ -19,8 +19,6 @@ def main():
 
         # Authenticate Azure AI Vision client
         
-        
-
 
         # Menu for text reading functions
         print('\n1: Use Read API for image (Lincoln.jpg)\n2: Read handwriting (Note.jpg)\nAny other key to quit\n')
@@ -39,8 +37,13 @@ def main():
 def GetTextRead(image_file):
     print('\n')
 
-    # Use Analyze image function to read text in image
+    # Open image file
+    with open(image_file, "rb") as f:
+            image_data = f.read()
 
+    # Use Analyze image function to read text in image
+    
+    
 
 
 

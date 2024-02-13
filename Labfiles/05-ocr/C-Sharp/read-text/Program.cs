@@ -27,7 +27,6 @@ namespace read_text
                 string aiSvcKey = configuration["AIServicesKey"];
 
                 // Authenticate Azure AI Vision client
-                
 
 
                 // Menu for text reading functions
@@ -40,11 +39,11 @@ namespace read_text
                 {
                     case "1":
                         imageFile = "images/Lincoln.jpg";
-                        GetTextRead(imageFile, cvClient);
+                        GetTextRead(imageFile, client);
                         break;
                     case "2":
                         imageFile = "images/Note.jpg";
-                        GetTextRead(imageFile, cvClient);
+                        GetTextRead(imageFile, client);
                         break;
                     default:
                         break;
@@ -57,11 +56,18 @@ namespace read_text
             }
         }
 
-        static void GetTextRead(string imageFile, VisionServiceOptions serviceOptions)
+        static void GetTextRead(string imageFile, ImageAnalysisClient client)
         {
+            Console.WriteLine($"\nReading text from {imageFile} \n");
+
+            // Use a file stream to pass the image data to the analyze call
+            using FileStream stream = new FileStream(imageFile,
+                                                     FileMode.Open);
+
             // Use Analyze image function to read text in image
-
-
+            
+    
         }
     }
 }
+
