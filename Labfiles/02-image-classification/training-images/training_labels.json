@@ -40,9 +40,9 @@
       "id": 5,
       "width": 1024,
       "height": 768,
-      "file_name": "IMG_20200229_164926jpg.jpg",
-      "coco_url": "AmlDatastore://fruit/IMG_20200229_164926jpg.jpg",
-      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164926jpg.jpg",
+      "file_name": "IMG_20200229_164926jpg",
+      "coco_url": "AmlDatastore://fruit/IMG_20200229_164926jpg",
+      "absolute_url": "https://<storageAccount>.blob.core.windows.net/fruit/IMG_20200229_164926jpg",
       "date_captured": "2023-12-07T22:52:56.1086765Z"
     },
     {
