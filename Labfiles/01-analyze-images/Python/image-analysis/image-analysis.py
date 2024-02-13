@@ -55,8 +55,6 @@ def AnalyzeImage(image_filename, image_data, cv_client):
     
 
 def BackgroundForeground(endpoint, key, image_file):
-    print('\nRemoving background from image...')
-    
     # Define the API version and mode
     api_version = "2023-02-01-preview"
     mode="backgroundRemoval" # Can be "foregroundMatting" or "backgroundRemoval"

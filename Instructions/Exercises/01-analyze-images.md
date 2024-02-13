@@ -105,8 +105,8 @@ Now you're ready to use the SDK to call the Vision service and analyze an image.
 
 ```C#
 // Authenticate Azure AI Vision client
-var cvClient = new VisionServiceOptions(
-    aiSvcEndpoint,
+ImageAnalysisClient client = new ImageAnalysisClient(
+    new Uri(aiSvcEndpoint),
     new AzureKeyCredential(aiSvcKey));
 ```
 
@@ -142,7 +142,7 @@ ImageAnalysisResult result = client.Analyze(
 ```Python
 # Get result with specified features to be retrieved
 result = cv_client.analyze(
-    image_data=image_file,
+    image_data=image_data,
     visual_features=[
         VisualFeatures.CAPTION,
         VisualFeatures.DENSE_CAPTIONS,
@@ -169,7 +169,7 @@ if (result.Caption.Text != null)
 Console.WriteLine(" Dense Captions:");
 foreach (DenseCaption denseCaption in result.DenseCaptions.Values)
 {
-    Console.WriteLine($"   Caption: '{denseCaption.Text}', Confidence: {denseCaption.Confidence:0.00}");
+    Console.WriteLine($"   Caption: '{denseCaption.Text}', Confidence: {denseCaption.Confidence:0.00}\n");
 }
 
 // Get image tags
@@ -416,6 +416,11 @@ In some cases, you may need to create remove the background of an image or might
 
 ```C#
 // Remove the background from the image or generate a foreground matte
+Console.WriteLine($" Background removal:");
+// Define the API version and mode
+string apiVersion = "2023-02-01-preview";
+string mode = "backgroundRemoval"; // Can be "foregroundMatting" or "backgroundRemoval"
+
 string url = $"computervision/imageanalysis:segment?api-version={apiVersion}&mode={mode}";
 
 // Make the REST call
@@ -451,6 +456,9 @@ using (var client = new HttpClient())
 **Python**
 
 ```Python
+# Remove the background from the image or generate a foreground matte
+print('\nRemoving background from image...')
+    
 url = "{}computervision/imageanalysis:segment?api-version={}&mode={}".format(endpoint, api_version, mode)
 
 headers= {
@@ -458,10 +466,10 @@ headers= {
     "Content-Type": "application/json" 
 }
 
-# You can change the url to use other images in the images folder,
-# such as "building.jpg" or "person.jpg" to see different results.
+image_url="https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Labfiles/01-analyze-images/Python/image-analysis/{}?raw=true".format(image_file)  
+
 body = {
-    "url": "https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Labfiles/01-analyze-images/Python/image-analysis/images/street.jpg?raw=true",
+    "url": image_url,
 }
     
 response = requests.post(url, headers=headers, json=body)
