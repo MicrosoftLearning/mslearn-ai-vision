@@ -157,6 +157,7 @@ result = cv_client.analyze(
 **C#**
 
 ```C#
+// Display analysis results
 // Get image captions
 if (result.Caption.Text != null)
 {
