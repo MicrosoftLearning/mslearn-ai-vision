@@ -169,7 +169,7 @@ if (result.Caption.Text != null)
 Console.WriteLine(" Dense Captions:");
 foreach (DenseCaption denseCaption in result.DenseCaptions.Values)
 {
-    Console.WriteLine($"   Caption: '{denseCaption.Text}', Confidence: {denseCaption.Confidence:0.00}\n");
+    Console.WriteLine($"   Caption: '{denseCaption.Text}', Confidence: {denseCaption.Confidence:0.00}");
 }
 
 // Get image tags
@@ -236,7 +236,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 // Get image tags
 if (result.Tags.Values.Count > 0)
 {
-    Console.WriteLine($" Tags:");
+    Console.WriteLine($"\n Tags:");
     foreach (DetectedTag tag in result.Tags.Values)
     {
         Console.WriteLine($"   '{tag.Name}', Confidence: {tag.Confidence:F2}");
@@ -444,7 +444,7 @@ using (var client = new HttpClient())
 
     if (response.IsSuccessStatusCode) {
         File.WriteAllBytes("background.png", response.Content.ReadAsByteArrayAsync().Result);
-        Console.WriteLine("\nResults saved in background.png\n");
+        Console.WriteLine("  Results saved in background.png\n");
     }
     else
     {

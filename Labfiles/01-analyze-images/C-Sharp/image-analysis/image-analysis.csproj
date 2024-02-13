@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp7.0</TargetFramework>
     <RootNamespace>image_analysis</RootNamespace>
+    <NoWarn>1998</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
