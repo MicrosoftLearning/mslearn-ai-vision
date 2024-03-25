@@ -431,11 +431,9 @@ using (var client = new HttpClient())
     client.DefaultRequestHeaders.Accept.Add(contentType);
     client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", key);
 
-    // You can change the url to use other images in the images folder,
-    // such as "building.jpg" or "person.jpg" to see different results.
     var data = new
     {
-        url="https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Labfiles/01-analyze-images/Python/image-analysis/images/street.jpg?raw=true"
+        url = $"https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Labfiles/01-analyze-images/Python/image-analysis/{imageFile}?raw=true"
     };
 
     var jsonData = JsonSerializer.Serialize(data);

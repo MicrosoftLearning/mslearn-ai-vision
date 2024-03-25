@@ -198,7 +198,7 @@ one of the features of the **Azure AI Vision SDK** is to read text from an image
     // Draw bounding box around line
     var drawLinePolygon = true;
     
-    // Return each line detected in the image and the position bounding box around each line
+    // Return the position bounding box around each line
     
     
     
