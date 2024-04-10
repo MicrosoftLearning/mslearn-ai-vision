@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Detect and Analyze Faces'
-    module: 'Module 10 - Detecting, Analyzing, and Recognizing Faces'
+    module: 'Module 4 - Detecting and Analyze Faces'
 ---
 
 # Detect and Analyze Faces
