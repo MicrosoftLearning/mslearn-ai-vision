@@ -1,7 +1,6 @@
 ---
 lab:
-    title: 'Classify Images with Azure AI Custom Vision'
-    module: 'Module 9 - Developing Custom Vision Solutions'
+    title: 'Classify Images with Azure AI Custom Vision (legacy)'
 ---
 
 # Classify Images with Azure AI Custom Vision
