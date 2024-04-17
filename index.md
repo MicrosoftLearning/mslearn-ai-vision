@@ -10,6 +10,11 @@ The following exercises are designed to support the modules on Microsoft Learn.
 
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %}
+
+{% if activity.lab.title contains "Azure AI Custom Vision" %}  
+  {% continue %}  
+{% endif %} 
+
 {% for activity in labs  %}
-- [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
+  - [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
 {% endfor %}
