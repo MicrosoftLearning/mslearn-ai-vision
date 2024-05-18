@@ -93,7 +93,7 @@ In this exercise, you'll complete a partially implemented client application tha
 In this exercise, you will use the Azure AI Vision service to analyze multiple images.
 
 1. In Visual Studio Code, expand the **image-analysis** folder and the **images** folder it contains.
-2. Select each of the image files in turn to view then in Visual Studio Code.
+2. Select each of the image files in turn to view them in Visual Studio Code.
 
 ## Analyze an image to suggest a caption
 
