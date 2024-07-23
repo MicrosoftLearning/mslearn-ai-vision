@@ -473,9 +473,9 @@ body = {
 response = requests.post(url, headers=headers, json=body)
 
 image=response.content
-with open("backgroundForeground.png", "wb") as file:
+with open("background.png", "wb") as file:
     file.write(image)
-print('  Results saved in backgroundForeground.png \n')
+print('  Results saved in background.png \n')
 ```
     
 2. Save your changes and run the program once for each of the image files in the **images** folder, opening the **background.png** file that is generated in the same folder as your code file for each image.  Notice how the background has been removed from each of the images.
