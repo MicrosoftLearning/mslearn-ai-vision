@@ -59,13 +59,21 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
     pip install azure-ai-vision-imageanalysis==1.0.0b1
     ```
+3. If using Python, install the matplotlib and pillow packages for object and people detection.
+
+    **Python**
     
-3. View the contents of the **image-analysis** folder, and note that it contains a file for configuration settings:
+    ```
+    pip install matplotlib
+    pip install pillow
+    ```
+    
+5. View the contents of the **image-analysis** folder, and note that it contains a file for configuration settings:
     - **C#**: appsettings.json
     - **Python**: .env
 
     Open the configuration file and update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Azure AI services resource. Save your changes.
-4. Note that the **image-analysis** folder contains a code file for the client application:
+6. Note that the **image-analysis** folder contains a code file for the client application:
 
     - **C#**: Program.cs
     - **Python**: image-analysis.py
