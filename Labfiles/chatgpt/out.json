@@ -1,0 +1,46 @@
+{
+    "Analysis Results": {
+        "additional_properties": {},
+        "categories": [<azure.cognitiveservices.vision.computervision.models._models_py3.Category object at 0x000001D53668EC30>, <azure.cognitiveservices.vision.computervision.models._models_py3.Category object at 0x000001D53668EC00>
+        ],
+        "adult": None,
+        "color": <azure.cognitiveservices.vision.computervision.models._models_py3.ColorInfo object at 0x000001D53668EBA0>,
+        "image_type": None,
+        "tags": None,
+        "description": <azure.cognitiveservices.vision.computervision.models._models_py3.ImageDescriptionDetails object at 0x000001D53668EBD0>,
+        "faces": None,
+        "objects": None,
+        "brands": None,
+        "request_id": "61e967bb-fb54-4f95-aecd-5d42e4ae65c4",
+        "metadata": <azure.cognitiveservices.vision.computervision.models._models_py3.ImageMetadata object at 0x000001D53668EB70>,
+        "model_version": "2021-05-01"
+    },
+    "Image Description": {
+        "additional_properties": {},
+        "tags": [
+            "outdoor",
+            "road",
+            "building",
+            "street",
+            "way",
+            "sidewalk",
+            "city",
+            "yellow",
+            "busy",
+            "curb"
+        ],
+        "captions": [<azure.cognitiveservices.vision.computervision.models._models_py3.ImageCaption object at 0x000001D53668E810>
+        ],
+        "request_id": "75fd4aee-14bd-483a-8871-152ee4077187",
+        "metadata": <azure.cognitiveservices.vision.computervision.models._models_py3.ImageMetadata object at 0x000001D53668E660>,
+        "model_version": "2021-05-01"
+    },
+    "Detected Objects": {
+        "additional_properties": {},
+        "objects": [<azure.cognitiveservices.vision.computervision.models._models_py3.DetectedObject object at 0x000001D53668F6B0>, <azure.cognitiveservices.vision.computervision.models._models_py3.DetectedObject object at 0x000001D53668F770>, <azure.cognitiveservices.vision.computervision.models._models_py3.DetectedObject object at 0x000001D53668F6E0>, <azure.cognitiveservices.vision.computervision.models._models_py3.DetectedObject object at 0x000001D53668F950>
+        ],
+        "request_id": "a1dbc9bd-c40b-43b4-9c6f-7972456548d9",
+        "metadata": <azure.cognitiveservices.vision.computervision.models._models_py3.ImageMetadata object at 0x000001D53668F650>,
+        "model_version": "2021-04-01"
+    }
+}

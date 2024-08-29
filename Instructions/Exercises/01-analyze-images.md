@@ -80,7 +80,7 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
     
     **Python**
-    
+     
     ```Python
     # import namespaces
     from azure.ai.vision.imageanalysis import ImageAnalysisClient
