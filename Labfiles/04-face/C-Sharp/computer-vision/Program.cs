@@ -42,17 +42,38 @@ namespace detect_people
             }
         }
 
-        static void AnalyzeImage(string imageFile, VisionServiceOptions serviceOptions)
+        static void AnalyzeImage(string imageFile, ImageAnalysisClient client)
         {
             Console.WriteLine($"\nAnalyzing {imageFile} \n");
 
-            var analysisOptions = new ImageAnalysisOptions()
+            // Use a file stream to pass the image data to the analyze call
+            using FileStream stream = new FileStream(imageFile,
+                                                     FileMode.Open);
+
+            // Get result with specified features to be retrieved (PEOPLE)
+
+            
+            // Close the stream
+            stream.Close();
+
+            // Get people in the image
+            if (result.People.Values.Count > 0)
             {
-                // Specify features to be retrieved
+                Console.WriteLine($" People:");
 
-            };
+                // Prepare image for drawing
+                System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
+                Graphics graphics = Graphics.FromImage(image);
+                Pen pen = new Pen(Color.Cyan, 3);
+                
+                // Draw bounding box around detected people
+                
 
-            // Get image analysis
+                // Save annotated image
+                String output_file = "people.jpg";
+                image.Save(output_file);
+                Console.WriteLine("  Results saved in " + output_file + "\n");
+            }
 
         }
 

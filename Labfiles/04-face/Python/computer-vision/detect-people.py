@@ -1,13 +1,11 @@
 from dotenv import load_dotenv
 import os
-from array import array
 from PIL import Image, ImageDraw
 import sys
-import time
 from matplotlib import pyplot as plt
 import numpy as np
 
-# Import namespaces
+# import namespaces
 
 
 
@@ -25,24 +23,45 @@ def main():
         if len(sys.argv) > 1:
             image_file = sys.argv[1]
 
-        # Authenticate Azure AI Vision client
+        with open(image_file, "rb") as f:
+            image_data = f.read()
 
+        # Authenticate Azure AI Vision client
+        
         
         # Analyze image
-        AnalyzeImage(image_file, cv_client)
+        AnalyzeImage(image_file, image_data, cv_client)
 
     except Exception as ex:
         print(ex)
 
 
-def AnalyzeImage(image_file, cv_client):
-    print('\nAnalyzing', image_file)
+def AnalyzeImage(filename, image_data, cv_client):
+    print('\nAnalyzing ', filename)
 
-    # Specify features to be retrieved (PEOPLE)
+    # Get result with specified features to be retrieved (PEOPLE)
+    
 
+    # Identify people in the image
+    if result.people is not None:
+        print("\nPeople in image:")
 
-    # Get image analysis
+        # Prepare image for drawing
+        image = Image.open(filename)
+        fig = plt.figure(figsize=(image.width/100, image.height/100))
+        plt.axis('off')
+        draw = ImageDraw.Draw(image)
+        color = 'cyan'
 
+        # Draw bounding box around detected people
+
+            
+        # Save annotated image
+        plt.imshow(image)
+        plt.tight_layout(pad=0)
+        outputfile = 'people.jpg'
+        fig.savefig(outputfile)
+        print('  Results saved in', outputfile)
 
 if __name__ == "__main__":
     main()
