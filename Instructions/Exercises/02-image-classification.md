@@ -44,6 +44,8 @@ We also need a storage account to store the training images.
     - **Storage Account Name**: customclassifySUFFIX 
         - *note: replace the `SUFFIX` token with your initials or another value to ensure the resource name is globally unique.*
     - **Region**: *Choose the same region you used for your Azure AI Service resource*
+    - **Primary service**: Azure Blob Storage or Azure Data Lake Storage Gen 2
+    - **Primary workload**: Other
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
 1. While your storage account is being created, go to Visual studio code, and expand the **Labfiles/02-image-classification** folder.
@@ -58,18 +60,19 @@ We also need a storage account to store the training images.
 1. Close both the JSON and PowerShell file, and go back to your browser window.
 1. Your storage account should be complete. Go to your storage account.
 1. Enable public access on the storage account. In the left pane, navigate to **Configuration** in the **Settings** group, and enable *Allow Blob anonymous access*. Select **Save**
-1. In the left pane, select **Containers** and create a new container named `fruit`, and set **Anonymous access level** to *Container (anonymous read access for containers and blobs)*.
+1. In the left pane, in **Data storage**, select **Containers** and create a new container named `fruit`, and set **Anonymous access level** to *Container (anonymous read access for containers and blobs)*.
 
     > **Note**: If the **Anonymous access level** is disabled, refresh the browser page.
 
-1. Navigate to `fruit`, and upload the images (and the one JSON file) in **Labfiles/02-image-classification/training-images** to that container.
+1. Navigate to `fruit`, select **Upload**, and upload the images (and the one JSON file) in **Labfiles/02-image-classification/training-images** to that container.
 
 ## Create a custom model training project
 
 Next, you will create a new training project for custom image classification in Vision Studio.
 
 1. In the web browser, navigate to `https://portal.vision.cognitive.azure.com/` and sign in with the Microsoft account where you created your Azure AI resource.
-1. Select the **Customize models with images** tile (can be found in the **Image analysis** tab if it isn't showing in your default view), and if prompted select the Azure AI resource you created.
+1. Select the **Customize models with images** tile (can be found in the **Image analysis** tab if it isn't showing in your default view).
+1. Select the Azure AI Services account you created.
 1. In your project, select **Add new dataset** on the top. Configure with the following settings:
     - **Dataset name**: training_images
     - **Model type**: Image classification
