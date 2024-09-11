@@ -59,6 +59,8 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
     pip install azure-ai-vision-imageanalysis==1.0.0b1
     ```
+
+    > **Tip**: If you are doing this lab on your own machine, you'll also need to install `matplotlib` and `pillow`.
     
 3. View the contents of the **image-analysis** folder, and note that it contains a file for configuration settings:
     - **C#**: appsettings.json
