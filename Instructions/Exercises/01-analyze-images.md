@@ -24,18 +24,19 @@ If you have not already cloned the **Azure AI Vision** code repository to the en
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Services** resource.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-2. In the top search bar, search for *Azure AI services*, select **Azure AI Services**, and create an Azure AI services multi-service account resource with the following settings:
+2. Select **Create a resource**.
+3. In the search bar, search for *Azure AI services*, select **Azure AI Services**, and create an Azure AI services multi-service account resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
-    - **Region**: *Choose from East US, France Central, Korea Central, North Europe, Southeast Asia, West Europe, West US, or East Asia\**
+    - **Region**: *Choose from East US, West US, France Central, Korea Central, North Europe, Southeast Asia, West Europe, or East Asia\**
     - **Name**: *Enter a unique name*
     - **Pricing tier**: Standard S0
 
-    \*Azure AI Vision 4.0 features are currently only available in these regions.
+    \*Azure AI Vision 4.0 full feature sets are currently only available in these regions.
 
-3. Select the required checkboxes and create the resource.
-4. Wait for deployment to complete, and then view the deployment details.
-5. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in the next procedure.
+4. Select the required checkboxes and create the resource.
+5. Wait for deployment to complete, and then view the deployment details.
+6. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in the next procedure.
 
 ## Prepare to use the Azure AI Vision SDK
 
@@ -49,7 +50,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
     
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.1
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.3
     ```
 
     > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
@@ -57,7 +58,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
     
     ```
-    pip install azure-ai-vision-imageanalysis==1.0.0b1
+    pip install azure-ai-vision-imageanalysis==1.0.0b3
     ```
 
     > **Tip**: If you are doing this lab on your own machine, you'll also need to install `matplotlib` and `pillow`.

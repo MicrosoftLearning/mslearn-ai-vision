@@ -49,7 +49,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
     
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.1
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.3
     ```
 
     > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
@@ -57,7 +57,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
     
     ```
-    pip install azure-ai-vision-imageanalysis==1.0.0b1
+    pip install azure-ai-vision-imageanalysis==1.0.0b3
     ```
 
 3. View the contents of the **read-text** folder, and note that it contains a file for configuration settings:
@@ -70,7 +70,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
 ## Use the Azure AI Vision SDK to read text from an image
 
-one of the features of the **Azure AI Vision SDK** is to read text from an image. In this exercise, you'll complete a partially implemented client application that uses the Azure AI Vision SDK to read text from an image.
+One of the features of the **Azure AI Vision SDK** is to read text from an image. In this exercise, you'll complete a partially implemented client application that uses the Azure AI Vision SDK to read text from an image.
 
 1. The **read-text** folder contains a code file for the client application:
 

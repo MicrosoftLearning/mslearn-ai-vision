@@ -50,13 +50,13 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
 
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.1
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.3
     ```
 
     **Python**
 
     ```
-    pip install azure-ai-vision==1.0.0b1
+    pip install azure-ai-vision==1.0.0b3
     ```
     
 3. View the contents of the **computer-vision** folder, and note that it contains a file for configuration settings:
