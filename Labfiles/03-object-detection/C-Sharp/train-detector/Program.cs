@@ -49,6 +49,8 @@ namespace train_detector
 
         static void Upload_Images(string folder)
         {
+            Console.WriteLine("Uploading images...");
+
             // Get the tags defined in the project
             IList<Tag> tags = training_client.GetTags(custom_vision_project.Id);
 
@@ -71,6 +73,7 @@ namespace train_detector
                     foreach (JsonElement tag in tagged_regions.EnumerateArray())
                     {
                         string tag_name = tag.GetProperty("tag").GetString();
+                        
                         // Look up the tag ID for this tag name
                         var tag_item = tags.FirstOrDefault(t => t.Name == tag_name);
                         Guid tag_id = tag_item.Id;
@@ -78,14 +81,16 @@ namespace train_detector
                         Double top = tag.GetProperty("top").GetDouble();
                         Double width = tag.GetProperty("width").GetDouble();
                         Double height = tag.GetProperty("height").GetDouble();
+
                         // Add a region for this tag using the coordinates and dimensions in the JSON
-                        regions.Add (new Region(tag_id, left, top, width, height));
+                        regions.Add(new Region(tag_id, left, top, width, height));
                     }
 
                     // Add the image and its regions to the list
                     imageFileEntries.Add(new ImageFileCreateEntry(filename, File.ReadAllBytes(Path.Combine(folder,filename)), null, regions));
                 }
             }
+
             // Upload the list of images as a batch
             Console.WriteLine("Uploading " + imageFileEntries.Count() + " tagged images...");
             ImageCreateSummary result = training_client.CreateImagesFromFiles(custom_vision_project.Id, new ImageFileCreateBatch(imageFileEntries));
