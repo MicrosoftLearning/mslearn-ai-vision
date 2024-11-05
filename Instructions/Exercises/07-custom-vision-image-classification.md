@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Classify Images with Azure AI Custom Vision (legacy)'
+    title: 'Classify Images with Azure AI Custom Vision'
 ---
 
 # Classify Images with Azure AI Custom Vision

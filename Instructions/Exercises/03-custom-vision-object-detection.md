@@ -1,9 +1,9 @@
 ---
 lab:
-    title: 'Detect Objects in Images with Custom Vision'
+    title: 'Detect Objects in Images with Azure AI Custom Vision'
 ---
 
-# Detect Objects in Images with Custom Vision
+# Detect Objects in Images with Azure AI Custom Vision
 
 In this exercise, you will use the Custom Vision service to train an *object detection* model that can detect and locate three classes of fruit (apple, banana, and orange) in an image.
 
