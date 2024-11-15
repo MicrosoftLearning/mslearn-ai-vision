@@ -56,7 +56,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
 
     ```
-    pip install azure-ai-vision==1.0.0b3
+    pip install azure-ai-vision-imageanalysis==1.0.0b3
     ```
     
 3. View the contents of the **computer-vision** folder, and note that it contains a file for configuration settings:
