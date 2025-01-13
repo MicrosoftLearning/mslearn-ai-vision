@@ -40,6 +40,8 @@ namespace image_analysis
                 AnalyzeImage(imageFile, client);
 
                 // Remove the background or generate a foreground matte from the image
+                // IMPORTANT: This feature has been retired and removed from lab. Code snippet
+                //     will be removed soon.
                 await BackgroundForeground(imageFile, aiSvcEndpoint, aiSvcKey);
 
             }
