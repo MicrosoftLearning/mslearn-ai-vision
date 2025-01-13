@@ -32,10 +32,7 @@ def main():
         # Analyze image
         AnalyzeImage(image_file, image_data, cv_client)
         
-        # Background removal
-        BackgroundForeground(ai_endpoint, ai_key, image_file)
-
-    except Exception as ex:
+        except Exception as ex:
         print(ex)
 
 
@@ -52,14 +49,6 @@ def AnalyzeImage(image_filename, image_data, cv_client):
         print(f"Message: {e.error.message}")
 
     # Display analysis results
-    
-
-def BackgroundForeground(endpoint, key, image_file):
-    # Define the API version and mode
-    api_version = "2023-02-01-preview"
-    mode="backgroundRemoval" # Can be "foregroundMatting" or "backgroundRemoval"
-    
-    # Remove the background from the image or generate a foreground matte
     
 
 
