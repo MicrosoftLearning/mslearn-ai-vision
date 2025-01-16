@@ -32,7 +32,7 @@ def main():
         # Analyze image
         AnalyzeImage(image_file, image_data, cv_client)
         
-        except Exception as ex:
+    except Exception as ex:
         print(ex)
 
 
