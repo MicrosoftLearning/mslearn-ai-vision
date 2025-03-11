@@ -1,4 +1,18 @@
 {
+      "tags": [
+    {
+      "name": "orange",
+      "id": 1
+    },
+    {
+      "name": "banana",
+      "id": 2
+    },
+    {
+      "name": "apple",
+      "id": 3
+    }
+  ], 
     "files": [
         {
             "filename": "image11.jpg",
