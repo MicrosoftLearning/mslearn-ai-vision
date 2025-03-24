@@ -61,10 +61,6 @@ namespace image_analysis
             
 
         }
-        static async Task BackgroundForeground(string imageFile, string endpoint, string key)
-        {
-            // Remove the background from the image or generate a foreground matte
-            
-        }
+
     }
 }
