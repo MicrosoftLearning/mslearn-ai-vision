@@ -74,20 +74,21 @@ In this exercise, you'll complete a partially implemented client application tha
    cd Python/image-analysis
     ```
 
-1. Install the Azure AI Vision SDK package by running the appropriate command for your language preference:
+1. Install the Azure AI Vision SDK package and required dependencies by running the appropriate commands for your language preference:
 
     **C#**
     
     ```
     dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
-    ```
-
-    > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
+    dotnet add package SkiaSharp --version 3.116.1
+    dotnet add package SkiaSharp.NativeAssets.Linux --version 3.116.1
+    ``` 
 
     **Python**
     
     ```
     pip install azure-ai-vision-imageanalysis==1.0.0
+    pip install dotenv
     ```
 
     > **Tip**: If you are doing this lab on your own machine, you'll also need to install `matplotlib` and `pillow`.
@@ -136,6 +137,7 @@ In this exercise, you'll complete a partially implemented client application tha
     ```C#
     // Import namespaces
     using Azure.AI.Vision.ImageAnalysis;
+    using SkiaSharp;
     ```
     
     **Python**
@@ -338,30 +340,43 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
     if (result.Objects.Values.Count > 0)
     {
         Console.WriteLine(" Objects:");
-    
-        // Prepare image for drawing
-        stream.Close();
-        System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
-        Graphics graphics = Graphics.FromImage(image);
-        Pen pen = new Pen(Color.Cyan, 3);
-        Font font = new Font("Arial", 16);
-        SolidBrush brush = new SolidBrush(Color.WhiteSmoke);
-    
+
+        // Load the image using SkiaSharp
+        using SKBitmap bitmap = SKBitmap.Decode(imageFile);
+        using SKCanvas canvas = new SKCanvas(bitmap);
+
+        // Set up styles for drawing
+        SKPaint paint = new SKPaint
+        {
+            Color = SKColors.Cyan,
+            StrokeWidth = 3,
+            Style = SKPaintStyle.Stroke
+        };
+
+        SKPaint textPaint = new SKPaint
+        {
+            Color = SKColors.WhiteSmoke,
+            TextSize = 16,
+            IsAntialias = true
+        };
+
         foreach (DetectedObject detectedObject in result.Objects.Values)
         {
             Console.WriteLine($"   \"{detectedObject.Tags[0].Name}\"");
-    
+
             // Draw object bounding box
             var r = detectedObject.BoundingBox;
-            Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
-            graphics.DrawRectangle(pen, rect);
-            graphics.DrawString(detectedObject.Tags[0].Name,font,brush,(float)r.X, (float)r.Y);
+            SKRect rect = new SKRect(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
+            canvas.DrawRect(rect, paint);
+
+            // Draw label
+            canvas.DrawText(detectedObject.Tags[0].Name, r.X, r.Y - 5, textPaint);
         }
-    
-        // Save annotated image
-        String output_file = "objects.jpg";
-        image.Save(output_file);
-        Console.WriteLine("  Results saved in " + output_file + "\n");
+
+        // Save the annotated image
+        using SKFileWStream output = new SKFileWStream("objects.jpg");
+        bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
+        Console.WriteLine("  Results saved in objects.jpg\n");
     }
     ```
     
@@ -397,7 +412,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
         print('  Results saved in', outputfile)
     ```
 
-1. Save your changes and run the program once for each of the image files in the **images** folder, observing any objects that are detected. After each run, view the **objects.jpg** file that is generated in the same folder as your code file to see the annotated objects.
+1. Save your changes and run the program once for each of the image files in the **images** folder, observing any objects that are detected. After each run, download and view the **objects.jpg** file that is generated in the same folder as your code file to see the annotated objects.
 
 ## Detect and locate people in an image
 
@@ -412,29 +427,32 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
     if (result.People.Values.Count > 0)
     {
         Console.WriteLine($" People:");
-    
-        // Prepare image for drawing
-        System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
-        Graphics graphics = Graphics.FromImage(image);
-        Pen pen = new Pen(Color.Cyan, 3);
-        Font font = new Font("Arial", 16);
-        SolidBrush brush = new SolidBrush(Color.WhiteSmoke);
-    
+
+        using SKBitmap bitmap = SKBitmap.Decode(imageFile);
+        using SKCanvas canvas = new SKCanvas(bitmap);
+
+        SKPaint paint = new SKPaint
+        {
+            Color = SKColors.Cyan,
+            StrokeWidth = 3,
+            Style = SKPaintStyle.Stroke
+        };
+
         foreach (DetectedPerson person in result.People.Values)
         {
-            // Draw object bounding box
+            // Draw bounding box
             var r = person.BoundingBox;
-            Rectangle rect = new Rectangle(r.X, r.Y, r.Width, r.Height);
-            graphics.DrawRectangle(pen, rect);
-            
+            SKRect rect = new SKRect(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
+            canvas.DrawRect(rect, paint);
+
             // Return the confidence of the person detected
-            //Console.WriteLine($"   Bounding box {person.BoundingBox.ToString()}, Confidence: {person.Confidence:F2}");
+            //Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence: {person.Confidence:F2}");
         }
-    
-        // Save annotated image
-        String output_file = "persons.jpg";
-        image.Save(output_file);
-        Console.WriteLine("  Results saved in " + output_file + "\n");
+
+        // Save the annotated image
+        using SKFileWStream output = new SKFileWStream("persons.jpg");
+        bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
+        Console.WriteLine("  Results saved in persons.jpg\n");
     }
     ```
     
