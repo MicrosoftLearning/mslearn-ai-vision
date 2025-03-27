@@ -8,33 +8,30 @@ lab:
 
 Azure AI Vision enables you to train custom models to classify and detect objects with labels you specify. In this lab, we'll build a custom image classification model to classify images of fruit.
 
-## Clone the repository for this course
+## Create an Azure AI Foundry project
 
-If you have not already cloned the **Azure AI Vision** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+Let's start by creating an Azure AI Foundry project.
 
-1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-vision` repository to a local folder (it doesn't matter which folder).
-3. When the repository has been cloned, open the folder in Visual Studio Code.
-4. Wait while additional files are installed to support the C# code projects in the repo.
+1. In a web browser, open the [Azure AI Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Azure AI Foundry** logo at the top left to navigate to the home page, which looks similar to the following image:
 
-    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**. If you are prompted with the Message *Detected an Azure Function Project in folder*, you can safely close that message.
+    ![Screenshot of Azure AI Foundry portal.](./media/ai-foundry-home.png)
 
-## Provision Azure resources
-
-If you don't already have one in your subscription, you'll need to provision an **Azure AI Services** resource.
-
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-2. In the top search bar, search for *Azure AI services*, select **Azure AI Services**, and create an Azure AI services multi-service account resource with the following settings:
+1. In the home page, select **+ Create project**.
+1. In the **Create a project** wizard, enter a suitable project name for (for example, `my-ai-project`) then review the Azure resources that will be automatically created to support your project.
+1. Select **Customize** and specify the following settings for your hub:
+    - **Hub name**: *A unique name - for example `my-ai-hub`*
     - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
-    - **Region**: *Choose from East US, West Europe, West US 2\**
-    - **Name**: *Enter a unique name*
-    - **Pricing tier**: Standard S0
+    - **Resource group**: *Create a new resource group with a unique name (for example, `my-ai-resources`), or select an existing one*
+    - **Location**: *Choose from East US, West Europe, West US 2\**
+    - **Connect Azure AI Services or Azure OpenAI**: *Create a new AI Services resource with an appropriate name (for example, `my-ai-services`) or use an existing one*
+    - **Connect Azure AI Search**: Skip connecting
 
     \*Azure AI Vision 4.0 custom model tags are currently only available in these regions.
+   
+1. Select **Next** and review your configuration. Then select **Create** and wait for the process to complete.
+1. When your project is created, close any tips that are displayed and review the project page in Azure AI Foundry portal, which should look similar to the following image:
 
-3. Select the required checkboxes and create the resource.
-<!--4. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in a future step. Save them off or leave this browser tab open.-->
+    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](./media/ai-foundry-project.png)
 
 We also need a storage account to store the training images.
 
