@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using Microsoft.Extensions.Configuration;
 using Azure;
 using System.IO;
@@ -62,10 +61,16 @@ namespace detect_people
                 Console.WriteLine($" People:");
 
                 // Prepare image for drawing
-                System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
-                Graphics graphics = Graphics.FromImage(image);
-                Pen pen = new Pen(Color.Cyan, 3);
-                
+                using SKBitmap bitmap = SKBitmap.Decode(imageFile);
+                using SKCanvas canvas = new SKCanvas(bitmap);
+
+                SKPaint paint = new SKPaint
+                {
+                    Color = SKColors.Cyan,
+                    StrokeWidth = 3,
+                    Style = SKPaintStyle.Stroke
+                };
+
                 // Draw bounding box around detected people
                 
 
