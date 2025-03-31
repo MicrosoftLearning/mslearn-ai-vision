@@ -68,6 +68,9 @@ namespace read_text
             
     
         }
+        
+        // Helper method to draw a polygon given an array of SKPoints
+    
     }
 }
 
