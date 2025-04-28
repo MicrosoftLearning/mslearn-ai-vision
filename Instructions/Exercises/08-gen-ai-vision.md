@@ -327,7 +327,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     # Include the image file data in the prompt
     data_url = f"data:{mime_type};base64,{base64_encoded_data}"
-
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
