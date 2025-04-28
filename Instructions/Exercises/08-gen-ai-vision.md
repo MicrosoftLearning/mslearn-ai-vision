@@ -483,7 +483,6 @@ The following instructions assume you have completed this exercise and the addit
 
    # Include the image file data in the prompt
    data_url = f"data:{mime_type};base64,{base64_encoded_data}"
-
    response = chat_client.chat.completions.create(
         model=model_deployment,
         messages=[
@@ -517,6 +516,7 @@ The following instructions assume you have completed this exercise and the addit
    byte[] imageBytes = File.ReadAllBytes(imagePath);
    var binaryImage = new BinaryData(imageBytes);
 
+   // Include the image file data in the prompt
    List<ChatMessage> messages =
    [
         new SystemChatMessage(system_message),
@@ -526,7 +526,6 @@ The following instructions assume you have completed this exercise and the addit
    ];
 
    ChatCompletion completion = chatClient.CompleteChat(messages);
-
    Console.WriteLine(completion.Content[0].Text);
     ```
 
