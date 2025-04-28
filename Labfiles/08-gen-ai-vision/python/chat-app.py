@@ -30,7 +30,7 @@ def main():
 
 
         # Initialize prompts
-        system_message = "You are an AI assistent in a grocery store that sells fruit."
+        system_message = "You are an AI assistant in a grocery store that sells fruit."
         prompt = ""
 
         # Loop until the user types 'quit'
