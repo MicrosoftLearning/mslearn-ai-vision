@@ -164,7 +164,8 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     **Python**
 
-    ```
+    ```python
+   # Add references
    from dotenv import load_dotenv
    from azure.identity import DefaultAzureCredential
    from azure.ai.projects import AIProjectClient
@@ -174,7 +175,8 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     **C#**
 
-    ```
+    ```csharp
+   // Add references
    using Azure.Identity;
    using Azure.AI.Projects;
    using Azure.AI.OpenAI;
@@ -186,7 +188,8 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     **Python**
 
-    ```
+    ```python
+   # Initialize the project client
    project_client = AIProjectClient.from_connection_string(
         conn_str=project_connection,
         credential=DefaultAzureCredential())
@@ -194,7 +197,8 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     **C#**
 
-    ```
+    ```csharp
+   // Initialize the project client
    var projectClient = new AIProjectClient(project_connection,
                         new DefaultAzureCredential());
     ```
@@ -203,14 +207,16 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     **Python**
 
-    ```
+    ```python
+   # Get an OpenAI client
    openai_client = project_client.inference.get_azure_openai_client(api_version="2024-06-01")
 
     ```
 
     **C#**
 
-    ```
+    ```csharp
+   // Get an OpenAI client
    ConnectionResponse connection = projectClient.GetConnectionsClient().GetDefaultConnection(ConnectionType.AzureOpenAI, withCredential: true);
 
    var connectionProperties = connection.Properties as ConnectionPropertiesApiKeyAuth;
@@ -228,6 +234,7 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
     **Python**
 
     ```python
+   # Generate an image
    result = openai_client.images.generate(
         model=model_deployment,
         prompt=input_text,
@@ -240,7 +247,8 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     **C#**
 
-    ```
+    ```csharp
+   // Generate an image
    var imageGeneration = await openAIimageClient.GenerateImageAsync(
             input_text,
             new ImageGenerationOptions()
