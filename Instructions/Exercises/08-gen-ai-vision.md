@@ -95,13 +95,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **Python**
 
     ```
-   cd mslearn-ai-vision/Labfiles/vision-chat/python
+   cd mslearn-ai-vision/Labfiles/08-gen-ai-vision/python
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-vision/Labfiles/vision-chat/c-sharp
+   cd mslearn-ai-vision/Labfiles/08-gen-ai-vision/c-sharp
     ```
 
 8. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -226,13 +226,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. Note that the code includes a loop to allow a user to input a prompt until they enter "quit". Then in the loop section, find the comment **Get a response to image input**, add the following code to submit a prompt that includes the following image:
 
-    ![A photo of a mango.](../../Labfiles/08-gen-ai-vision/fruit.jpeg)
+    ![A photo of a mango.](../media/orange.jpeg)
 
     **Python**
 
     ```python
    # Get a response to image input
-   image_url = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/fruit.jpeg"
+   image_url = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/orange.jpeg"
    image_format = "jpeg"
    request = Request(image_url, headers={"User-Agent": "Mozilla/5.0"})
    image_data = base64.b64encode(urlopen(request).read()).decode("utf-8")
@@ -254,7 +254,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
    // Get a response to image input
-   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/fruit.jpeg";
+   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/orange.jpeg";
    ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
    {
         Messages = {
@@ -298,7 +298,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for your app code, in the loop section, find the code you added previously under the comment **Get a response to image input**. Then modify the code as follows, to upload this local image file:
 
-    ![A photo of a dragon fruit.](../../Labfiles/08-gen-ai-vision/python/mystery-fruit.jpeg)
+    ![A photo of a dragon fruit.](../media/mystery-fruit.jpeg)
 
     **Python**
 
