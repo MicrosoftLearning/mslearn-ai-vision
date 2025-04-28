@@ -56,6 +56,19 @@ Now you're ready to deploy a multimodal model that can support image-based input
     - **Deployment details**: *Use the default settings*
 6. Wait for the deployment provisioning state to be **Completed**.
 
+## Test the model in the playground
+
+Now that you have a multimodal model deployment, you can test it with an image-based prompt in the chat playground.
+
+1. In the navigation pane on the left, select the **Playgrounds** page and open the **Chat** playground.
+1. 1. In a new browser tab, download [mango.jpeg](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/mango.jpeg) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/mango.jpeg` and save it to a folder on your local file system.
+1. On the chat playground page, in the **Setup** pane, ensure that your **Phi-4-multimodal-instruct** model model deployment is selected.
+1. In the main chat session panel, under the chat input box, use the attach button (**&#128206;**) to upload the *mango.jpeg* image file, and then add the text `What desserts could I make with this fruit?` and submit the prompt.
+
+    ![Screenshot of the chat playground with an image-basd prompt.](../media/chat-playground-image.png)
+
+1. Review the response, which should hopefully provide relevant guidance for desserts you can make using a mango.
+
 ## Create a client application
 
 Now that you've deployed the model, you can use the deployment in a client application.
