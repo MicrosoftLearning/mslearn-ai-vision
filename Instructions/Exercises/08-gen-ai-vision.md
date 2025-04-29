@@ -528,7 +528,7 @@ The following instructions assume you have completed this exercise and the addit
    Console.WriteLine(completion.Content[0].Text);
     ```
 
-1. Save your changes and run the app to test it with the same prompts you used previosyly.
+1. Save your changes and run the app to test it with the same prompts you used previously.
 
 ## Clean up
 
