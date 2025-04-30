@@ -13,12 +13,14 @@ The following exercises are designed to provide you with a hands-on learning exp
 ## Exercises
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %}
-{% for activity in labs  %}{% unless activity.url contains 'ai-foundry' %}
+{% for activity in labs  %}
+{% unless activity.url contains 'ai-foundry' %}
 <hr>
 ### [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
 
 {{activity.lab.description}}
 
+{% endunless %} 
 {% endfor %}
 
 > **Note**: While you can complete these exercises on their own, they're designed to complement modules on [Microsoft Learn](https://learn.microsoft.com/training/paths/create-computer-vision-solutions-azure-ai/); in which you'll find a deeper dive into some of the underlying concepts on which these exercises are based.
