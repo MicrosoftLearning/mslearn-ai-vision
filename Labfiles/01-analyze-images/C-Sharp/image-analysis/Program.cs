@@ -18,6 +18,9 @@ namespace image_analysis
 
         static async Task Main(string[] args)
         {
+            // Clear the console
+            Console.Clear();
+            
             try
             {
                 // Get config settings from AppSettings
@@ -38,11 +41,6 @@ namespace image_analysis
                 
                 // Analyze image
                 AnalyzeImage(imageFile, client);
-
-                // Remove the background or generate a foreground matte from the image
-                // IMPORTANT: This feature has been retired and removed from lab. Code snippet
-                //     will be removed soon.
-                await BackgroundForeground(imageFile, aiSvcEndpoint, aiSvcKey);
 
             }
             catch (Exception ex)
@@ -65,11 +63,6 @@ namespace image_analysis
             // Display analysis results
             
 
-        }
-        static async Task BackgroundForeground(string imageFile, string endpoint, string key)
-        {
-            // Remove the background from the image or generate a foreground matte
-            
         }
     }
 }

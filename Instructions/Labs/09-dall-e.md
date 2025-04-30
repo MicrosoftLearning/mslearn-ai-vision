@@ -77,7 +77,7 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
-5. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
+1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
     **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
