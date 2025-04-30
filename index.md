@@ -21,4 +21,4 @@ The following exercises are designed to provide you with a hands-on learning exp
 
 {% endfor %}
 
-> **Note**: While you can complete these exercises on their own, they're designed to complement modules on [Microsoft Learn](https://learn.microsoft.com/training/paths/create-custom-copilots-ai-studio/); in which you'll find a deeper dive into some of the underlying concepts on which these exercises are based.
+> **Note**: While you can complete these exercises on their own, they're designed to complement modules on [Microsoft Learn](https://learn.microsoft.com/training/paths/create-computer-vision-solutions-azure-ai/); in which you'll find a deeper dive into some of the underlying concepts on which these exercises are based.
