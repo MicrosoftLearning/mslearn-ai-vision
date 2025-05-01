@@ -403,7 +403,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 1. Use the (Azure cloud shell-specific) **download** command to download the **objects.jpg** file:
 
     ```
-   download ./objects.jpg
+   download objects.jpg
     ```
 
     The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
@@ -489,7 +489,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 1. Use the (Azure cloud shell-specific) **download** command to download the **objects.jpg** file:
 
     ```
-   download ./people.jpg
+   download people.jpg
     ```
 
     The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
