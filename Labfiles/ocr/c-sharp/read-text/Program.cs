@@ -34,7 +34,7 @@ namespace read_text
 
 
                 // Menu for text reading functions
-                Console.WriteLine("\nChoose an image to read (or press any other key to quit):\n\n1: Lincoln.jpg)\n2: Business-card.jpg\n3: Note.jpg\n\n");
+                Console.WriteLine("\nChoose an image to read (or press any other key to quit):\n\n1: Lincoln.jpg\n2: Business-card.jpg\n3: Note.jpg\n\n");
                 Console.WriteLine("Enter a number:");
                 string command = Console.ReadLine();
                 string imageFile;
@@ -75,6 +75,25 @@ namespace read_text
             // Use Analyze image function to read text in image
             
     
+        }
+
+
+        // Helper method to draw a polygon given an array of SKPoints
+        static void DrawPolygon(SKCanvas canvas, SKPoint[] points, SKPaint paint)
+        {
+            if (points == null || points.Length == 0)
+                return;
+
+            using (var path = new SKPath())
+            {
+                path.MoveTo(points[0]);
+                for (int i = 1; i < points.Length; i++)
+                {
+                    path.LineTo(points[i]);
+                }
+                path.Close();
+                canvas.DrawPath(path, paint);
+            }
         }
     }
 }

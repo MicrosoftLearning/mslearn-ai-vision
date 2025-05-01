@@ -268,7 +268,7 @@ In this exercise, you'll complete a partially implemented client application tha
    # Return the position bounding box around each line
     
     
-   # Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+   # Find individual words in the line
     
     
    # Draw line bounding polygon
@@ -289,7 +289,7 @@ In this exercise, you'll complete a partially implemented client application tha
     
     
     
-   // Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+   // Find individual words in the line
     
     
     
@@ -305,29 +305,8 @@ In this exercise, you'll complete a partially implemented client application tha
             new SKPoint(r[3].X, r[3].Y)
         };
 
+        // Call helper method to draw a polygon
         DrawPolygon(canvas, polygonPoints, paint);
-   }
-    ```
-
-    For the C# program file only, a helper function is still needed to draw a polygon. Find the comment **Helper method to draw a polygon given an array of SKPoints** and add the following code:
-
-    ```csharp
-   // Helper method to draw a polygon given an array of SKPoints
-   static void DrawPolygon(SKCanvas canvas, SKPoint[] points, SKPaint paint)
-   {
-        if (points == null || points.Length == 0)
-            return;
-
-        using (var path = new SKPath())
-        {
-            path.MoveTo(points[0]);
-            for (int i = 1; i < points.Length; i++)
-            {
-                path.LineTo(points[i]);
-            }
-            path.Close();
-            canvas.DrawPath(path, paint);
-        }
    }
     ```
 
@@ -354,7 +333,7 @@ In this exercise, you'll complete a partially implemented client application tha
 1. In the **read-text** folder, a **text.jpg** image has been created. Use the (Azure cloud shell-specific) **download** command to download it:
 
     ```
-   download ./text.jpg
+   download text.jpg
     ```
 
     The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
@@ -380,13 +359,12 @@ In this exercise, you'll complete a partially implemented client application tha
 1. Download and view the resulting **text.jpg** file:
 
     ```
-   download ./text.jpg
+   download text.jpg
     ```
 
 1. Run the program one more time, this time selecting image **3** (*Note.jpg*):
 
     ![Photograph of a handwritten shopping list.](../media/Note.jpg)
-
 
 ### Add code to return the position of each line of text
 
@@ -424,12 +402,12 @@ In this exercise, you'll complete a partially implemented client application tha
 
 ### Add code to identify individual words in an image
 
-1. In the code file, find the comment **Return each word detected in the image and the position bounding box around each word with the confidence level of each word** and add the following code:
+1. In the code file, find the comment **Find individual words in the line** and add the following code:
 
     **Python**
     
     ```python
-   # Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+   # Find individual words in the line
    for word in line.words:
         r = word.bounding_polygon
         bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
@@ -443,7 +421,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
 
     ```C#
-   // Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+   // Find individual words in the line
    foreach (DetectedTextWord word in line.Words)
    {
         Console.WriteLine($"     Word: '{word.Text}', Confidence {word.Confidence:F4}, Bounding Polygon: [{string.Join(" ", word.BoundingPolygon)}]");
@@ -484,7 +462,7 @@ In this exercise, you'll complete a partially implemented client application tha
 1. Download and view the **text.jpg** image again and notice how there's a polygon around each *word*.
 
     ```
-   download ./text.jpg
+   download text.jpg
     ```
 
 1. Rerun the program for images **2** and **3**.

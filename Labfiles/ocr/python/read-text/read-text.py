@@ -24,7 +24,7 @@ def main():
         
 
         # Menu for text reading functions
-        print('\nChoose an image to read (or press any other key to quit):\n\n1: Lincoln.jpg)\n2: Business-card.jpg\n3: Note.jpg\n\n')
+        print('\nChoose an image to read (or press any other key to quit):\n\n1: Lincoln.jpg\n2: Business-card.jpg\n3: Note.jpg\n\n')
         command = input('Enter a number:')
         if command == '1':
             image_file = os.path.join('images','Lincoln.jpg')
