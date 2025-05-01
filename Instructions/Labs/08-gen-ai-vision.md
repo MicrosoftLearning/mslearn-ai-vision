@@ -108,13 +108,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **Python**
 
     ```
-   cd mslearn-ai-vision/Labfiles/08-gen-ai-vision/python
+   cd mslearn-ai-vision/Labfiles/gen-ai-vision/python
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-vision/Labfiles/08-gen-ai-vision/c-sharp
+   cd mslearn-ai-vision/Labfiles/gen-ai-vision/c-sharp
     ```
 
 8. In the cloud shell command line pane, enter the following command to install the libraries you'll use:

@@ -65,14 +65,14 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
 
     ```
-   cd mslearn-ai-vision/Labfiles/01-analyze-images/Python/image-analysis
+   cd mslearn-ai-vision/Labfiles/analyze-images/python/image-analysis
    ls -a -l
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-vision/Labfiles/01-analyze-images/C-Sharp/image-analysis
+   cd mslearn-ai-vision/Labfiles/analyze-images/c-sharp/image-analysis
    ls -a -l
     ```
 
@@ -114,7 +114,10 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Computer Vision resource (copied from its **Overview** page in the Azure portal).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
-1. Enter the following command to open the code file for the client application:
+
+### Add code to suggest a caption
+
+1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
     **Python**
 
@@ -146,12 +149,9 @@ In this exercise, you'll complete a partially implemented client application tha
     ```csharp
    // Import namespaces
    using Azure.AI.Vision.ImageAnalysis;
-   using SkiaSharp;
     ```
 
-### Add code to suggest a caption
-
-1. In the code file for your client application (**image-analysis.py** or **Program.cs**), in the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following code to create and authenticate a Azure AI Vision client object (be sure to maintain the correct indentation levels):
+1. In the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following code to create and authenticate a Azure AI Vision client object (be sure to maintain the correct indentation levels):
 
     **Python**
     
@@ -159,8 +159,7 @@ In this exercise, you'll complete a partially implemented client application tha
    # Authenticate Azure AI Vision client
    cv_client = ImageAnalysisClient(
         endpoint=ai_endpoint,
-        credential=AzureKeyCredential(ai_key)
-   )
+        credential=AzureKeyCredential(ai_key))
     ```
 
     **C#**
