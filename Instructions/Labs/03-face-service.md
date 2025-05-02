@@ -161,8 +161,7 @@ In this exercise, you'll complete a partially implemented client application tha
    # Authenticate Face client
    face_client = FaceClient(
         endpoint=cog_endpoint,
-        credential=AzureKeyCredential(cog_key)
-   )
+        credential=AzureKeyCredential(cog_key))
     ```
 
     **C#**
