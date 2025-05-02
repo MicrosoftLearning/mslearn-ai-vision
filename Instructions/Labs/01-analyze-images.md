@@ -374,10 +374,11 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
         SKPaint textPaint = new SKPaint
         {
-            Color = SKColors.WhiteSmoke,
-            TextSize = 16,
+            Color = SKColors.Cyan,
             IsAntialias = true
         };
+
+        SKFont textFont = new SKFont(SKTypeface.Default,24,1,0);
 
         foreach (DetectedObject detectedObject in result.Objects.Values)
         {
@@ -389,7 +390,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
             canvas.DrawRect(rect, paint);
 
             // Draw label
-            canvas.DrawText(detectedObject.Tags[0].Name, r.X, r.Y - 5, textPaint);
+            canvas.DrawText(detectedObject.Tags[0].Name, r.X, r.Y - 5, SKTextAlign.Left, textFont, textPaint);
         }
 
         // Save the annotated image
