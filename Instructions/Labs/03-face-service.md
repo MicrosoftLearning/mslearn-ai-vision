@@ -155,7 +155,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. In the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Face client** and add the following code to create and authenticate a **FaceClient** object:
 
-  **Python**
+    **Python**
 
     ```python
    # Authenticate Face client
