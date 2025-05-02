@@ -10,9 +10,7 @@ The ability to detect and analyze human faces is a core AI capability. In this e
 
 This exercise takes approximately **30** minutes.
 
-> **Note**: Capabilities of Azure AI services that return personally identifiable information are restricted to customers who have been granted [limited access](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access).
->
-> This exercise does not include facial recognition tasks, and can be completed without requesting any additional access to restricted features.
+> **Note**: Capabilities of Azure AI services that return personally identifiable information are restricted to customers who have been granted [limited access](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access). This exercise does not include facial recognition tasks, and can be completed without requesting any additional access to restricted features.
 
 ## Provision an Azure AI Vision resource
 
