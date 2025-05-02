@@ -20,22 +20,16 @@ def main():
         ai_endpoint = os.getenv('AI_SERVICE_ENDPOINT')
         ai_key = os.getenv('AI_SERVICE_KEY')
 
+        # Get image
+        image_file = 'images/street.jpg'
+        if len(sys.argv) > 1:
+            image_file = sys.argv[1]
+
         # Authenticate Azure AI Vision client
         
 
-        # Menu for text reading functions
-        print('\nChoose an image to read (or press any other key to quit):\n\n1: Lincoln.jpg\n2: Business-card.jpg\n3: Note.jpg\n\n')
-        command = input('Enter a number:')
-        if command == '1':
-            image_file = os.path.join('images','Lincoln.jpg')
-            GetTextRead(image_file)
-        elif command =='2':
-            image_file = os.path.join('images','Business-card.jpg')
-            GetTextRead(image_file)
-        elif command =='3':
-            image_file = os.path.join('images','Note.jpg')
-            GetTextRead(image_file)
-                
+        # Read text in image               
+        GetTextRead(image_file)
 
     except Exception as ex:
         print(ex)

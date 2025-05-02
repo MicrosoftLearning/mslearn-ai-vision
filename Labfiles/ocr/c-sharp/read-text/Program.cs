@@ -30,32 +30,18 @@ namespace read_text
                 string aiSvcEndpoint = configuration["AIServicesEndpoint"];
                 string aiSvcKey = configuration["AIServicesKey"];
 
+                // Get image
+                string imageFile = "images/Lincoln.jpg";
+                if (args.Length > 0)
+                {
+                    imageFile = args[0];
+                }
+                
                 // Authenticate Azure AI Vision client
 
-
-                // Menu for text reading functions
-                Console.WriteLine("\nChoose an image to read (or press any other key to quit):\n\n1: Lincoln.jpg\n2: Business-card.jpg\n3: Note.jpg\n\n");
-                Console.WriteLine("Enter a number:");
-                string command = Console.ReadLine();
-                string imageFile;
-
-                switch (command)
-                {
-                    case "1":
-                        imageFile = "images/Lincoln.jpg";
-                        GetTextRead(imageFile, client);
-                        break;
-                    case "2":
-                        imageFile = "images/Business-card.jpg";
-                        GetTextRead(imageFile, client);
-                        break;
-                    case "3":
-                        imageFile = "images/Note.jpg";
-                        GetTextRead(imageFile, client);
-                        break;
-                    default:
-                        break;
-                }
+                
+                // Read text in image
+                GetTextRead(imageFile, client);
 
             }
             catch (Exception ex)

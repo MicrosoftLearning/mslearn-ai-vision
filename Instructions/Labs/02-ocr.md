@@ -169,7 +169,7 @@ In this exercise, you'll complete a partially implemented client application tha
         new AzureKeyCredential(aiSvcKey));
     ```
 
-1. In the **Main** function, under the code you just added, note that the code specifies the path to an image file based on the user's selection, and then passes the image path to the **GetTextRead** function. This function isn't yet fully implemented.
+1. In the **Main** function, under the code you just added, note that the code passes an image path (which was obtained from the program's arguments) to the **GetTextRead** function. This function isn't yet fully implemented.
 
 1. Let's add some code to the body of the **GetTextRead** function. Find the comment **Use Analyze image function to read text in image** and add the following language-specific code, noting that the visual features are specified when calling the `Analyze` function:
 
@@ -317,16 +317,16 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
 
     ```
-   python read-text.py
+   python read-text.py images/Lincoln.jpg
     ```
 
     **C#**
 
     ```
-   dotnet run
+   dotnet run images/Lincoln.jpg
     ```
 
-1. When prompted, enter **1** and observe the output, which is the text extracted from the following image (*Lincoln.jpg*):
+1. The program reads the text in the specified image file (*images/Lincoln.jpg*), which looks like this:
 
     ![Photograph of a statue of Abraham Lincoln](../media/Lincoln.jpg)
 
@@ -340,20 +340,20 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ![An image with the text highlighted.](../media/text.jpg)
 
-1. Run the program again, and this time select option **2** (*Business-card.jpg*) to extract text from the following image:
+1. Run the program again, this time specifying the parameter *images/Business-card.jpg* to extract text from the following image:
 
     ![Image of a scanned buisness card.](../media/Business-card.jpg)
 
     **Python**
 
     ```
-   python read-text.py
+   python read-text.py images/Business-card.jpg
     ```
 
     **C#**
 
     ```
-   dotnet run
+   dotnet run images/Business-card.jpg
     ```
 
 1. Download and view the resulting **text.jpg** file:
@@ -362,9 +362,21 @@ In this exercise, you'll complete a partially implemented client application tha
    download text.jpg
     ```
 
-1. Run the program one more time, this time selecting image **3** (*Note.jpg*):
+1. Run the program one more time, this time specifying the parameter *images/Note.jpg* to extract text from this image:
 
     ![Photograph of a handwritten shopping list.](../media/Note.jpg)
+
+    **Python**
+
+    ```
+   python read-text.py images/Note.jpg
+    ```
+
+    **C#**
+
+    ```
+   dotnet run images/Note.jpg
+    ```
 
 ### Add code to return the position of each line of text
 
@@ -378,27 +390,15 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
 
     **C#**
-    
+
     ```csharp
    // Return the position bounding box around each line
    Console.WriteLine($"   Bounding Polygon: [{string.Join(" ", line.BoundingPolygon)}]");
     ```
 
-1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program:
-
-    **Python**
-
-    ```
-   python read-text.py
-    ```
-
-    **C#**
-
-    ```
-   dotnet run
-    ```
-
-1. When prompted, enter **1** and observe the output, which should be each line of text in the image with their respective position in the image.
+1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program to extract text from *images/Lincoln.jpg*.
+1. Observe the output, which should be each line of text in the image with their respective position in the image.
+1. Rerun the program for *images/Business-card.jpg* and *images/Note.jpg*.
 
 ### Add code to identify individual words in an image
 
@@ -444,28 +444,15 @@ In this exercise, you'll complete a partially implemented client application tha
    }
     ```
 
-1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program:
-
-    **Python**
-
-    ```
-   python read-text.py
-    ```
-
-    **C#**
-
-    ```
-   dotnet run
-    ```
-
-1. When prompted, enter **1** and observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
+1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program to extract text from *images/Lincoln.jpg*.
+1. Observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
 1. Download and view the **text.jpg** image again and notice how there's a polygon around each *word*.
 
     ```
    download text.jpg
     ```
 
-1. Rerun the program for images **2** and **3**.
+1. Rerun the program for *images/Business-card.jpg* and *images/Note.jpg*.
 
 ## Clean up resources
 
