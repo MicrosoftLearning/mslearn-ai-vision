@@ -8,6 +8,8 @@ lab:
 
 Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The **Azure AI Vision** service provides an API for reading text, which you'll explore in this exercise.
 
+This exercise takes approximately **30** minutes.
+
 ## Provision a Computer Vision resource
 
 If you don't already have one in your subscription, you'll need to provision an Azure AI Vision resource.
