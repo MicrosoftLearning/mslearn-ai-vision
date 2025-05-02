@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 import time
+import sys
 from PIL import Image, ImageDraw
 from matplotlib import pyplot as plt
 
