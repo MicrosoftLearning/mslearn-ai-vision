@@ -11,6 +11,9 @@ def main():
 
     global face_client
 
+    # Clear the console
+    os.system('cls' if os.name=='nt' else 'clear')
+
     try:
         # Get Configuration Settings
         load_dotenv()

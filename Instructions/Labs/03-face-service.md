@@ -10,32 +10,30 @@ The ability to detect and analyze human faces is a core AI capability. In this e
 
 This exercise takes approximately **30** minutes.
 
-> **Note**: Capabilities of Azure AI services that return personally identifiable information are restricted to customers who have been granted [limited access](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access). This exercise does not include facial recognition tasks, and can be completed without requesting any additional access to restricted features.
+> **Note**: Capabilities of Azure AI services that return personally identifiable information are restricted to customers who have been granted [limited access](https://learn.microsoft.com/legal/cognitive-services/computer-vision/limited-access-identity). This exercise does not include facial recognition tasks, and can be completed without requesting any additional access to restricted features.
 
-## Provision an Azure AI Vision resource
+## Provision an Azure AI Face API resource
 
-If you don't already have one in your subscription, you'll need to provision an Azure AI Vision resource.
+If you don't already have one in your subscription, you'll need to provision an Azure AI Face API resource.
 
-> **Note**: In this exercise, you'll use a standalone **Computer Vision** resource. You can also use Azure AI Vision services in an *Azure AI Services* multi-service resource, either directly or in an *Azure AI Foundry* project.
+> **Note**: In this exercise, you'll use a standalone **Computer Vision** resource. You can also use Azure AI Face services in an *Azure AI Services* multi-service resource, either directly or in an *Azure AI Foundry* project.
 
 1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials.
 1. Select **Create a resource**.
-1. In the search bar, search for *Computer Vision*, select **Computer Vision**, and create the resource with the following settings:
+1. In the search bar, search for *Face*, select **Face**, and create the resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: *Choose from **East US**, **West US**, **France Central**, **Korea Central**, **North Europe**, **Southeast Asia**, **West Europe**, or **East Asia**\**
+    - **Region**: *Choose any available region*
     - **Name**: *A valid name for your resource*
     - **Pricing tier**: Free F0
 
-    \*Azure AI Vision 4.0 full feature sets are currently only available in these regions.
-
 1. Select the required checkboxes and create the resource.
 1. Wait for deployment to complete, and then view the deployment details.
-1. When the resource has been deployed, go to it and view the **Keys and Endpoint** section on its **Overview** page. You will need the endpoint and one of the keys from this page in the next procedure.
+1. When the resource has been deployed, go to it and under the **Resource management** node in the navigation pane, view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in the next procedure.
 
-## Develop a facial analysis app with the Azure AI Vision SDK
+## Develop a facial analysis app with the Face SDK
 
-In this exercise, you'll complete a partially implemented client application that uses the Azure AI Vision SDK to detect and analyze human faces in images.
+In this exercise, you'll complete a partially implemented client application that uses the Azure Face SDK to detect and analyze human faces in images.
 
 > **Note**: You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
@@ -360,7 +358,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
 
-    ![An image with the text highlighted.](../media/detected_faces.jpg)
+    ![An image with the face highlighted.](../media/detected_faces1.jpg)
 
 1. Run the program again, this time specifying the parameter *images/face2.jpg* to extract text from the following image:
 
@@ -384,6 +382,10 @@ In this exercise, you'll complete a partially implemented client application tha
    download detected_faces.jpg
     ```
 
+    The resulting image should look like this:
+
+    ![Another image with a face highlighted.](../media/detected_faces2.jpg)
+
 1. Run the program one more time, this time specifying the parameter *images/faces.jpg* to extract text from this image:
 
     ![Photograph of both people.](../media/faces.jpg)
@@ -405,6 +407,10 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
    download detected_faces.jpg
     ```
+
+    The resulting image should look like this:
+
+    ![Another image with a face highlighted.](../media/detected_faces3.jpg)
 
 ## Clean up resources
 

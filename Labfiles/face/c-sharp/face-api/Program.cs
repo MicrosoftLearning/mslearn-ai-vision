@@ -19,6 +19,9 @@ namespace analyze_faces
         private static FaceClient faceClient;
         static async Task Main(string[] args)
         {
+            // Clear the console
+            Console.Clear();
+            
             try
             {
                 // Get config settings from AppSettings
