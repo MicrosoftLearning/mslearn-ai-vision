@@ -499,8 +499,6 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 1. Rerun the program for the **images/building.jpg** and **images/person.jpg** files, downloading the generated people.jpg file after each run.
 
-> **Note**: In the preceding tasks, you used a single method to analyze the image, and then incrementally added code to parse and display the results. The SDK also provides individual methods for suggesting captions, identifying tags, detecting objects, and so on - meaning that you can use the most appropriate method to return only the information you need, reducing the size of the data payload that needs to be returned. See the [Python SDK documentation](https://learn.microsoft.com/python/api/azure-cognitiveservices-vision-computervision/azure.cognitiveservices.vision.computervision) or [.NET SDK documentation](https://learn.microsoft.com/dotnet/api/overview/azure/cognitiveservices/computervision?view=azure-dotnet) for more details.
-
 ## Clean up resources
 
 If you're not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges. Here's how:
