@@ -347,9 +347,9 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
         # Save annotated image
         plt.imshow(image)
         plt.tight_layout(pad=0)
-        outputfile = 'objects.jpg'
-        fig.savefig(outputfile)
-        print('  Results saved in', outputfile)
+        objectfile = 'objects.jpg'
+        fig.savefig(objectfile)
+        print('  Results saved in', objectfile)
     ```
 
     **C#**
@@ -394,9 +394,10 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
         }
 
         // Save the annotated image
-        using SKFileWStream output = new SKFileWStream("objects.jpg");
+        var objectFile = "objects.jpg";
+        using SKFileWStream output = new SKFileWStream(objectFile);
         bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-        Console.WriteLine("  Results saved in objects.jpg\n");
+        Console.WriteLine($"  Results saved in {objectFile}\n");
    }
     ```
 
@@ -437,15 +438,15 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
             bounding_box = ((r.x, r.y), (r.x + r.width, r.y + r.height))
             draw.rectangle(bounding_box, outline=color, width=3)
     
-            # Return the confidence of the person detected
-            #print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
+            # Print location and confidence of each person detected
+            print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
             
         # Save annotated image
         plt.imshow(image)
         plt.tight_layout(pad=0)
-        outputfile = 'people.jpg'
-        fig.savefig(outputfile)
-        print('  Results saved in', outputfile)
+        peoplefile = 'people.jpg'
+        fig.savefig(peoplefile)
+        print('  Results saved in', peoplefile)
     ```
 
     **C#**
@@ -473,20 +474,19 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
             SKRect rect = new SKRect(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
             canvas.DrawRect(rect, paint);
 
-            // Return the confidence of the person detected
-            //Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence: {person.Confidence:F2}");
+            // Print location and confidence of each person detected
+            Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence: {person.Confidence:F2}");
         }
 
         // Save the annotated image
-        using SKFileWStream output = new SKFileWStream("persons.jpg");
+        var peopleFile = "people.jpg";
+        using SKFileWStream output = new SKFileWStream(peopleFile);
         bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-        Console.WriteLine("  Results saved in persons.jpg\n");
+        Console.WriteLine($"  Results saved in {peopleFile}\n");
    }
     ```
 
-1. (Optional) Uncomment the **Console.Writeline** command under the **Return the confidence of the person detected** section to review the confidence level returned that a person was detected at a particular position of the image.
-
-1. Save your changes (*CTRL+S*) and run the program with the argument **images/street.jpg**, observing that in addition to the image caption, suggested tags, and objects.jpg file; a file named **people.jpg** is generated.
+1. Save your changes (*CTRL+S*) and run the program with the argument **images/street.jpg**, observing that in addition to the image caption, suggested tags, and objects.jpg file; a list of person locations and file named **people.jpg** is generated.
 1. Use the (Azure cloud shell-specific) **download** command to download the **objects.jpg** file:
 
     ```
