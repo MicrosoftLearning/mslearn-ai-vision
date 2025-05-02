@@ -1,16 +1,16 @@
 ---
 lab:
-    title: 'Read Text in Images'
+    title: 'Read text in images'
     description: 'Use optical character recognition (OCR) to locate and extract text in images.'
 ---
 
-# Read Text in Images
+# Read text in images
 
 Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The **Azure AI Vision** service provides an API for reading text, which you'll explore in this exercise.
 
 This exercise takes approximately **30** minutes.
 
-## Provision a Computer Vision resource
+## Provision an Azure AI Vision resource
 
 If you don't already have one in your subscription, you'll need to provision an Azure AI Vision resource.
 
@@ -78,7 +78,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The folder contains application configuration and code files for your app. It also contains an **/images** subfolder, which contains some image files for your app to analyze.
 
-1. Install the Azure AI Vision SDK package and required dependencies by running the appropriate commands for your language preference:
+1. Install the Azure AI Vision SDK package and other required packages by running the appropriate commands for your language preference:
 
     **Python**
 
@@ -91,9 +91,9 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
 
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
-    dotnet add package SkiaSharp --version 3.116.1
-    dotnet add package SkiaSharp.NativeAssets.Linux --version 3.116.1
+   dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
+   dotnet add package SkiaSharp --version 3.116.1
+   dotnet add package SkiaSharp.NativeAssets.Linux --version 3.116.1
     ``` 
 
 1. Enter the following command to edit the configuration file for your app:
@@ -163,7 +163,7 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
 
     **C#**
-    
+
     ```csharp
    // Authenticate Azure AI Vision client
    ImageAnalysisClient client = new ImageAnalysisClient(
@@ -330,7 +330,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. The program reads the text in the specified image file (*images/Lincoln.jpg*), which looks like this:
 
-    ![Photograph of a statue of Abraham Lincoln](../media/Lincoln.jpg)
+    ![Photograph of a statue of Abraham Lincoln.](../media/Lincoln.jpg)
 
 1. In the **read-text** folder, a **text.jpg** image has been created. Use the (Azure cloud shell-specific) **download** command to download it:
 
@@ -378,6 +378,12 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```
    dotnet run images/Note.jpg
+    ```
+
+1. Download and view the resulting **text.jpg** file:
+
+    ```
+   download text.jpg
     ```
 
 ### Add code to return the position of each line of text
@@ -458,14 +464,10 @@ In this exercise, you'll complete a partially implemented client application tha
 
 ## Clean up resources
 
-If you're not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges. Here's how:
+If you've finished exploring Azure AI Vision, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs:
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 
 1. In the top search bar, search for *Computer Vision*, and select the Computer Vision resource you created in this lab.
 
 1. On the resource page, select **Delete** and follow the instructions to delete the resource.
-
-## More information
-
-For more information about using the **Azure AI Vision** service to read text, see the [Azure AI Vision documentation](https://learn.microsoft.com/azure/ai-services/computer-vision/concept-ocr).

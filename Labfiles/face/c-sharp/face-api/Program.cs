@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Azure;
+using SkiaSharp;
 
 // Import namespaces
 
@@ -25,21 +27,20 @@ namespace analyze_faces
                 string cogSvcEndpoint = configuration["AIServicesEndpoint"];
                 string cogSvcKey = configuration["AIServiceKey"];
 
+                // Get image
+                string imageFile = "images/face1.jpg";
+                if (args.Length > 0)
+                {
+                    imageFile = args[0];
+                }
+
                 // Authenticate Face client
 
 
-                // Menu for face functions
-                Console.WriteLine("1: Detect faces\nAny other key to quit");
-                Console.WriteLine("Enter a number:");
-                string command = Console.ReadLine();
-                switch (command)
-                {
-                    case "1":
-                        await DetectFaces("images/people.jpg");
-                        break;
-                    default:
-                        break;
-                }
+
+                // Detect faces in the image
+                DetectFaces(imageFile);
+
             }
             catch (Exception ex)
             {

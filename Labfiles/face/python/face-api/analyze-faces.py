@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import sys
 from PIL import Image, ImageDraw
 from matplotlib import pyplot as plt
 
@@ -16,14 +17,21 @@ def main():
         cog_endpoint = os.getenv('AI_SERVICE_ENDPOINT')
         cog_key = os.getenv('AI_SERVICE_KEY')
 
+        # Get image
+        image_file = 'images/face1.jpg'
+        if len(sys.argv) > 1:
+            image_file = sys.argv[1]
+
+
+
         # Authenticate Face client
 
 
-        # Menu for face functions
-        print('1: Detect faces\nAny other key to quit')
-        command = input('Enter a number:')
-        if command == '1':
-            DetectFaces(os.path.join('images','people.jpg'))
+
+        # Detect faces in image
+        DetectFaces(image_file)
+
+
 
     except Exception as ex:
         print(ex)

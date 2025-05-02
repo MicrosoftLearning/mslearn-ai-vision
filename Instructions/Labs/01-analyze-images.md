@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Analyze Images with Azure AI Vision'
+    title: 'Analyze images'
     description: 'Use Azure AI Vision to analyze images, suggest captions and tags, and detect objects and people.'
 ---
 
-# Analyze Images with Azure AI Vision
+# Analyze images
 
 Azure AI Vision is an artificial intelligence capability that enables software systems to interpret visual input by analyzing images. In Microsoft Azure, the **Vision** Azure AI service provides pre-built models for common computer vision tasks, including analysis of images to suggest captions and tags, detection of common objects and people. You can also use the Azure AI Vision service to remove the background or create a foreground matting of images.
 
@@ -78,7 +78,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The folder contains application configuration and code files for your app. It also contains a **/images** subfolder, which contains some image files for your app to analyze.
     
-1. Install the Azure AI Vision SDK package and required dependencies by running the appropriate commands for your language preference:
+1. Install the Azure AI Vision SDK package and other required packages by running the appropriate commands for your language preference:
 
     **Python**
     
@@ -501,7 +501,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 ## Clean up resources
 
-If you're not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges. Here's how:
+If you've finished exploring Azure AI Vision, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs:
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 
@@ -509,8 +509,3 @@ If you're not using the Azure resources created in this lab for other training m
 
 1. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
-## More information
-
-In this exercise, you explored some of the image analysis and manipulation capabilities of the Azure AI Vision service. The service also includes capabilities for detecting objects and people, and other computer vision tasks.
-
-For more information about using the **Azure AI Vision** service for image analysis, see the [Azure AI Vision documentation](https://learn.microsoft.com/azure/ai-services/computer-vision/overview-image-analysis).
