@@ -42,7 +42,7 @@ namespace read_text
 
                 
                 // Read text in image
-                await GetTextRead(imageFile);
+                GetTextRead(imageFile);
 
             }
             catch (Exception ex)

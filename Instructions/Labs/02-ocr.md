@@ -327,7 +327,7 @@ In this exercise, you'll complete a partially implemented client application tha
         };
 
         // Call helper method to draw a polygon
-        await DrawPolygon(canvas, polygonPoints, paint);
+        DrawPolygon(canvas, polygonPoints, paint);
    }
     ```
 
