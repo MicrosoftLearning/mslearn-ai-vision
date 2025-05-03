@@ -18,7 +18,7 @@ namespace read_text
 
         // Declare variable for Azure AI Vision client
 
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             // Clear the console
             Console.Clear();
@@ -51,7 +51,7 @@ namespace read_text
             }
         }
 
-        static async Task GetTextRead(string imageFile)
+        static void GetTextRead(string imageFile)
         {
             Console.WriteLine($"\nReading text from {imageFile} \n");
 
@@ -66,7 +66,7 @@ namespace read_text
 
 
         // Helper method to draw a polygon given an array of SKPoints
-        static async Task DrawPolygon(SKCanvas canvas, SKPoint[] points, SKPaint paint)
+        static void DrawPolygon(SKCanvas canvas, SKPoint[] points, SKPaint paint)
         {
             if (points == null || points.Length == 0)
                 return;

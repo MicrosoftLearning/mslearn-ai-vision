@@ -266,7 +266,7 @@ In this exercise, you'll complete a partially implemented client application tha
             outputfile = 'detected_faces.jpg'
             fig.savefig(outputfile)
 
-            print('\nResults saved in', outputfile)
+            print(f'\nResults saved in {outputfile}\n')
     ```
 
     **C#**
@@ -335,12 +335,13 @@ In this exercise, you'll complete a partially implemented client application tha
             }
 
             // Save annotated image
-            using (SKFileWStream output = new SKFileWStream("detected_faces.jpg"))
+            var outputFile = "detected_faces.jpg";
+            using (SKFileWStream output = new SKFileWStream(outputFile))
             {
                 bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
             }
 
-            Console.WriteLine(" Results saved in detected_faces.jpg");   
+            Console.WriteLine($" Results saved in {outputFile}\n");   
         }
    }
     ```

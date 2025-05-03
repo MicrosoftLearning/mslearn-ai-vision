@@ -217,9 +217,9 @@ In this exercise, you'll complete a partially implemented client application tha
         # Save image
         plt.imshow(image)
         plt.tight_layout(pad=0)
-        outputfile = 'text.jpg'
-        fig.savefig(outputfile)
-        print('\n  Results saved in', outputfile)
+        textfile = 'text.jpg'
+        fig.savefig(textfile)
+        print('\n  Results saved in', textfile)
     ```
 
     **C#**
@@ -260,13 +260,14 @@ In this exercise, you'll complete a partially implemented client application tha
         }
             
         // Save the annotated image using SkiaSharp
-        using (SKFileWStream output = new SKFileWStream("text.jpg"))
+        var textFile = "text.jpg";
+        using (SKFileWStream output = new SKFileWStream(textFile))
         {
             // Encode the bitmap into JPEG format with full quality (100)
             bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
         }
 
-        Console.WriteLine("\nResults saved in text.jpg\n");
+        Console.WriteLine($"\nResults saved in {textFile}\n");
    }
     ```
 
