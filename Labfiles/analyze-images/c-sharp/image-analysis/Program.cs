@@ -15,6 +15,8 @@ namespace image_analysis
 {
     class Program
     {
+        // Declare variable for Azure AI Vision client
+
 
         static async Task Main(string[] args)
         {
@@ -40,7 +42,7 @@ namespace image_analysis
 
                 
                 // Analyze image
-                AnalyzeImage(imageFile, client);
+                await AnalyzeImage(imageFile, client);
 
             }
             catch (Exception ex)
@@ -49,7 +51,7 @@ namespace image_analysis
             }
         }
 
-        static void AnalyzeImage(string imageFile, ImageAnalysisClient client)
+        static async Task AnalyzeImage(string imageFile, ImageAnalysisClient client)
         {
             Console.WriteLine($"\nAnalyzing {imageFile} \n");
 

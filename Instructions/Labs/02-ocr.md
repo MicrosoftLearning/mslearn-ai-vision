@@ -151,6 +151,22 @@ In this exercise, you'll complete a partially implemented client application tha
    using Azure.AI.Vision.ImageAnalysis;
     ```
 
+1. Find the comment **Declare variable for Azure AI Vision client**, and add the following code:
+
+    **Python**
+    
+    ```python
+   # Declare variable for Azure AI Vision client
+   global cv_client
+    ```
+
+    **C#**
+    
+    ```csharp
+   // Declare variable for Azure AI Vision client
+   private static ImageAnalysisClient client;
+    ```
+
 1. In the **Main** function, the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following language-specific code to create and authenticate an Azure AI Vision client object:
 
     **Python**
@@ -166,7 +182,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
    // Authenticate Azure AI Vision client
-   ImageAnalysisClient client = new ImageAnalysisClient(
+   client = new ImageAnalysisClient(
         new Uri(aiSvcEndpoint),
         new AzureKeyCredential(aiSvcKey));
     ```
@@ -308,7 +324,7 @@ In this exercise, you'll complete a partially implemented client application tha
         };
 
         // Call helper method to draw a polygon
-        DrawPolygon(canvas, polygonPoints, paint);
+        await DrawPolygon(canvas, polygonPoints, paint);
    }
     ```
 

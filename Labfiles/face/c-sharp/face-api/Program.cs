@@ -16,7 +16,10 @@ namespace analyze_faces
     class Program
     {
 
-        private static FaceClient faceClient;
+        // Declare variable for Face client
+
+
+
         static async Task Main(string[] args)
         {
             // Clear the console
@@ -42,7 +45,7 @@ namespace analyze_faces
 
 
                 // Detect faces in the image
-                DetectFaces(imageFile);
+                await DetectFaces(imageFile);
 
             }
             catch (Exception ex)

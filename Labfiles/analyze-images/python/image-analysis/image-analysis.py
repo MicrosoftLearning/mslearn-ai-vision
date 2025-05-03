@@ -10,7 +10,9 @@ import requests
 
 
 def main():
-    global cv_client
+
+    # Declare variable for Azure AI Vision client
+
 
     # Clear the console
     os.system('cls' if os.name=='nt' else 'clear')
@@ -26,30 +28,27 @@ def main():
         if len(sys.argv) > 1:
             image_file = sys.argv[1]
 
-        with open(image_file, "rb") as f:
-            image_data = f.read()
 
         # Authenticate Azure AI Vision client
 
         
         # Analyze image
-        AnalyzeImage(image_file, image_data, cv_client)
+        AnalyzeImage(image_file)
         
     except Exception as ex:
         print(ex)
 
 
-def AnalyzeImage(image_filename, image_data, cv_client):
-    print('\nAnalyzing image...')
+def AnalyzeImage(image_filename):
+    print(f'\nAnalyzing {image_filename}\n')
 
-    try:
-        # Get result with specified features to be retrieved
+    # Use the binary file contents to pass the image data to the analyze call
+    with open(image_filename, "rb") as f:
+            image_data = f.read()
+
+
+    # Get result with specified features to be retrieved
         
-
-    except HttpResponseError as e:
-        print(f"Status code: {e.status_code}")
-        print(f"Reason: {e.reason}")
-        print(f"Message: {e.error.message}")
 
     # Display analysis results
     

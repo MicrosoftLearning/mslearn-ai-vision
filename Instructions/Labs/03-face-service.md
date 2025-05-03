@@ -151,6 +151,22 @@ In this exercise, you'll complete a partially implemented client application tha
    using Azure.AI.Vision.Face;
     ```
 
+1. Find the comment **Declare variable for Face client**, and add the following code:
+
+    **Python**
+    
+    ```python
+   # Declare variable for Face client
+   global face_client
+    ```
+
+    **C#**
+    
+    ```csharp
+   // Declare variable for Face client
+   private static FaceClient client;
+    ```
+
 1. In the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Face client** and add the following code to create and authenticate a **FaceClient** object:
 
     **Python**
@@ -287,9 +303,10 @@ In this exercise, you'll complete a partially implemented client application tha
             SKPaint textPaint = new SKPaint
             {
                 Color = SKColors.White,
-                TextSize = 16,
                 IsAntialias = true
             };
+
+            SKFont textFont = new SKFont(SKTypeface.Default,24,1,0);
 
             int faceCount=0;
 
@@ -314,7 +331,7 @@ In this exercise, you'll complete a partially implemented client application tha
                 canvas.DrawRect(rect, rectPaint);
 
                 string annotation = $"Face number {faceCount}";
-                canvas.DrawText(annotation, r.Left, r.Top, textPaint);
+                canvas.DrawText(annotation, r.Left, r.Top, SKTextAlign.Left, textFont, textPaint);
             }
 
             // Save annotated image

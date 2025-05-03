@@ -10,7 +10,9 @@ from matplotlib import pyplot as plt
 
 def main():
 
-    global cv_client
+    # Declare variable for Azure AI Vision client
+
+    
 
     # Clear the console
     os.system('cls' if os.name=='nt' else 'clear')

@@ -9,7 +9,9 @@ from matplotlib import pyplot as plt
 
 def main():
 
-    global face_client
+    # Declare variable for Face client
+    
+
 
     # Clear the console
     os.system('cls' if os.name=='nt' else 'clear')
