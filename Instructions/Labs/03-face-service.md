@@ -18,7 +18,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 > **Note**: In this exercise, you'll use a standalone **Computer Vision** resource. You can also use Azure AI Face services in an *Azure AI Services* multi-service resource, either directly or in an *Azure AI Foundry* project.
 
-1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials.
+1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials. Close any welcome messages or tips that are displayed.
 1. Select **Create a resource**.
 1. In the search bar, search for *Face*, select **Face**, and create the resource with the following settings:
     - **Subscription**: *Your Azure subscription*
@@ -27,8 +27,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Name**: *A valid name for your resource*
     - **Pricing tier**: Free F0
 
-1. Select the required checkboxes and create the resource.
-1. Wait for deployment to complete, and then view the deployment details.
+1. Create the resource and wait for deployment to complete, and then view the deployment details.
 1. When the resource has been deployed, go to it and under the **Resource management** node in the navigation pane, view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in the next procedure.
 
 ## Develop a facial analysis app with the Face SDK
@@ -39,7 +38,9 @@ In this exercise, you'll complete a partially implemented client application tha
 
 ### Prepare the application configuration
 
-1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
+1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment with no storage in your subscription.
+
+    The cloud shell provides a command-line interface in a pane at the bottom of the Azure portal. You can resize or maximize this pane to make it easier to work in.
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
@@ -140,7 +141,7 @@ In this exercise, you'll complete a partially implemented client application tha
     ```python
    # Import namespaces
    from azure.ai.vision.face import FaceClient
-   from azure.ai.vision.face.models import FaceDetectionModel, FaceRecognitionModel, FaceAttributeTypeDetection03
+   from azure.ai.vision.face.models import FaceDetectionModel, FaceRecognitionModel, FaceAttributeTypeDetection01
    from azure.core.credentials import AzureKeyCredential
     ```
 
@@ -197,9 +198,9 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```python
    # Specify facial features to be retrieved
-   features = [FaceAttributeTypeDetection03.HEAD_POSE,
-                FaceAttributeTypeDetection03.BLUR,
-                FaceAttributeTypeDetection03.MASK]
+   features = [FaceAttributeTypeDetection01.HEAD_POSE,
+                FaceAttributeTypeDetection01.OCCLUSION,
+                FaceAttributeTypeDetection01.ACCESSORIES]
     ```
 
     **C#**
@@ -208,9 +209,9 @@ In this exercise, you'll complete a partially implemented client application tha
    // Specify facial features to be retrieved
    FaceAttributeType[] features = new FaceAttributeType[]
    {
-        FaceAttributeType.Detection03.HeadPose,
-        FaceAttributeType.Detection03.Blur,
-        FaceAttributeType.Detection03.Mask
+        FaceAttributeType.Detection01.HeadPose,
+        FaceAttributeType.Detection01.Occlusion,
+        FaceAttributeType.Detection01.Accessories
    };
     ```
 
@@ -223,8 +224,8 @@ In this exercise, you'll complete a partially implemented client application tha
    with open(image_file, mode="rb") as image_data:
         detected_faces = face_client.detect(
             image_content=image_data.read(),
-            detection_model=FaceDetectionModel.DETECTION03,
-            recognition_model=FaceRecognitionModel.RECOGNITION04,
+            detection_model=FaceDetectionModel.DETECTION01,
+            recognition_model=FaceRecognitionModel.RECOGNITION01,
             return_face_id=False,
             return_face_attributes=features,
         )
@@ -250,8 +251,12 @@ In this exercise, you'll complete a partially implemented client application tha
                 print(' - Head Pose (Yaw): {}'.format(face.face_attributes.head_pose.yaw))
                 print(' - Head Pose (Pitch): {}'.format(face.face_attributes.head_pose.pitch))
                 print(' - Head Pose (Roll): {}'.format(face.face_attributes.head_pose.roll))
-                print(' - Blur: {}'.format(face.face_attributes.blur.blur_level))
-                print(' - Mask: {}'.format(face.face_attributes.mask.type))
+                print(' - Forehead occluded?: {}'.format(face.face_attributes.occlusion["foreheadOccluded"]))
+                print(' - Eye occluded?: {}'.format(face.face_attributes.occlusion["eyeOccluded"]))
+                print(' - Mouth occluded?: {}'.format(face.face_attributes.occlusion["mouthOccluded"]))
+                print(' - Accessories:')
+                for accessory in face.face_attributes.accessories:
+                    print('   - {}'.format(accessory.type))
 
                 # Draw and annotate face
                 r = face.face_rectangle
@@ -277,8 +282,8 @@ In this exercise, you'll complete a partially implemented client application tha
    {    
         var response = await faceClient.DetectAsync(
             BinaryData.FromStream(imageData),
-            FaceDetectionModel.Detection03,
-            FaceRecognitionModel.Recognition04,
+            FaceDetectionModel.Detection01,
+            FaceRecognitionModel.Recognition01,
             returnFaceId: false,
             returnFaceAttributes: features);
         IReadOnlyList<FaceDetectionResult> detected_faces = response.Value;
@@ -320,8 +325,14 @@ In this exercise, you'll complete a partially implemented client application tha
                 Console.WriteLine($" - Head Pose (Yaw): {face.FaceAttributes.HeadPose.Yaw}");
                 Console.WriteLine($" - Head Pose (Pitch): {face.FaceAttributes.HeadPose.Pitch}");
                 Console.WriteLine($" - Head Pose (Roll): {face.FaceAttributes.HeadPose.Roll}");
-                Console.WriteLine($" - Blur: {face.FaceAttributes.Blur.BlurLevel}");
-                Console.WriteLine($" - Mask: {face.FaceAttributes.Mask.Type}");
+                Console.WriteLine($" - Forehead occluded: {face.FaceAttributes.Occlusion.ForeheadOccluded}");
+                Console.WriteLine($" - Eye occluded: {face.FaceAttributes.Occlusion.EyeOccluded}");
+                Console.WriteLine($" - Mouth occluded: {face.FaceAttributes.Occlusion.MouthOccluded}");
+                Console.WriteLine($" - Accessories:");
+                foreach (AccessoryItem accessory in face.FaceAttributes.Accessories)
+                {
+                    Console.WriteLine($"   - {accessory.Type}");
+                }
 
                 // Draw and annotate face
                 var r = face.FaceRectangle;
