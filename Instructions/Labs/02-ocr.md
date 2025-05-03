@@ -211,6 +211,7 @@ In this exercise, you'll complete a partially implemented client application tha
         color = 'cyan'
 
         for line in result.read.blocks[0].lines:
+
             # Return the text detected in the image
 
             
@@ -254,6 +255,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
         foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
         {
+
             // Return the text detected in the image
     
     
