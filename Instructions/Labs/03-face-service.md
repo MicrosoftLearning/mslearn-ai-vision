@@ -164,7 +164,7 @@ In this exercise, you'll complete a partially implemented client application tha
     
     ```csharp
    // Declare variable for Face client
-   private static FaceClient client;
+   private static FaceClient faceClient;
     ```
 
 1. In the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Face client** and add the following code to create and authenticate a **FaceClient** object:
