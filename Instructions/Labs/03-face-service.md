@@ -20,7 +20,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials. Close any welcome messages or tips that are displayed.
 1. Select **Create a resource**.
-1. In the search bar, search for *Face*, select **Face**, and create the resource with the following settings:
+1. In the search bar, search for `Face`, select **Face**, and create the resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: *Choose any available region*
