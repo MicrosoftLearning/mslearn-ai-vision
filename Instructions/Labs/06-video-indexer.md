@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Analyze Video with Video Indexer'
-    module: 'Module 8 - Getting Started with Azure AI Vision'
+    title: 'Analyze video'
+    description: 'Use Azure AI Video Indexer to analyze a video.'
 ---
 
-# Analyze Video with Video Indexer
+# Analyze video
 
 A large proportion of the data created and consumed today is in the format of video. **Azure AI Video Indexer** is an AI-powered service that you can use to index videos and extract insights from them.
 
@@ -14,9 +14,7 @@ A large proportion of the data created and consumed today is in the format of vi
 
 First, you'll need to sign into the Video Indexer portal and upload a video.
 
-> **Tip**: If the Video Indexer page is slow to load in the hosted lab environment, use your locally installed browser. You can switch back to the hosted VM for the later tasks.
-
-1. In your browser, open the Video Indexer portal at `https://www.videoindexer.ai`.
+1. In your browser, open the [Video Indexer portal](https://www.videoindexer.ai) at `https://www.videoindexer.ai`.
 1. If you have an existing Video Indexer account, sign in. Otherwise, sign up for a free account and sign in using your Microsoft account (or any other valid account type). If you have difficulty signing in, try opening a private browser session.
 1. In a new tab, download the Responsible AI video by visiting `https://aka.ms/responsible-ai-video`. Save the file.
 1. In Video Indexer, select the **Upload** option. Then select the option to **Browse for files**, select the downloaded video, and click **Add**. Change the default name to **Responsible AI**, review the default settings, select the checkbox to verify compliance with Microsoft's policies for facial recognition, and upload the file.
