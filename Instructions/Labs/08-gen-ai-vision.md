@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Develop a vision-enabled chat app'
-    description: 'Learn how to use Azure AI Foundry to build a generative AI app that supports image input.'
+    description: 'Use Azure AI Foundry to build a generative AI app that supports image input.'
 ---
 
 # Develop a vision-enabled chat app

@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Generate images with AI'
-    description: 'Learn how to use a DALL-E OpenAI model to generate images.'
+    description: 'Use an OpenAI a DALL-E model in Azure AI Foundry to generate images.'
 ---
 
 # Generate images with AI
