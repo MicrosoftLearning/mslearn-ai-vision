@@ -307,9 +307,17 @@ Now you're ready to publish your trained model and use it in a client applicatio
 
     The program submits each of the following images to the model for classification:
 
-    | IMG_TEST_1.jpg | IMG_TEST_2.jpg | IMG_TEST_3.jpg |
-    |--|--|--|
-    | ![Image of an apple](../media/IMG_TEST_1.jpg) | ![Image of a banana](../media/IMG_TEST_2.jpg) | ![Image of an orange](../media/IMG_TEST_3.jpg) |
+    ![Image of an apple](../media/IMG_TEST_1.jpg)
+
+    **IMG_TEST_1.jpg**
+
+    ![Image of a banana](../media/IMG_TEST_2.jpg)
+
+    **IMG_TEST_2.jpg**
+
+    ![Image of an orange](../media/IMG_TEST_3.jpg)
+
+    **IMG_TEST_3.jpg**
 
 1. View the label (tag) and probability scores for each prediction.
 
