@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using Microsoft.Extensions.Configuration;
+using SkiaSharp;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 
 namespace test_detector

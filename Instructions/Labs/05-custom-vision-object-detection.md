@@ -84,6 +84,8 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 > **Note**: In this exercise, you can choose to use the API from either the **C#** or **Python** SDK. In the steps below, perform the actions appropriate for your preferred language.
 
+***NOTE - C# VERSION CURRENTLY FAILS - UPDATES IN DEVELOPMENT***
+
 1. Click the *settings* (&#9881;) icon at the top right of the **Training Images** page in the Custom Vision portal to view the project settings.
 1. Under **General** (on the left), note the **Project Id** that uniquely identifies this project.
 1. On the right, under **Resources** note that the **Key** and **Endpoint** are shown. These are the details for the *training* resource (you can also obtain this information by viewing the resource in the Azure portal).
@@ -173,7 +175,7 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
     > **Note**: The coordinates and dimensions in this file indicate relative points on the image. For example, a *height* value of 0.7 indicates a box that is 70% of the height of the image. Some tagging tools generate other formats of file in which the coordinate and dimension values represent pixels, inches, or other units of measurements.
 
-1. Close the JSOn file without saving any changes (*CTRL_Q*).
+1. Close the JSON file without saving any changes (*CTRL_Q*).
 
 1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
@@ -204,28 +206,41 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
     **C#**
 
+***NOTE - C# VERSION CURRENTLY FAILS - UPDATES IN DEVELOPMENT***
+
     ```
    dotnet run
     ```
 
-1. Wait for the program to end. Then return to your browser and view the **Training Images** page for your project in the Custom Vision portal (refreshing the browser if necessary).
+1. Wait for the program to end.
+1. Switch back to the browser tab containing the Custom Vision portal (keeping the Azure portal cloud shell tab open), and view the **Training Images** page for your project (refreshing the browser if necessary).
 1. Verify that some new tagged images have been added to the project.
-
 
 ## Train and test a model
 
 Now that you've tagged the images in your project, you're ready to train a model.
 
 1. In the Custom Vision project, click **Train** to train an object detection model using the tagged images. Select the **Quick Training** option.
-1. Wait for training to complete (it might take ten minutes or so), and then review the *Precision*, *Recall*, and *mAP* performance metrics - these measure the prediction accuracy of the classification model, and should all be high.
-1. At the top right of the page, click **Quick Test**, and then in the **Image URL** box, enter `https://aka.ms/test-fruit` and view the prediction that is generated. Then close the **Quick Test** window.
+1. Wait for training to complete (it might take ten minutes or so).
 
-## Publish the object detection model
+    > **Tip**: The Azure cloud shell has a 20-minute inactivity timeout, after which the session is abandoned. While you wait for training to finish, occassionally return to the cloud shell and enter a colland like `ls` to keep the session active.
 
-Now you're ready to publish your trained model so that it can be used from a client application.
+1. In the Custom Vision portal, when training has finished, review the *Precision*, *Recall*, and *mAP* performance metrics - these measure the prediction accuracy of the object detection model, and should all be high.
+1. At the top right of the page, click **Quick Test**, and then in the **Image URL** box, type `https://aka.ms/test-fruit` and click the *quick test image* (&#10132;) button.
+1. View the prediction that is generated.
+
+    ![Screenshot of testing object detection](../media/test-object-detection.png)
+
+1. Close the **Quick Test** window.
+
+## Use the object detector in a client application
+
+Now you're ready to publish your trained model and use it in a client application.
+
+### Publish the object detection model
 
 1. In the Custom Vision portal, on the **Performance** page,  click **&#128504; Publish** to publish the trained model with the following settings:
-    - **Model name**: fruit-detector
+    - **Model name**: `fruit-detector`
     - **Prediction Resource**: *The **prediction** resource you created previously which ends with "-Prediction" (<u>not</u> the training resource)*.
 1. At the top left of the **Project Settings** page, click the *Projects Gallery* (&#128065;) icon to return to the Custom Vision portal home page, where your project is now listed.
 1. On the Custom Vision portal home page, at the top right, click the *settings* (&#9881;) icon to view the settings for your Custom Vision service. Then, under **Resources**, find your *prediction* resource which ends with "-Prediction" (<u>not</u> the training resource) to determine its **Key** and **Endpoint** values (you can also obtain this information by viewing the resource in the Azure portal).
@@ -234,35 +249,73 @@ Now you're ready to publish your trained model so that it can be used from a cli
 
 Now that you've published the image classification model, you can use it from a client application. Once again, you can choose to use **C#** or **Python**.
 
-1. In the Azure Portal, navigate to the **test-detector** folder running the command `cd ../test-detector`.
-1. Enter the following SDK-specific command to install the Custom Vision Prediction package:
-
-    **C#**
+1. Return to the browser tab containing the Azure portal and the cloud shell pane.
+1. In cloud shell, run the following commands to switch to the folder for you client application and view the files it contains:
 
     ```
-   dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction --version 2.0.0
+   cd ../test-detector
+   ls -a -l
     ```
+
+    The folder contains application configuration and code files for your app. It also contains the following **product.jpg** image file, which you'll use to test your model.
+
+    ![Image of some fruit.](../media/produce.jpg)
+
+1. Install the Azure AI Custom Vision SDK package for prediction and any other required packages by running the appropriate commands for your language preference:
 
     **Python**
 
     ```
-   pip install azure-cognitiveservices-vision-customvision==3.1.1
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
+   pip install dotenv matplotlib azure-cognitiveservices-vision-customvision
     ```
-
-> **Note**: The Python SDK package includes both training and prediction packages, and may already be installed.
-
-1. Open the configuration file for your client application (*appsettings.json* for C# or *.env* for Python) and update the configuration values it contains to reflect the endpoint and key for your Custom Vision *prediction* resource, the project ID for the object detection project, and the name of your published model (which should be *fruit-detector*). Save your changes and close the file.
-1. Open the code file for your client application (*Program.cs* for C#, *test-detector.py* for Python) and review the code it contains, noting the following details:
-    - Namespaces from the package you installed are imported
-    - The **Main** function retrieves the configuration settings, and uses the key and endpoint to create an authenticated **CustomVisionPredictionClient**.
-    - The prediction client object is used to get object detection predictions for the **produce.jpg** image, specifying the project ID and model name in the request. The predicted tagged regions are then drawn on the image, and the result is saved as **output.jpg**.
-1. Close the code editor and enter the following command to run the program:
 
     **C#**
 
     ```
-   dotnet run
+   dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction
+   dotnet add package SkiaSharp --version 3.116.1
+   dotnet add package SkiaSharp.NativeAssets.Linux --version 3.116.1
     ```
+
+1. Enter the following command to edit the configuration file for your app:
+
+    **Python**
+
+    ```
+   code .env
+    ```
+
+    **C#**
+
+    ```
+   code appsettings.json
+    ```
+
+    The file is opened in a code editor.
+
+1. Update the configuration values to reflect the **Endpoint** and **Key** for your Custom Vision *<u>prediction</u>* resource, the **Project ID** for the object detection project, and the name of your published model (which should be *fruit-detector*). Save your changes (*CTRL+S*) and close the code editor (*CTRL+Q*).
+
+1. In the cloud shell command line, enter the following command to open the code file for the client application:
+
+    **Python**
+
+    ```
+   code test-detector.py
+    ```
+
+    **C#**
+
+    ```
+   code Program.cs
+    ```
+
+1. Review the code, noting the following details:
+    - The namespaces for the Azure AI Custom Vision SDK are imported.
+    - The **Main** function retrieves the configuration settings, and uses the key and endpoint to create an authenticated **CustomVisionPredictionClient**.
+    - The prediction client object is used to get object detection predictions for the **produce.jpg** image, specifying the project ID and model name in the request. The predicted tagged regions are then drawn on the image, and the result is saved as **output.jpg**.
+1. Close the code editor and enter the following command to run the program:
 
     **Python**
 
@@ -270,21 +323,23 @@ Now that you've published the image classification model, you can use it from a 
    python test-detector.py
     ```
 
-1. After the program has completed, in the cloud shell toolbar, select **Upload/Download files** and then **Download**. In the new dialog box, enter the following file path and select **Download**:
-
     **C#**
-   
+
+    ***NOTE - C# VERSION CURRENTLY FAILS - UPDATES IN DEVELOPMENT***
+
     ```
-   mslearn-ai-vision/Labfiles/03-object-detection/C-Sharp/test-detector/output.jpg
+   dotnet run
     ```
 
-    **Python**
-   
+1. Note that an image file named **output.jpg** is generated. Use the (Azure cloud shell-specific) **download** command to download it:
+
     ```
-   mslearn-ai-vision/Labfiles/03-object-detection/Python/test-detector/output.jpg
+   download output.jpg
     ```
 
-1. View the resulting **output.jpg** file to see the detected objects in the image.
+    The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
+
+    ![An image with the detected objects highlighted.](../media/object-detection-output.jpg )
 
 ## Clean up resources
 
