@@ -1,12 +1,12 @@
 ---
 lab:
     title: 'Read text in images'
-    description: 'Use optical character recognition (OCR) to locate and extract text in images.'
+    description: 'Use optical character recognition (OCR) in the Azure AI Vision Image Analysis service to locate and extract text in images.'
 ---
 
 # Read text in images
 
-Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The **Azure AI Vision** service provides an API for reading text, which you'll explore in this exercise.
+Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The **Azure AI Vision** Image Analysis service provides an API for reading text, which you'll explore in this exercise.
 
 This exercise takes approximately **30** minutes.
 

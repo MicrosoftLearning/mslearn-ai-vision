@@ -1,33 +1,56 @@
 ---
 lab:
-    title: 'Detect Objects in Images with Azure AI Custom Vision'
+    title: 'Detect objects in images'
+    description: 'Use the Azure AI Custom Vision service to train an object detection model.'
 ---
 
-# Detect Objects in Images with Azure AI Custom Vision
+# Detect objects in images
+
+The **Azure AI Custom Vision** service enables you to create computer vision models that are trained on your own images. You can use it to train *image classification* and *object detection* models; which you can then publish and consume from applications.
 
 In this exercise, you will use the Custom Vision service to train an *object detection* model that can detect and locate three classes of fruit (apple, banana, and orange) in an image.
 
+This exercise takes approximately **45** minutes.
+
 ## Create Custom Vision resources
 
-If you already have **Custom Vision** resources for training and prediction in your Azure subscription, you can use them or an existing multi-service account in this exercise. If not, use the following instructions to create them.
+Before you can train a model, you will need Azure resources for *training* and *prediction*. You can create **Custom Vision** resources for each of these tasks, or you can create a single resource and use it for both. In this exercise, you'll create **Custom Vision** resources for training and prediction.
 
-> **Note**: If you use a multi-service account, the key and endpoint will be the same for both your training and prediction.
-
-1. In a new browser tab, open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. Select the **&#65291;Create a resource** button, search for *custom vision*, and create a **Custom Vision** resource with the following settings:
+1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials. Close any welcome messages or tips that are displayed.
+1. Select **Create a resource**.
+1. In the search bar, search for `Custom Vision`, select **Custom Vision**, and create the resource with the following settings:
     - **Create options**: Both
     - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
+    - **Resource group**: *Create or select a resource group*
     - **Region**: *Choose any available region*
-    - **Name**: *Enter a unique name*
+    - **Name**: *A valid name for your resource*
     - **Training pricing tier**: F0
     - **Prediction pricing tier**: F0
 
-    > **Note**: If you already have an F0 custom vision service in your subscription, select **S0** for this one.
+1. Create the resource and wait for deployment to complete, and then view the deployment details. Note that two Custom Vision resources are provisioned; one for training, and another for prediction.
 
-1. Wait for the resources to be created, and then view the deployment details and note that two Custom Vision resources are provisioned; one for training, and another for prediction (evident by the **-Prediction** suffix). You can view these by navigating to the resource group where you created them.
+    > **Note**: Each resource has its own *endpoint* and *keys*, which are used to manage access from your code. To train an image classification model, your code must use the *training* resource (with its endpoint and key); and to use the trained model to predict image classes, your code must use the *prediction* resource (with its endpoint and key).
 
-> **Important**: Each resource has its own *endpoint* and *keys*, which are used to manage access from your code. To train an image classification model, your code must use the *training* resource (with its endpoint and key); and to use the trained model to predict image classes, your code must use the *prediction* resource (with its endpoint and key).
+1. When the resources have been deployed, go to the resource group to view them. You should see two custom vision resources, one with the suffix ***-Prediction***.
+
+## Create a Custom Vision project in the Custom Vision portal
+
+To train an object detection model, you need to create a Custom Vision project based on your training resource. To do this, you'll use the Custom Vision portal.
+
+1. Open a new browser tab (keeping the Azure portal tab open - you'll return to it later).
+1. In the new browser tab, download the [training images](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip` and extract the zip folder to view its contents. This folder contains subfolders of apple, banana, and orange images.
+1. In the new browser tab, open the [Custom Vision portal](https://customvision.ai) at `https://customvision.ai`. If prompted, sign in using your Azure credentials and agree to the terms of service.
+1. Create a new project with the following settings:
+    - **Name**: `Detect Fruit`
+    - **Description**: `Object detection for fruit.`
+    - **Resource**: *Your Custom Vision resource*
+    - **Project Types**: Object Detection
+    - **Domains**: General
+1. Wait for the project to be created and opened in the browser.
+
+
+
+
 
 ## Clone the repository for this course
 

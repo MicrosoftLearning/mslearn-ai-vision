@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Classify images'
-    description: "Train a custom model to classify images based on their contents."
+    description: "Use the Azure AI Custom Vision service to train an image classification model."
 ---
 
 # Classify images
