@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Analyze images'
-    description: 'Use Azure AI Vision to analyze images, suggest captions and tags, and detect objects and people.'
+    description: 'Use Azure AI Vision Image Analysis to analyze images, suggest captions and tags, and detect objects and people.'
 ---
 
 # Analyze images

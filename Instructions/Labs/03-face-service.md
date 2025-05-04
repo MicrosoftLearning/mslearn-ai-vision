@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Detect and analyze faces'
-    description: 'Use the Azure AI Vision Face API to implement face detection and analysis solutions.'
+    description: 'Use the Azure AI Vision Face service to implement face detection and analysis solutions.'
 ---
 
 # Detect and analyze faces
