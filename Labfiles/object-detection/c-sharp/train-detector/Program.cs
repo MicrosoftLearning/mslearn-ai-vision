@@ -9,9 +9,7 @@ using System.Linq;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 
-// dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training --version 2.0.0
-
-namespace train_detector
+namespace add_tagged_images
 {
     class Program
     {

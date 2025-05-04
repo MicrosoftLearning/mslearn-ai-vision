@@ -38,7 +38,6 @@ Before you can train a model, you will need Azure resources for *training* and *
 To train an image classification model, you need to create a Custom Vision project based on your training resource. To do this, you'll use the Custom Vision portal.
 
 1. Open a new browser tab (keeping the Azure portal tab open - you'll return to it later).
-1. In the new browser tab, download the [training images](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip` and extract the zip folder to view its contents. This folder contains subfolders of apple, banana, and orange images.
 1. In the new browser tab, open the [Custom Vision portal](https://customvision.ai) at `https://customvision.ai`. If prompted, sign in using your Azure credentials and agree to the terms of service.
 1. In the Custom Vision portal, create a new project with the following settings:
     - **Name**: `Classify Fruit`
@@ -50,7 +49,8 @@ To train an image classification model, you need to create a Custom Vision proje
 
 ### Upload and tag images
 
-1. In the new project, click **Add images**, and select all of the files in the **training-images/apple** folder you downloaded and extracted previously. Then upload the image files, specifying the tag `apple`, like this:
+1. In a new browser tab, download the [training images](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip` and extract the zip folder to view its contents. This folder contains subfolders of apple, banana, and orange images.
+1. In the Custom Vision portal, in your image classification project, click **Add images**, and select all of the files in the **training-images/apple** folder you downloaded and extracted previously. Then upload the image files, specifying the tag `apple`, like this:
 
     ![Screenshot of uploading apple with apple tag.](../media/upload_apples.jpg)
 
@@ -109,7 +109,7 @@ The Custom Vision portal provides a convenient user interface that you can use t
 
     **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
-1. Resize the cloud shell pane so you can still see the **Overview** page for your Computer Vision resource.
+1. Resize the cloud shell pane so you can see more of it.
 
     > **Tip**" You can resize the pane by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
 

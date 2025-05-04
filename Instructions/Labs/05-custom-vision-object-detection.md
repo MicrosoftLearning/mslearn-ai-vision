@@ -38,7 +38,6 @@ Before you can train a model, you will need Azure resources for *training* and *
 To train an object detection model, you need to create a Custom Vision project based on your training resource. To do this, you'll use the Custom Vision portal.
 
 1. Open a new browser tab (keeping the Azure portal tab open - you'll return to it later).
-1. In the new browser tab, download the [training images](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/image-classification/training-images.zip` and extract the zip folder to view its contents. This folder contains subfolders of apple, banana, and orange images.
 1. In the new browser tab, open the [Custom Vision portal](https://customvision.ai) at `https://customvision.ai`. If prompted, sign in using your Azure credentials and agree to the terms of service.
 1. Create a new project with the following settings:
     - **Name**: `Detect Fruit`
@@ -48,78 +47,38 @@ To train an object detection model, you need to create a Custom Vision project b
     - **Domains**: General
 1. Wait for the project to be created and opened in the browser.
 
+## Upload and tag images
 
+Now that you have an object detection project, you can upload and tag images to train a model.
 
+### Upload and tag images in the Custom Vision portal
 
+The Custom Vision portal includes visual tools that you can use to upload images and tag regions within them that contain multiple types of object.
 
-## Clone the repository for this course
-
-You'll develop your code using Cloud Shell from the Azure Portal. The code files for your app have been provided in a GitHub repo.
-
-> **Tip**: If you have already cloned the **mslearn-ai-vision** repo recently, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
-
-1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
-
-    > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
-
-1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
-
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
-
-1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
-
-    ```
-    rm -r mslearn-ai-vision -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-vision mslearn-ai-vision
-    ```
-
-1. After the repo has been cloned, navigate to the folder containing the application code files:  
-
-    ```
-   cd mslearn-ai-vision/Labfiles/03-object-detection
-    ```
-
-## Create a Custom Vision project
-
-To train an object detection model, you need to create a Custom Vision project based on your training resource. To do this, you'll use the Custom Vision portal.
-
-1. In a new browser tab, open the Custom Vision portal at `https://customvision.ai`, and sign in using the Microsoft account associated with your Azure subscription.
-1. Create a new project with the following settings:
-    - **Name**: Detect Fruit
-    - **Description**: Object detection for fruit.
-    - **Resource**: *The Custom Vision resource you created previously*
-    - **Project Types**: Object Detection
-    - **Domains**: General
-1. Wait for the project to be created and opened in the browser.
-
-## Add and tag images
-
-To train an object detection model, you need to upload images that contain the classes you want the model to identify, and tag them to indicate bounding boxes for each object instance.
-
-1. Download the training images from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/03-object-detection/training-images.zip` and extract the zip folder to view its contents. This folder contains images of fruit.
+1. In a new browser tab, download the [training images](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/object-detection/training-images.zip) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/main/Labfiles/object-detection/training-images.zip` and extract the zip folder to view its contents. This folder contains images of fruit.
 1. In the Custom Vision portal, in your object detection project, select **Add images** and upload all of the images in the extracted folder.
 1. After the images have been uploaded, select the first one to open it.
 1. Hold the mouse over any object in the image until an automatically detected region is displayed like the image below. Then select the object, and if necessary resize the region to surround it.
 
-    ![The default region for an object](../media/object-region.jpg)
+    ![Screenshot of the default region for an object.](../media/object-region.jpg)
 
     Alternatively, you can simply drag around the object to create a region.
 
 1. When the region surrounds the object, add a new tag with the appropriate object type (*apple*, *banana*, or *orange*) as shown here:
 
-    ![A tagged object in an image](../media/object-tag.jpg)
+    ![Screenshot of a tagged object in an image.](../media/object-tag.jpg)
 
 1. Select and tag each other object in the image, resizing the regions and adding new tags as required.
 
-    ![Two tagged objects in an image](../media/object-tags.jpg)
+    ![Screenshot of two tagged objects in an image.](../media/object-tags.jpg)
 
 1. Use the **>** link on the right to go to the next image, and tag its objects. Then just keep working through the entire image collection, tagging each apple, banana, and orange.
 
 1. When you have finished tagging the last image, close the **Image Detail** editor. On the **Training Images** page, under **Tags**, select **Tagged** to see all of your tagged images:
 
-![Tagged images in a project](../media/tagged-images.jpg)
+![Screenshot of tagged images in a project.](../media/tagged-images.jpg)
 
-## Use the Training API to upload images
+### Use the Custom Vision SDK to upload images
 
 You can use the UI in the Custom Vision portal to tag your images, but many AI development teams use other tools that generate files containing information about tags and object regions in images. In scenarios like this, you can use the Custom Vision training API to upload tagged images to the project.
 
@@ -127,34 +86,66 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 1. Click the *settings* (&#9881;) icon at the top right of the **Training Images** page in the Custom Vision portal to view the project settings.
 1. Under **General** (on the left), note the **Project Id** that uniquely identifies this project.
-1. On the right, under **Resources** note that the key and endpoint are shown. These are the details for the *training* resource (you can also obtain this information by viewing the resource in the Azure portal).
-1. Back in the Azure Portal, run the command `cd C-Sharp/train-detector` or `cd Python/train-detector` depending on your language preference.
-1. Install the Custom Vision Training package by running the appropriate command for your language preference:
+1. On the right, under **Resources** note that the **Key** and **Endpoint** are shown. These are the details for the *training* resource (you can also obtain this information by viewing the resource in the Azure portal).
+1. Return to the browser tab containing the Azure portal (keeping the Custom Vision portal tab open - you'll return to it later).
+1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment with no storage in your subscription.
 
-    **C#**
+    The cloud shell provides a command-line interface in a pane at the bottom of the Azure portal. You can resize or maximize this pane to make it easier to work in.
+
+    > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
+
+1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
+
+    **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
+
+1. Resize the cloud shell pane so you can see more of it.
+
+    > **Tip**" You can resize the pane by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
+
+1. In the cloud shell pane, enter the following commands to clone the GitHub repo containing the code files for this exercise (type the command, or copy it to the clipboard and then right-click in the command line and paste as plain text):
 
     ```
-   dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training --version 2.0.0
+    rm -r mslearn-ai-vision -f
+    git clone https://github.com/MicrosoftLearning/mslearn-ai-vision
     ```
+
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+
+1. After the repo has been cloned, use the following commands to navigate to and view he language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):
 
     **Python**
 
     ```
-   pip install azure-cognitiveservices-vision-customvision==3.1.1
+   cd mslearn-ai-vision/Labfiles/object-detection/python/train-detector
+   ls -a -l
     ```
-
-1. Using the `ls` command, you can view the contents of the **train-detector** folder. Note that it contains a file for configuration settings:
-
-    - **C#**: appsettings.json
-    - **Python**: .env
-
-1. Enter the following command to edit the configuration file that has been provided:
 
     **C#**
 
     ```
-   code appsettings.json
+   cd mslearn-ai-vision/Labfiles/object-detection/c-sharp/train-detector
+   ls -a -l
     ```
+
+    The folder contains application configuration and code files for your app. It also contains a **tagged-images.json** file which contains bounding box coordinates for objects in multiple images, and an **/images** subfolder, which contains the images.
+
+1. Install the Azure AI Custom Vision SDK package for training and any other required packages by running the appropriate commands for your language preference:
+
+    **Python**
+
+    ```
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
+   pip install dotenv azure-cognitiveservices-vision-customvision
+    ```
+
+    **C#**
+
+    ```
+   dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training
+    ```
+
+1. Enter the following command to edit the configuration file for your app:
 
     **Python**
 
@@ -162,42 +153,64 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
    code .env
     ```
 
+    **C#**
+
+    ```
+   code appsettings.json
+    ```
+
     The file is opened in a code editor.
 
-1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Custom Vision *training* resource, and the project ID for the object detection project you created previously.
-1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
-1. Run `code tagged-images.json` to open the file and examine the JSON it contains. The JSON defines a list of images, each containing one or more tagged regions. Each tagged region includes a tag name, and the top and left coordinates and width and height dimensions of the bounding box containing the tagged object.
+1. In the code file, update the configuration values it contains to reflect the **Endpoint** and an authentication **Key** for your Custom Vision *training* resource, and the **Project ID** for the custom vision project you created previously.
+1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
+1. In the cloud shell command line, enter the following command to open the **tagged-images.json** file to see the tagging information for the image files in the **/images** subfolder:
+
+    ```
+   code tagged-images.json
+    ```
+    
+     JSON defines a list of images, each containing one or more tagged regions. Each tagged region includes a tag name, and the top and left coordinates and width and height dimensions of the bounding box containing the tagged object.
 
     > **Note**: The coordinates and dimensions in this file indicate relative points on the image. For example, a *height* value of 0.7 indicates a box that is 70% of the height of the image. Some tagging tools generate other formats of file in which the coordinate and dimension values represent pixels, inches, or other units of measurements.
 
-1. Note that the **train-detector** folder contains a subfolder in which the image files referenced in the JSON file are stored.
+1. Close the JSOn file without saving any changes (*CTRL_Q*).
 
-1. Note that the **train-detector** folder contains a code file for the client application:
+1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
-    - **C#**: Program.cs
-    - **Python**: train-detector.py
+    **Python**
 
-    Open the code file and review the code it contains, noting the following details:
-    - Namespaces from the package you installed are imported
+    ```
+   code add-tagged-images.py
+    ```
+
+    **C#**
+
+    ```
+   code Program.cs
+    ```
+
+1. Note the following details in the code file:
+    - The namespaces for the Azure AI Custom Vision SDK are imported.
     - The **Main** function retrieves the configuration settings, and uses the key and endpoint to create an authenticated **CustomVisionTrainingClient**, which is then used with the project ID to create a **Project** reference to your project.
     - The **Upload_Images** function extracts the tagged region information from the JSON file and uses it to create a batch of images with regions, which it then uploads to the project.
 
-1. Run the following command to run the program:
-    
+1. Close the code editor (*CTRL+Q*) and enter the following command to run the program:
+
+    **Python**
+
+    ```
+   python add-tagged-images.py
+    ```
+
     **C#**
-    
+
     ```
    dotnet run
     ```
-    
-    **Python**
-    
-    ```
-   python train-detector.py
-    ```
-    
+
 1. Wait for the program to end. Then return to your browser and view the **Training Images** page for your project in the Custom Vision portal (refreshing the browser if necessary).
 1. Verify that some new tagged images have been added to the project.
+
 
 ## Train and test a model
 
@@ -205,7 +218,7 @@ Now that you've tagged the images in your project, you're ready to train a model
 
 1. In the Custom Vision project, click **Train** to train an object detection model using the tagged images. Select the **Quick Training** option.
 1. Wait for training to complete (it might take ten minutes or so), and then review the *Precision*, *Recall*, and *mAP* performance metrics - these measure the prediction accuracy of the classification model, and should all be high.
-1. At the top right of the page, click **Quick Test**, and then in the **Image URL** box, enter `https://aka.ms/apple-orange` and view the prediction that is generated. Then close the **Quick Test** window.
+1. At the top right of the page, click **Quick Test**, and then in the **Image URL** box, enter `https://aka.ms/test-fruit` and view the prediction that is generated. Then close the **Quick Test** window.
 
 ## Publish the object detection model
 
