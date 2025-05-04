@@ -33,7 +33,7 @@ Let's start by creating an Azure AI Foundry project.
 1. Select **Next** and review your configuration. Then select **Create** and wait for the process to complete.
 1. When your project is created, close any tips that are displayed and review the project page in Azure AI Foundry portal, which should look similar to the following image:
 
-    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](../media/ai-foundry-project.png)
+    ![Screenshot of Azure AI project details in Azure AI Foundry portal.](../media/ai-foundry-project.png)
 
 ## Deploy a DALL-E model
 
