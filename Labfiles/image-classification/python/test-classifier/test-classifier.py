@@ -5,6 +5,9 @@ import os
 def main():
     from dotenv import load_dotenv
 
+    # Clear the console
+    os.system('cls' if os.name=='nt' else 'clear')
+
     try:
         # Get Configuration Settings
         load_dotenv()

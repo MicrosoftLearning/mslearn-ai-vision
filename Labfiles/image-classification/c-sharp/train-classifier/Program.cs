@@ -16,6 +16,9 @@ namespace train_classifier
 
         static void Main(string[] args)
         {
+            // Clear the console
+            Console.Clear();
+            
             // Get Configuration Settings
             IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
             IConfigurationRoot configuration = builder.Build();

@@ -13,6 +13,9 @@ namespace test_classifier
 
         static void Main(string[] args)
         {
+            // Clear the console
+            Console.Clear();
+            
             try
             {
                 // Get Configuration Settings
