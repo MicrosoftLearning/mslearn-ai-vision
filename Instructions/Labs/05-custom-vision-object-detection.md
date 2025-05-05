@@ -253,7 +253,7 @@ Now that you've published the image classification model, you can use it from a 
    ls -a -l
     ```
 
-    The folder contains application configuration and code files for your app. It also contains the following **product.jpg** image file, which you'll use to test your model.
+    The folder contains application configuration and code files for your app. It also contains the following **produce.jpg** image file, which you'll use to test your model.
 
     ![Image of some fruit.](../media/produce.jpg)
 
