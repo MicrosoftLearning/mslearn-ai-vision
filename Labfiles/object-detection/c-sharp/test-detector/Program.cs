@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Drawing;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using SkiaSharp;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 
 namespace test_detector
 {
@@ -36,50 +37,81 @@ namespace test_detector
 
                 // Load the image and prepare for drawing
                 String image_file = "produce.jpg";
-                Image image = Image.FromFile(image_file);
-                int h = image.Height;
-                int w = image.Width;
-                Graphics graphics = Graphics.FromImage(image);
-                Pen pen = new Pen(Color.Magenta, 3);
-                Font font = new Font("Arial", 16);
-                SolidBrush brush = new SolidBrush(Color.Black);
+                MemoryStream image_data = new MemoryStream(File.ReadAllBytes(image_file));
+                // Make a prediction against the new project
+                Console.WriteLine("Detecting objects in " + image_file);
+                var result = prediction_client.DetectImage(project_id, model_name, image_data);
 
-                using (var image_data = File.OpenRead(image_file))
+                // Loop over each prediction
+                foreach (var prediction in result.Predictions)
                 {
-                    // Make a prediction against the new project
-                    Console.WriteLine("Detecting objects in " + image_file);
-                    var result = prediction_client.DetectImage(project_id, model_name, image_data);
-
-                    // Loop over each prediction
-                    foreach (var prediction in result.Predictions)
+                    // Get each prediction with a probability > 50%
+                    if (prediction.Probability > 0.5)
                     {
-                        // Get each prediction with a probability > 50%
-                        if (prediction.Probability > 0.5)
-                        {
-                            // The bounding box sizes are proportional - convert to absolute
-                            int left = Convert.ToInt32(prediction.BoundingBox.Left * w);
-                            int top = Convert.ToInt32(prediction.BoundingBox.Top * h);
-                            int height = Convert.ToInt32(prediction.BoundingBox.Height * h);
-                            int width =  Convert.ToInt32(prediction.BoundingBox.Width * w);
-                            // Draw the bounding box
-                            Rectangle rect = new Rectangle(left, top, width, height);
-                            graphics.DrawRectangle(pen, rect);
-                            // Annotate with the predicted label
-                            graphics.DrawString(prediction.TagName,font,brush,left,top);
-                
-                        }
+                        Console.WriteLine($"{prediction.TagName}");
+            
                     }
                 }
-                // Save the annotated image
-                String output_file = "output.jpg";
-                image.Save(output_file);
-                Console.WriteLine("Results saved in " + output_file);
+
+                SaveTaggedImage(image_file, result.Predictions);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
 
+        }
+
+        static void SaveTaggedImage(string sourcePath, IList<PredictionModel> detectedObjects)
+        {
+            // Load the image using SkiaSharp
+            using SKBitmap bitmap = SKBitmap.Decode(sourcePath);
+            int w = bitmap.Width;
+            int h = bitmap.Height;
+            using SKCanvas canvas = new SKCanvas(bitmap);
+
+            // Set up paint styles for drawing
+            SKPaint rectPaint = new SKPaint
+            {
+                Color = SKColors.LightGreen,
+                StrokeWidth = 3,
+                Style = SKPaintStyle.Stroke,
+                IsAntialias = true
+            };
+
+            SKPaint textPaint = new SKPaint
+            {
+                Color = SKColors.White,
+                IsAntialias = true
+            };
+
+            SKFont textFont = new SKFont(SKTypeface.Default,24,1,0);
+
+            // Loop over each prediction
+            foreach (var detectedObject in detectedObjects)
+            {
+                // Show each prediction with a probability > 50%
+                if (detectedObject.Probability > 0.5)
+                {
+                    // The bounding box sizes are proportional - convert to absolute
+                    int left = Convert.ToInt32(detectedObject.BoundingBox.Left * w);
+                    int top = Convert.ToInt32(detectedObject.BoundingBox.Top * h);
+                    int height = Convert.ToInt32(detectedObject.BoundingBox.Height * h);
+                    int width =  Convert.ToInt32(detectedObject.BoundingBox.Width * w);
+                    SKRect rect = new SKRect(left, top, left + width, top + height);
+                    canvas.DrawRect(rect, rectPaint);
+                    canvas.DrawText(detectedObject.TagName, left, top, SKTextAlign.Left, textFont, textPaint);
+        
+                }
+            }
+
+            // Save annotated image
+            var outputFile = "output.jpg";
+            using (SKFileWStream output = new SKFileWStream(outputFile))
+            {
+                bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
+            }
+            Console.WriteLine($"Results saved in {outputFile}\n"); 
         }
     }
 }

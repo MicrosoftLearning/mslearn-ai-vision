@@ -84,8 +84,6 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 > **Note**: In this exercise, you can choose to use the API from either the **C#** or **Python** SDK. In the steps below, perform the actions appropriate for your preferred language.
 
-***NOTE - C# VERSION CURRENTLY FAILS - UPDATES IN DEVELOPMENT***
-
 1. Click the *settings* (&#9881;) icon at the top right of the **Training Images** page in the Custom Vision portal to view the project settings.
 1. Under **General** (on the left), note the **Project Id** that uniquely identifies this project.
 1. On the right, under **Resources** note that the **Key** and **Endpoint** are shown. These are the details for the *training* resource (you can also obtain this information by viewing the resource in the Azure portal).
@@ -206,8 +204,6 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
     **C#**
 
-***NOTE - C# VERSION CURRENTLY FAILS - UPDATES IN DEVELOPMENT***
-
     ```
    dotnet run
     ```
@@ -275,8 +271,6 @@ Now that you've published the image classification model, you can use it from a 
 
     ```
    dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction
-   dotnet add package SkiaSharp --version 3.116.1
-   dotnet add package SkiaSharp.NativeAssets.Linux --version 3.116.1
     ```
 
 1. Enter the following command to edit the configuration file for your app:
