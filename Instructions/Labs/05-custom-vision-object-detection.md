@@ -319,8 +319,6 @@ Now that you've published the image classification model, you can use it from a 
 
     **C#**
 
-    ***NOTE - C# VERSION CURRENTLY FAILS - UPDATES IN DEVELOPMENT***
-
     ```
    dotnet run
     ```
