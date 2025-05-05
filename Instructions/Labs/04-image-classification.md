@@ -147,7 +147,7 @@ The Custom Vision portal provides a convenient user interface that you can use t
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install dotenv azure-cognitiveservices-vision-customvision
+   pip install -r requirements.txt azure-cognitiveservices-vision-customvision
     ```
 
     **C#**
@@ -246,7 +246,7 @@ Now you're ready to publish your trained model and use it in a client applicatio
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install dotenv azure-cognitiveservices-vision-customvision
+   pip install -r requirements.txt azure-cognitiveservices-vision-customvision
     ```
 
     **C#**
