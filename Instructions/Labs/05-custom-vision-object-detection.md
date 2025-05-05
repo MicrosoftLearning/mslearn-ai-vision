@@ -136,7 +136,7 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install dotenv azure-cognitiveservices-vision-customvision
+   pip install -r requirements.txt azure-cognitiveservices-vision-customvision
     ```
 
     **C#**
@@ -264,7 +264,7 @@ Now that you've published the image classification model, you can use it from a 
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install dotenv matplotlib azure-cognitiveservices-vision-customvision
+   pip install -r requirements.txt azure-cognitiveservices-vision-customvision
     ```
 
     **C#**

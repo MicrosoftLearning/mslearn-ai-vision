@@ -35,11 +35,10 @@ namespace test_detector
                     Endpoint = prediction_endpoint
                 };
 
-                // Load the image and prepare for drawing
+                // Detect objects in the image
                 String image_file = "produce.jpg";
-                MemoryStream image_data = new MemoryStream(File.ReadAllBytes(image_file));
-                // Make a prediction against the new project
                 Console.WriteLine("Detecting objects in " + image_file);
+                MemoryStream image_data = new MemoryStream(File.ReadAllBytes(image_file));
                 var result = prediction_client.DetectImage(project_id, model_name, image_data);
 
                 // Loop over each prediction
@@ -53,6 +52,7 @@ namespace test_detector
                     }
                 }
 
+                // Create and save an annotated image
                 SaveTaggedImage(image_file, result.Predictions);
             }
             catch (Exception ex)
@@ -100,7 +100,8 @@ namespace test_detector
                     int width =  Convert.ToInt32(detectedObject.BoundingBox.Width * w);
                     SKRect rect = new SKRect(left, top, left + width, top + height);
                     canvas.DrawRect(rect, rectPaint);
-                    canvas.DrawText(detectedObject.TagName, left, top, SKTextAlign.Left, textFont, textPaint);
+                    string annotation = $"{detectedObject.TagName} ({detectedObject.Probability.ToString("P2")})";
+                    canvas.DrawText(annotation, left, top, SKTextAlign.Left, textFont, textPaint);
         
                 }
             }
