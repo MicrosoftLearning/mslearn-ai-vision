@@ -16,7 +16,7 @@ def main():
         project_id = os.getenv('ProjectID')
         model_name = os.getenv('ModelName')
 
-        # Authenticate a client for the training API
+        # Authenticate a client for the prediction API
         credentials = ApiKeyCredentials(in_headers={"Prediction-key": prediction_key})
         prediction_client = CustomVisionPredictionClient(endpoint=prediction_endpoint, credentials=credentials)
 
