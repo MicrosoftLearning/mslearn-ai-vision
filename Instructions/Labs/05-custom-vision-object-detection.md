@@ -323,6 +323,7 @@ Now that you've published the image classification model, you can use it from a 
    dotnet run
     ```
 
+1. Review the program output, which lists each object detected in the image.
 1. Note that an image file named **output.jpg** is generated. Use the (Azure cloud shell-specific) **download** command to download it:
 
     ```
