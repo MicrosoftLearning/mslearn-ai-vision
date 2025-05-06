@@ -62,7 +62,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-1. After the repo has been cloned, use the following commands to navigate to and view he language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):   
+1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):   
 
     **Python**
 
