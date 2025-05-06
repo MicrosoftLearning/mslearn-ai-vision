@@ -93,7 +93,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
     
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
+   dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
     ``` 
 
 1. Enter the following command to edit the configuration file for your app:
