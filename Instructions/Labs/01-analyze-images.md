@@ -151,23 +151,7 @@ In this exercise, you'll complete a partially implemented client application tha
    using Azure.AI.Vision.ImageAnalysis;
     ```
 
-1. Find the comment **Declare variable for Azure AI Vision client**, and add the following code:
-
-    **Python**
-    
-    ```python
-   # Declare variable for Azure AI Vision client
-   global cv_client
-    ```
-
-    **C#**
-    
-    ```csharp
-   // Declare variable for Azure AI Vision client
-   private static ImageAnalysisClient client;
-    ```
-
-1. In the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following code to create and authenticate a Azure AI Vision client object (be sure to maintain the correct indentation levels):
+1. In the **Main** function, note that the code to load the configuration settings and determine the image file to be analyzed has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following code to create and authenticate a Azure AI Vision client object (be sure to maintain the correct indentation levels):
 
     **Python**
     
@@ -182,19 +166,21 @@ In this exercise, you'll complete a partially implemented client application tha
     
     ```csharp
    // Authenticate Azure AI Vision client
-   client = new ImageAnalysisClient(
+   ImageAnalysisClient client = new ImageAnalysisClient(
         new Uri(aiSvcEndpoint),
         new AzureKeyCredential(aiSvcKey));
     ```
 
-1. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to another function (**AnalyzeImage**). This function is not yet fully implemented.
-
-1. In the **AnalyzeImage** function, find the comment **Get result with specify features to be retrieved** and add the following code:
+1. In the **Main** function, under the code you just added, find the comment **Analyze image** and add the following code:
 
     **Python**
 
     ```python
-   # Get result with specified features to be retrieved
+   # Analyze image
+   with open(image_file, "rb") as f:
+        image_data = f.read()
+   print(f'\nAnalyzing {image_file}\n')
+
    result = cv_client.analyze(
         image_data=image_data,
         visual_features=[
@@ -209,7 +195,10 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
 
     ```csharp
-   // Get result with specified features to be retrieved
+   // Analyze image
+   using FileStream stream = new FileStream(imageFile, FileMode.Open);
+   Console.WriteLine($"\nAnalyzing {imageFile} \n");
+
    ImageAnalysisResult result = client.Analyze(
         BinaryData.FromStream(stream),
         VisualFeatures.Caption | 
@@ -218,61 +207,40 @@ In this exercise, you'll complete a partially implemented client application tha
         VisualFeatures.Tags |
         VisualFeatures.People);
     ```
-    
-1. In the **AnalyzeImage** function, under the comment **Display analysis results**, add the following code (including the comments indicating where you will add more code later.):
+
+1. Find the comment **Get image captions**, add the following code to display image captions and dense captions:
 
     **Python**
 
     ```python
-   # Display analysis results
    # Get image captions
    if result.caption is not None:
         print("\nCaption:")
         print(" Caption: '{}' (confidence: {:.2f}%)".format(result.caption.text, result.caption.confidence * 100))
     
-   # Get image dense captions
    if result.dense_captions is not None:
         print("\nDense Captions:")
         for caption in result.dense_captions.list:
             print(" Caption: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
-    
-   # Get image tags
-    
-    
-   # Get objects in the image
-    
-    
-   # Get people in the image
-    
     ```
 
     **C#**
     
     ```csharp
-   // Display analysis results
    // Get image captions
    if (result.Caption.Text != null)
    {
-        Console.WriteLine(" Caption:");
+        Console.WriteLine("\nCaption:");
         Console.WriteLine($"   \"{result.Caption.Text}\", Confidence {result.Caption.Confidence:0.00}\n");
    }
-    
-   // Get image dense captions
+
    Console.WriteLine(" Dense Captions:");
    foreach (DenseCaption denseCaption in result.DenseCaptions.Values)
    {
         Console.WriteLine($"   Caption: '{denseCaption.Text}', Confidence: {denseCaption.Confidence:0.00}");
    }
-    
-   // Get image tags
-    
-    
-   // Get objects in the image
-    
-    
-   // Get people in the image
     ```
-    
+
 1. Save your changes (*CTRL+S*) and resize the panes so you can clearly see the command line console while keeping the code editor open. Then enter the following command to run the program with the argument **images/street.jpg**:
 
     **Python**
@@ -324,7 +292,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
         Console.WriteLine($"\n Tags:");
         foreach (DetectedTag tag in result.Tags.Values)
         {
-            Console.WriteLine($"   '{tag.Name}', Confidence: {tag.Confidence:F2}");
+            Console.WriteLine($"   '{tag.Name}', Confidence: {tag.Confidence:P2}");
         }
    }
     ```
@@ -334,7 +302,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 ### Add code to detect and locate objects
 
-1. In the code editor, in the **AnalyzeImage** function, find the comment **Get objects in the image** and add the following code:
+1. In the code editor, in the **AnalyzeImage** function, find the comment **Get objects in the image** and add the following code to list the objects detected in the image, and call the provided function to annotate an image with the detected objects:
 
     **Python**
 
@@ -342,30 +310,11 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
    # Get objects in the image
    if result.objects is not None:
         print("\nObjects in image:")
-    
-        # Prepare image for drawing
-        image = Image.open(image_filename)
-        fig = plt.figure(figsize=(image.width/100, image.height/100))
-        plt.axis('off')
-        draw = ImageDraw.Draw(image)
-        color = 'cyan'
-    
         for detected_object in result.objects.list:
-            # Print object name
+            # Print object tag and confidence
             print(" {} (confidence: {:.2f}%)".format(detected_object.tags[0].name, detected_object.tags[0].confidence * 100))
-            
-            # Draw object bounding box
-            r = detected_object.bounding_box
-            bounding_box = ((r.x, r.y), (r.x + r.width, r.y + r.height)) 
-            draw.rectangle(bounding_box, outline=color, width=3)
-            plt.annotate(detected_object.tags[0].name,(r.x, r.y), backgroundcolor=color)
-    
-        # Save annotated image
-        plt.imshow(image)
-        plt.tight_layout(pad=0)
-        objectfile = 'objects.jpg'
-        fig.savefig(objectfile)
-        print('  Results saved in', objectfile)
+        # Annotate objects in the image
+        show_objects(image_file, result.objects.list)
     ```
 
     **C#**
@@ -374,46 +323,15 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
    // Get objects in the image
    if (result.Objects.Values.Count > 0)
    {
-        Console.WriteLine(" Objects:");
-
-        // Load the image using SkiaSharp
-        using SKBitmap bitmap = SKBitmap.Decode(imageFile);
-        using SKCanvas canvas = new SKCanvas(bitmap);
-
-        // Set up styles for drawing
-        SKPaint paint = new SKPaint
-        {
-            Color = SKColors.Cyan,
-            StrokeWidth = 3,
-            Style = SKPaintStyle.Stroke
-        };
-
-        SKPaint textPaint = new SKPaint
-        {
-            Color = SKColors.Cyan,
-            IsAntialias = true
-        };
-
-        SKFont textFont = new SKFont(SKTypeface.Default,24,1,0);
-
+        Console.WriteLine("\nObjects:");
         foreach (DetectedObject detectedObject in result.Objects.Values)
         {
-            Console.WriteLine($"   \"{detectedObject.Tags[0].Name}\"");
-
-            // Draw object bounding box
-            var r = detectedObject.BoundingBox;
-            SKRect rect = new SKRect(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
-            canvas.DrawRect(rect, paint);
-
-            // Draw label
-            canvas.DrawText(detectedObject.Tags[0].Name, r.X, r.Y - 5, SKTextAlign.Left, textFont, textPaint);
+            // PPrint object tag and confidence
+            Console.WriteLine($"  {detectedObject.Tags[0].Name} ({detectedObject.Tags[0].Confidence:P2})");
         }
+        // Annotate objects in the image
+        await ShowObjects(imageFile, result.Objects);
 
-        // Save the annotated image
-        var objectFile = "objects.jpg";
-        using SKFileWStream output = new SKFileWStream(objectFile);
-        bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-        Console.WriteLine($"  Results saved in {objectFile}\n");
    }
     ```
 
@@ -432,7 +350,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 ### Add code to detect and locate people
 
-1. In the code editor, in the **AnalyzeImage** function, find the comment **Get people in the image** and add the following code:
+1. In the code editor, in the **AnalyzeImage** function, find the comment **Get people in the image** and add the following code to list any detected people with a confidence level of 20% or more, and call a provided function to annotate them in an image:
 
     **Python**
 
@@ -440,29 +358,13 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
    # Get people in the image
    if result.people is not None:
         print("\nPeople in image:")
-    
-        # Prepare image for drawing
-        image = Image.open(image_filename)
-        fig = plt.figure(figsize=(image.width/100, image.height/100))
-        plt.axis('off')
-        draw = ImageDraw.Draw(image)
-        color = 'cyan'
-    
-        for detected_people in result.people.list:
-            # Draw object bounding box
-            r = detected_people.bounding_box
-            bounding_box = ((r.x, r.y), (r.x + r.width, r.y + r.height))
-            draw.rectangle(bounding_box, outline=color, width=3)
-    
-            # Print location and confidence of each person detected
-            print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
-            
-        # Save annotated image
-        plt.imshow(image)
-        plt.tight_layout(pad=0)
-        peoplefile = 'people.jpg'
-        fig.savefig(peoplefile)
-        print('  Results saved in', peoplefile)
+
+        for detected_person in result.people.list:
+            if detected_person.confidence > 0.2:
+                # Print location and confidence of each person detected
+                print(" {} (confidence: {:.2f}%)".format(detected_person.bounding_box, detected_person.confidence * 100))
+        # Annotate people in the image
+        show_people(image_file, result.people.list)
     ```
 
     **C#**
@@ -473,32 +375,16 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
    {
         Console.WriteLine($" People:");
 
-        using SKBitmap bitmap = SKBitmap.Decode(imageFile);
-        using SKCanvas canvas = new SKCanvas(bitmap);
-
-        SKPaint paint = new SKPaint
-        {
-            Color = SKColors.Cyan,
-            StrokeWidth = 3,
-            Style = SKPaintStyle.Stroke
-        };
-
         foreach (DetectedPerson person in result.People.Values)
         {
-            // Draw bounding box
-            var r = person.BoundingBox;
-            SKRect rect = new SKRect(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
-            canvas.DrawRect(rect, paint);
-
             // Print location and confidence of each person detected
-            Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence: {person.Confidence:F2}");
+            if (person.Confidence > 0.2)
+            {
+                Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence: {person.Confidence:P2}");
+            }
         }
-
-        // Save the annotated image
-        var peopleFile = "people.jpg";
-        using SKFileWStream output = new SKFileWStream(peopleFile);
-        bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-        Console.WriteLine($"  Results saved in {peopleFile}\n");
+        // Annotate people in the image
+        await ShowPeople(imageFile, result.People);
    }
     ```
 
