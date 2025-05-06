@@ -87,15 +87,13 @@ In this exercise, you'll complete a partially implemented client application tha
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install dotenv pillow matplotlib azure-ai-vision-imageanalysis==1.0.0
+   pip install -r requirements.txt azure-ai-vision-imageanalysis==1.0.0
     ```
 
     **C#**
     
     ```
     dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
-    dotnet add package SkiaSharp --version 3.116.1
-    dotnet add package SkiaSharp.NativeAssets.Linux --version 3.116.1
     ``` 
 
 1. Enter the following command to edit the configuration file for your app:

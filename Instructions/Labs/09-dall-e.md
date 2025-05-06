@@ -112,7 +112,7 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install python-dotenv azure-identity azure-ai-projects openai requests
+   pip install -r requirements.txt azure-identity azure-ai-projects openai requests
     ```
 
     **C#**
