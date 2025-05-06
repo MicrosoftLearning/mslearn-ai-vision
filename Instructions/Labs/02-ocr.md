@@ -29,7 +29,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 1. Select the required checkboxes and create the resource.
 1. Wait for deployment to complete, and then view the deployment details.
-1. When the resource has been deployed, go to it and view the **Keys and Endpoint** section on its **Overview** page. You will need the endpoint and one of the keys from this page in the next procedure.
+1. When the resource has been deployed, go to it and under the **Resource management** node in the navigation pane, view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in the next procedure.
 
 ## Develop a text extraction app with the Azure AI Vision SDK
 
@@ -49,7 +49,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
-1. Resize the cloud shell pane so you can still see the **Overview** page for your Computer Vision resource.
+1. Resize the cloud shell pane so you can still see the **Keys and Endpoint** page for your Computer Vision resource.
 
     > **Tip**" You can resize the pane by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
 
@@ -62,7 +62,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):   
+1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):
 
     **Python**
 
@@ -112,7 +112,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The file is opened in a code editor.
 
-1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Computer Vision resource (copied from its **Overview** page in the Azure portal).
+1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Computer Vision resource (copied from its **Keys and Endpoint** page in the Azure portal).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ### Add code to read text from an image

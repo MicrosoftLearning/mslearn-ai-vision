@@ -16,7 +16,7 @@ This exercise takes approximately **30** minutes.
 
 If you don't already have one in your subscription, you'll need to provision an Azure AI Face API resource.
 
-> **Note**: In this exercise, you'll use a standalone **Computer Vision** resource. You can also use Azure AI Face services in an *Azure AI Services* multi-service resource, either directly or in an *Azure AI Foundry* project.
+> **Note**: In this exercise, you'll use a standalone **Face** resource. You can also use Azure AI Face services in an *Azure AI Services* multi-service resource, either directly or in an *Azure AI Foundry* project.
 
 1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials. Close any welcome messages or tips that are displayed.
 1. Select **Create a resource**.
@@ -48,7 +48,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
-1. Resize the cloud shell pane so you can still see the **Overview** page for your Computer Vision resource.
+1. Resize the cloud shell pane so you can still see the **Keys and Endpoint** page for your Computer Vision resource.
 
     > **Tip**" You can resize the pane by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
 
@@ -111,7 +111,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The file is opened in a code editor.
 
-1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Computer Vision resource (copied from its **Overview** page in the Azure portal).
+1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Computer Vision resource (copied from its **Keys and Endpoint** page in the Azure portal).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ### Add code to create a Face API client
