@@ -2,6 +2,9 @@ $account_id="YOUR_ACCOUNT_ID"
 $api_key="YOUR_API_KEY"
 $location="trial"
 
+# Clear the console window
+cls
+
 # Call the AccessToken method with the API key in the header to get an access token
 $token = Invoke-RestMethod -Method "Get" -Uri "https://api.videoindexer.ai/auth/$location/Accounts/$account_id/AccessToken" -Headers @{'Ocp-Apim-Subscription-Key' = $api_key}
 

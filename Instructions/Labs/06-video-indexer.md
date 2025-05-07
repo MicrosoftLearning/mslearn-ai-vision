@@ -65,68 +65,39 @@ You can use Video Indexer to search the video for insights.
 
 ![Video Indexer search results for Bee](../media/video-indexer-search.png)
 
-## Clone the repository for this course
+## Use the Video Indexer REST API
 
-You'll run scripts for this lab using Cloud Shell from the Azure Portal. The files have been provided in a GitHub repo.
+Video Indexer provides a REST API that you can use to upload and manage videos in your account.
 
-> **Tip**: If you have already cloned the **mslearn-ai-vision** repo recently, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
+1. In a new browser tab, open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using your Azure credentials. Keep the existing tab with the Video Indexer portal open.
+1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment with no storage in your subscription.
 
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
+    The cloud shell provides a command-line interface in a pane at the bottom of the Azure portal. You can resize or maximize this pane to make it easier to work in.
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
-1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
+1. Resize the cloud shell pane so you can see more of it.
+
+    > **Tip**" You can resize the pane by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
+
+1. In the cloud shell pane, enter the following commands to clone the GitHub repo containing the code files for this exercise (type the command, or copy it to the clipboard and then right-click in the command line and paste as plain text):
 
     ```
     rm -r mslearn-ai-vision -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-vision mslearn-ai-vision
+    git clone https://github.com/MicrosoftLearning/mslearn-ai-vision
     ```
 
-1. After the repo has been cloned, navigate to the folder containing the application code files:  
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+
+1. After the repo has been cloned, navigate to the folder containing the application code file for this exercise:  
 
     ```
-   cd mslearn-ai-vision/Labfiles/06-video-indexer
+   cd mslearn-ai-vision/Labfiles/video-indexer
     ```
-
-## Use Video Indexer widgets
-
-The Video Indexer portal is a useful interface to manage video indexing projects. However, there may be occasions when you want to make the video and its insights available to people who don't have access to your Video Indexer account. Video Indexer provides widgets that you can embed in a web page for this purpose.
-
-1. Using the `ls` command, you can view the contents of the **06-video-indexer** folder. Note that it contains a **analyze-video.html** file. This is a basic HTML page to which you will add the Video Indexer **Player** and **Insights** widgets.
-1. Enter the following command to edit the file:
-
-    ```
-   code analyze-video.html
-    ```
-
-    The file is opened in a code editor.
-   
-1. Note the reference to the **vb.widgets.mediator.js** script in the header - this script enables multiple Video Indexer widgets on the page to interact with one another.
-1. In the Video Indexer portal, return to the **Media files** page and open your **Responsible AI** video.
-1. Under the video player, select **&lt;/&gt; Embed** to view the HTML iframe code to embed the widgets.
-1. In the **Share and Embed** dialog box, select the **Player** widget, set the video size to 560 x 315, and then copy the embed code to the clipboard.
-1. In the Azure portal, in the **analyze-video.html** file, paste the copied code under the comment **&lt;-- Player widget goes here -- &gt;**.
-1. Back in the **Share and Embed** dialog box, select the **Insights** widget and then copy the embed code to the clipboard. Then close the **Share and Embed** dialog box, switch back to Azure portal, and paste the copied code under the comment **&lt;-- Insights widget goes here -- &gt;**.
-1. After editing the file, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
-1. In the cloud shell toolbar, select **Upload/Download files** and then **Download**. In the new dialog box, enter the following file path and select **Download**:
-
-    ```
-    mslearn-ai-vision/Labfiles/06-video-indexer/analyze-video.html
-    ```
-
-1. Open **analyze-video.html** in your browser to see the web page.
-1. Experiment with the widgets, using the **Insights** widget to search for insights and jump to them in the video.
-
-![Video Indexer widgets in a web page](../media/video-indexer-widgets.png)
-
-## Use the Video Indexer REST API
-
-Video Indexer provides a REST API that you can use to upload and manage videos in your account.
 
 ### Get your API details
 
@@ -134,7 +105,7 @@ To use the Video Indexer API, you need some information to authenticate requests
 
 1. In the Video Indexer portal, expand the left pane and select the **Account settings** page.
 1. Note the **Account ID** on this page - you will need it later.
-1. Open a new browser tab and go to the Video Indexer developer portal at `https://api-portal.videoindexer.ai`, signing in using the credentials for your Video Indexer account.
+1. Open a new browser tab and go to the [Video Indexer developer portal](https://api-portal.videoindexer.ai) at `https://api-portal.videoindexer.ai, signing with your Azure credentials.
 1. On the **Profile** page, view the **Subscriptions** associated with your profile.
 1. On the page with your subscription(s), observe that you have been assigned two keys (primary and secondary) for each subscription. Then select **Show** for any of the keys to see it. You will need this key shortly.
 
@@ -147,15 +118,52 @@ All interactions with the Video Indexer REST API follow the same pattern:
 - An initial request to the **AccessToken** method with the API key in the header is used to obtain an access token.
 - Subsequent requests use the access token to authenticate when calling REST methods to work with videos.
 
-1. In the cloud shell, use the command `code get-videos.ps1` to open the PowerShell script.
+1. In the cloud shell, use the following command to open the PowerShell script:
+
+    ```
+   code get-videos.ps1
+    ```
+    
 1. In the PowerShell script, replace the **YOUR_ACCOUNT_ID** and **YOUR_API_KEY** placeholders with the account ID and API key values you identified previously.
 1. Observe that the *location* for a free account is "trial". If you have created an unrestricted Video Indexer account (with an associated Azure resource), you can change this to the location where your Azure resource is provisioned (for example "eastus").
 1. Review the code in the script, noting that invokes two REST methods: one to get an access token, and another to list the videos in your account.
-1. Save your changes, close the code editor and then run `./get-videos.ps1` to execute the script.
+1. Save your changes (press *CTRL+S*), close the code editor (press *CTRL+Q*) and then run the following command to execute the script:
+
+    ```
+   ./get-videos.ps1
+    ```
+    
 1. View the JSON response from the REST service, which should contain details of the **Responsible AI** video you indexed previously.
 
-## More information
+## Use Video Indexer widgets
 
-Recognition of people and celebrities is still available, but following the [Responsible AI Standard](https://aka.ms/aah91ff) those are restricted behind a Limited Access policy. These features include facial identification and celebrity recognition. To learn more and apply for access, see the [Limited Access for Azure AI Services](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access).
+The Video Indexer portal is a useful interface to manage video indexing projects. However, there may be occasions when you want to make the video and its insights available to people who don't have access to your Video Indexer account. Video Indexer provides widgets that you can embed in a web page for this purpose.
 
-For more information about **Video Indexer**, see the [Video Indexer documentation](https://learn.microsoft.com/azure/azure-video-indexer/).
+1. Use the `ls` command,to view the contents of the **video-indexer** folder. Note that it contains a **analyze-video.html** file. This is a basic HTML page to which you will add the Video Indexer **Player** and **Insights** widgets.
+1. Enter the following command to edit the file:
+
+    ```
+   code analyze-video.html
+    ```
+
+    The file is opened in a code editor.
+   
+1. Note the reference to the **vb.widgets.mediator.js** script in the header - this script enables multiple Video Indexer widgets on the page to interact with one another.
+1. In the Video Indexer portal, return to the **Media files** page and open your **Responsible AI** video.
+1. Under the video player, select **&lt;/&gt; Embed** to view the HTML iframe code to embed the widgets.
+1. In the **Share and Embed** dialog box, select the **Player** widget, set the video size to 560 x 315, and then copy the embed code to the clipboard.
+1. In the Azure portal cloud shell, in the code editor for the **analyze-video.html** file, paste the copied code under the comment **&lt;-- Player widget goes here -- &gt;**.
+1. Back in the Video Indexer portal, in the **Share and Embed** dialog box, select the **Insights** widget and then copy the embed code to the clipboard. Then close the **Share and Embed** dialog box, switch back to Azure portal, and paste the copied code under the comment **&lt;-- Insights widget goes here -- &gt;**.
+1. After editing the file, within the code editor, save your changes (*CTRL+S*) and then close the code editor (*CTRL+Q*) while keeping the cloud shell command line open.
+1. In the cloud shell toolbar, enter the following (Cloud shell-specific) command to download the HTML file you edited:
+
+    ```
+    download analyze-video.html
+    ```
+
+    The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file; which should look like this:
+
+    ![Video Indexer widgets in a web page](../media/video-indexer-widgets.png)
+
+1. Experiment with the widgets, using the **Insights** widget to search for insights and jump to them in the video.
+
