@@ -244,7 +244,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
    # Get a response to image input
-   image_url = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/orange.jpeg"
+   image_url = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/gen-ai-vision/orange.jpeg"
    image_format = "jpeg"
    request = Request(image_url, headers={"User-Agent": "Mozilla/5.0"})
    image_data = base64.b64encode(urlopen(request).read()).decode("utf-8")
@@ -266,7 +266,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
    // Get a response to image input
-   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/orange.jpeg";
+   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/gen-ai-vision/orange.jpeg";
    ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
    {
         Messages = {
