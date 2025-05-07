@@ -314,29 +314,29 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
 
     ```python
-        # Find individual words in each line
-        print ("\nIndividual words:")
-        for line in result.read.blocks[0].lines:
-            for word in line.words:
-                print(f"  {word.text} (Confidence: {word.confidence:.2f}%)")
-        # Annotate the words in the image
-        annotate_words(image_file, result.read)
+   # Find individual words in each line
+   print ("\nIndividual words:")
+   for line in result.read.blocks[0].lines:
+        for word in line.words:
+            print(f"  {word.text} (Confidence: {word.confidence:.2f}%)")
+   # Annotate the words in the image
+   annotate_words(image_file, result.read)
     ```
 
     **C#**
 
     ```csharp
-        // Find individual words in each line
-        Console.WriteLine ("\nIndividual words:");
-        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
+   // Find individual words in each line
+   Console.WriteLine ("\nIndividual words:");
+   foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
+   {
+        foreach (DetectedTextWord word in line.Words)
         {
-            foreach (DetectedTextWord word in line.Words)
-            {
-                Console.WriteLine($"  {word.Text} (Confidence: {word.Confidence:P2})");
-            }
+            Console.WriteLine($"  {word.Text} (Confidence: {word.Confidence:P2})");
         }
-        // Annotate the words in the image
-        AnnotateWords(imageFile, result.Read);
+   }
+   // Annotate the words in the image
+   AnnotateWords(imageFile, result.Read);
     ```
 
 1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program to extract text from *images/Lincoln.jpg*.
