@@ -16,11 +16,7 @@ namespace analyze_faces
     class Program
     {
 
-        // Declare variable for Face client
-
-
-
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             // Clear the console
             Console.Clear();
@@ -44,8 +40,13 @@ namespace analyze_faces
 
 
 
-                // Detect faces in the image
-                await DetectFaces(imageFile);
+                /// Specify facial features to be retrieved
+
+
+
+                // Get faces
+                
+                
 
             }
             catch (Exception ex)
@@ -54,16 +55,51 @@ namespace analyze_faces
             }
         }
 
-        static async Task DetectFaces(string imageFile)
+        static void AnnotateFaces(string imageFile, IReadOnlyList<FaceDetectionResult> detectedFaces)
         {
-            Console.WriteLine($"Detecting faces in {imageFile}");
+            Console.WriteLine($"\nAnnotating faces in image...");
 
-            // Specify facial features to be retrieved
+            // Load the image using SkiaSharp
+            using SKBitmap bitmap = SKBitmap.Decode(imageFile);
+            using SKCanvas canvas = new SKCanvas(bitmap);
 
+            SKPaint rectPaint = new SKPaint
+            {
+                Color = SKColors.LightGreen,
+                StrokeWidth = 3,
+                Style = SKPaintStyle.Stroke,
+                IsAntialias = true
+            };
 
-            // Get faces
- 
- 
+            SKPaint textPaint = new SKPaint
+            {
+                Color = SKColors.White,
+                IsAntialias = true
+            };
+
+            SKFont textFont = new SKFont(SKTypeface.Default,24,1,0);
+
+            // Annotate each face in the image
+            int faceCount=0;
+            foreach (var face in detectedFaces)
+            {
+                faceCount++;
+                var r = face.FaceRectangle;
+                SKRect rect = new SKRect(r.Left, r.Top, r.Left + r.Width, r.Top + r.Height);
+                canvas.DrawRect(rect, rectPaint);
+
+                string annotation = $"Face number {faceCount}";
+                canvas.DrawText(annotation, r.Left, r.Top, SKTextAlign.Left, textFont, textPaint);
+            }
+
+            // Save annotated image
+            var outputFile = "detected_faces.jpg";
+            using (SKFileWStream output = new SKFileWStream(outputFile))
+            {
+                bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
+            }
+
+            Console.WriteLine($"  Results saved in {outputFile}\n"); 
         }
     }
 }

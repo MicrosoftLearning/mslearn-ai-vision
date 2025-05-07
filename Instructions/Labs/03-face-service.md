@@ -150,23 +150,7 @@ In this exercise, you'll complete a partially implemented client application tha
    using Azure.AI.Vision.Face;
     ```
 
-1. Find the comment **Declare variable for Face client**, and add the following code:
-
-    **Python**
-    
-    ```python
-   # Declare variable for Face client
-   global face_client
-    ```
-
-    **C#**
-    
-    ```csharp
-   // Declare variable for Face client
-   private static FaceClient faceClient;
-    ```
-
-1. In the **Main** function, note that the code to load the configuration settings has been provided. Then find the comment **Authenticate Face client** and add the following code to create and authenticate a **FaceClient** object:
+1. In the **Main** function, note that the code to load the configuration settings and determine the image to be analyzed has been provided. Then find the comment **Authenticate Face client** and add the following code to create and authenticate a **FaceClient** object:
 
     **Python**
 
@@ -181,16 +165,14 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```C#
    // Authenticate Face client
-   faceClient = new FaceClient(
+   FaceClient faceClient = new FaceClient(
         new Uri(cogSvcEndpoint),
         new AzureKeyCredential(cogSvcKey));
     ```
 
-1. In the **Main** function, under the code you just added, note that the code calls the **DetectFaces** function to detect faces in the image. This function is only partially implemented - you will add code to it in the remainder of this exercise.
-
 ### Add code to detect and analyze faces
 
-1. In the code file for your application, in the **DetectFaces** function, find the comment **Specify facial features to be retrieved** and add the following code:
+1. In the code file for your application, in the **Main** function, find the comment **Specify facial features to be retrieved** and add the following code:
 
     **Python**
 
@@ -213,7 +195,7 @@ In this exercise, you'll complete a partially implemented client application tha
    };
     ```
 
-1. In the **DetectFaces** function, under the code you just added, find the comment **Get faces** and add the following code:
+1. In the **Main** function, under the code you just added, find the comment **Get faces** and add the following code to print the facial feature information and call a function that annotates the image with the bounding box for each detected face (based on the **face_rectangle** property of each face):
 
      **Python**
 
@@ -228,48 +210,25 @@ In this exercise, you'll complete a partially implemented client application tha
             return_face_attributes=features,
         )
 
-        if len(detected_faces) > 0:
-            print(len(detected_faces), 'faces detected.')
-
-            # Prepare image for drawing
-            fig = plt.figure(figsize=(8, 6))
-            plt.axis('off')
-            image = Image.open(image_file)
-            draw = ImageDraw.Draw(image)
-            color = 'lightgreen'
-            face_count = 0
-
-            # Draw and annotate each face
-            for face in detected_faces:
+   face_count = 0
+   if len(detected_faces) > 0:
+        print(len(detected_faces), 'faces detected.')
+        for face in detected_faces:
     
-                # Get face properties
-                face_count += 1
-                print('\nFace number {}'.format(face_count))
-
-                print(' - Head Pose (Yaw): {}'.format(face.face_attributes.head_pose.yaw))
-                print(' - Head Pose (Pitch): {}'.format(face.face_attributes.head_pose.pitch))
-                print(' - Head Pose (Roll): {}'.format(face.face_attributes.head_pose.roll))
-                print(' - Forehead occluded?: {}'.format(face.face_attributes.occlusion["foreheadOccluded"]))
-                print(' - Eye occluded?: {}'.format(face.face_attributes.occlusion["eyeOccluded"]))
-                print(' - Mouth occluded?: {}'.format(face.face_attributes.occlusion["mouthOccluded"]))
-                print(' - Accessories:')
-                for accessory in face.face_attributes.accessories:
-                    print('   - {}'.format(accessory.type))
-
-                # Draw and annotate face
-                r = face.face_rectangle
-                bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
-                draw = ImageDraw.Draw(image)
-                draw.rectangle(bounding_box, outline=color, width=5)
-                annotation = 'Face number {}'.format(face_count)
-                plt.annotate(annotation,(r.left, r.top), backgroundcolor=color)
-
-            # Save annotated image
-            plt.imshow(image)
-            outputfile = 'detected_faces.jpg'
-            fig.savefig(outputfile)
-
-            print(f'\nResults saved in {outputfile}\n')
+            # Get face properties
+            face_count += 1
+            print('\nFace number {}'.format(face_count))
+            print(' - Head Pose (Yaw): {}'.format(face.face_attributes.head_pose.yaw))
+            print(' - Head Pose (Pitch): {}'.format(face.face_attributes.head_pose.pitch))
+            print(' - Head Pose (Roll): {}'.format(face.face_attributes.head_pose.roll))
+            print(' - Forehead occluded?: {}'.format(face.face_attributes.occlusion["foreheadOccluded"]))
+            print(' - Eye occluded?: {}'.format(face.face_attributes.occlusion["eyeOccluded"]))
+            print(' - Mouth occluded?: {}'.format(face.face_attributes.occlusion["mouthOccluded"]))
+            print(' - Accessories:')
+            for accessory in face.face_attributes.accessories:
+                print('   - {}'.format(accessory.type))
+            # Annotate faces in the image
+            annotate_faces(image_file, detected_faces)
     ```
 
     **C#**
@@ -278,47 +237,25 @@ In this exercise, you'll complete a partially implemented client application tha
    // Get faces
    using (var imageData = File.OpenRead(imageFile))
    {    
-        var response = await faceClient.DetectAsync(
+        var response = faceClient.Detect(
             BinaryData.FromStream(imageData),
             FaceDetectionModel.Detection01,
             FaceRecognitionModel.Recognition01,
             returnFaceId: false,
             returnFaceAttributes: features);
-        IReadOnlyList<FaceDetectionResult> detected_faces = response.Value;
 
-        if (detected_faces.Count() > 0)
+        IReadOnlyList<FaceDetectionResult> detectedFaces = response.Value;
+
+        if (detectedFaces.Count() > 0)
         {
-            Console.WriteLine($"{detected_faces.Count()} faces detected.");
-
-            // Load the image using SkiaSharp
-            using SKBitmap bitmap = SKBitmap.Decode(imageFile);
-            using SKCanvas canvas = new SKCanvas(bitmap);
-
-            // Set up paint styles for drawing
-            SKPaint rectPaint = new SKPaint
-            {
-                Color = SKColors.LightGreen,
-                StrokeWidth = 3,
-                Style = SKPaintStyle.Stroke,
-                IsAntialias = true
-            };
-
-            SKPaint textPaint = new SKPaint
-            {
-                Color = SKColors.White,
-                IsAntialias = true
-            };
-
-            SKFont textFont = new SKFont(SKTypeface.Default,24,1,0);
+            Console.WriteLine($"{detectedFaces.Count()} faces detected.");
 
             int faceCount=0;
-
-            // Draw and annotate each face
-            foreach (var face in detected_faces)
+            foreach (var face in detectedFaces)
             {
                 faceCount++;
                 Console.WriteLine($"\nFace number {faceCount}");
-            
+
                 // Get face properties
                 Console.WriteLine($" - Head Pose (Yaw): {face.FaceAttributes.HeadPose.Yaw}");
                 Console.WriteLine($" - Head Pose (Pitch): {face.FaceAttributes.HeadPose.Pitch}");
@@ -331,31 +268,14 @@ In this exercise, you'll complete a partially implemented client application tha
                 {
                     Console.WriteLine($"   - {accessory.Type}");
                 }
-
-                // Draw and annotate face
-                var r = face.FaceRectangle;
-
-                // Create an SKRect from the face rectangle data
-                SKRect rect = new SKRect(r.Left, r.Top, r.Left + r.Width, r.Top + r.Height);
-                canvas.DrawRect(rect, rectPaint);
-
-                string annotation = $"Face number {faceCount}";
-                canvas.DrawText(annotation, r.Left, r.Top, SKTextAlign.Left, textFont, textPaint);
             }
-
-            // Save annotated image
-            var outputFile = "detected_faces.jpg";
-            using (SKFileWStream output = new SKFileWStream(outputFile))
-            {
-                bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-            }
-
-            Console.WriteLine($" Results saved in {outputFile}\n");   
+            // Annotate faces in the image
+            AnnotateFaces(imageFile, detectedFaces);
         }
    }
     ```
 
-1. Examine the code you added to the **DetectFaces** function. It analyzes an image file and detects any faces it contains, including attributes for head pose, blur, and the presence of mask. The details of each face are displayed, including a unique face identifier that is assigned to each face; and the location of the faces is indicated on the image using a bounding box.
+1. Examine the code you added to the **Main** function. It analyzes an image file and detects any faces it contains, including attributes for head pose, occlusion, and the presence of accessories such as glasses. Additionally, a function is called to annotate the original image with a bounding box for each detected face.
 1. Save your changes (*CTRL+S*) but keep the code editor open in case you need to fix any typo's.
 
 1. Resize the panes so you can see more of the console, then enter the following command to run the program with the argument *images/face1.jpg*:

@@ -9,10 +9,6 @@ from matplotlib import pyplot as plt
 
 def main():
 
-    # Declare variable for Face client
-    
-
-
     # Clear the console
     os.system('cls' if os.name=='nt' else 'clear')
 
@@ -28,26 +24,46 @@ def main():
             image_file = sys.argv[1]
 
 
-
         # Authenticate Face client
 
 
 
-        # Detect faces in image
-        DetectFaces(image_file)
+        # Specify facial features to be retrieved
 
 
+        # Get faces
+ 
+ 
 
     except Exception as ex:
         print(ex)
 
-def DetectFaces(image_file):
-    print('Detecting faces in', image_file)
+def annotate_faces(image_file, detected_faces):
+    print('\nAnnotating faces in image...')
 
-    # Specify facial features to be retrieved
+    # Prepare image for drawing
+    fig = plt.figure(figsize=(8, 6))
+    plt.axis('off')
+    image = Image.open(image_file)
+    draw = ImageDraw.Draw(image)
+    color = 'lightgreen'
 
-
-    # Get faces
+    # Annotate each face in the image
+    face_count = 0
+    for face in detected_faces:
+        face_count += 1
+        r = face.face_rectangle
+        bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle(bounding_box, outline=color, width=5)
+        annotation = 'Face number {}'.format(face_count)
+        plt.annotate(annotation,(r.left, r.top), backgroundcolor=color)
+    
+    # Save annotated image
+    plt.imshow(image)
+    outputfile = 'detected_faces.jpg'
+    fig.savefig(outputfile)
+    print(f'  Results saved in {outputfile}\n')
 
 
 if __name__ == "__main__":
