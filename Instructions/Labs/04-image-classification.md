@@ -54,7 +54,7 @@ To train an image classification model, you need to create a Custom Vision proje
 
     ![Screenshot of uploading apple with apple tag.](../media/upload_apples.jpg)
 
-1. Repeat the previous step to upload the images in the **banana** folder with the tag `banana`, and the images in the **orange** folder with the tag `orange`.
+1. Use the **Add Images** (**[+]**) toolbar icon to repeat the previous step to upload the images in the **banana** folder with the tag `banana`, and the images in the **orange** folder with the tag `orange`.
 1. Explore the images you have uploaded in the Custom Vision project - there should be 15 images of each class, like this:
 
     ![Tagged images of fruit - 15 apples, 15 bananas, and 15 oranges](../media/fruit.jpg)
