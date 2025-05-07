@@ -216,7 +216,7 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 Now that you've tagged the images in your project, you're ready to train a model.
 
-1. In the Custom Vision project, click **Train** to train an object detection model using the tagged images. Select the **Quick Training** option.
+1. In the Custom Vision project, click **Train** (&#9881;<sub>&#9881;</sub>) to train an object detection model using the tagged images. Select the **Quick Training** option.
 1. Wait for training to complete (it might take ten minutes or so).
 
     > **Tip**: The Azure cloud shell has a 20-minute inactivity timeout, after which the session is abandoned. While you wait for training to finish, occassionally return to the cloud shell and enter a colland like `ls` to keep the session active.
