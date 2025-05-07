@@ -311,9 +311,13 @@ Now you're ready to publish your trained model and use it in a client applicatio
 
     **IMG_TEST_1.jpg**
 
+    <br/><br/>
+
     ![Image of a banana](../media/IMG_TEST_2.jpg)
 
     **IMG_TEST_2.jpg**
+
+    <br/><br/>
 
     ![Image of an orange](../media/IMG_TEST_3.jpg)
 
