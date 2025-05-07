@@ -11,13 +11,11 @@ using SkiaSharp;
 // Import namespaces
 
 
+
 namespace read_text
 {
     class Program
     {
-
-        // Declare variable for Azure AI Vision client
-
         static void Main(string[] args)
         {
             // Clear the console
@@ -39,10 +37,14 @@ namespace read_text
                 }
                 
                 // Authenticate Azure AI Vision client
+                
 
                 
                 // Read text in image
-                GetTextRead(imageFile);
+
+
+                // Print the text
+                        
 
             }
             catch (Exception ex)
@@ -51,19 +53,96 @@ namespace read_text
             }
         }
 
-        static void GetTextRead(string imageFile)
+        static void AnnotateLines(string imageFile, ReadResult detectedText)
         {
-            Console.WriteLine($"\nReading text from {imageFile} \n");
-
-            // Use a file stream to pass the image data to the analyze call
-            using FileStream stream = new FileStream(imageFile,
-                                                     FileMode.Open);
-
-            // Use Analyze image function to read text in image
+            Console.WriteLine($"\nAnnotating lines of text in image...");
             
-    
+            // Load the image using SkiaSharp
+            using SKBitmap bitmap = SKBitmap.Decode(imageFile);
+            // Create canvas to draw on the bitmap
+            using SKCanvas canvas = new SKCanvas(bitmap);
+
+            // Create paint for drawing polygons (bounding boxes)
+            SKPaint paint = new SKPaint
+            {
+                Color = SKColors.Cyan,
+                StrokeWidth = 3,
+                Style = SKPaintStyle.Stroke,
+                IsAntialias = true
+            };
+
+            foreach (var line in detectedText.Blocks.SelectMany(block => block.Lines))
+            {
+                var r = line.BoundingPolygon;
+                SKPoint[] polygonPoints = new SKPoint[]
+                {
+                    new SKPoint(r[0].X, r[0].Y),
+                    new SKPoint(r[1].X, r[1].Y),
+                    new SKPoint(r[2].X, r[2].Y),
+                    new SKPoint(r[3].X, r[3].Y)
+                };
+                // Call helper method to draw a polygon
+                DrawPolygon(canvas, polygonPoints, paint);
+
+            }
+
+            // Save the annotated image using SkiaSharp
+            var textFile = "lines.jpg";
+            using (SKFileWStream output = new SKFileWStream(textFile))
+            {
+                // Encode the bitmap into JPEG format with full quality (100)
+                bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
+            }
+            Console.WriteLine($"  Results saved in {textFile}\n");
         }
 
+        static void AnnotateWords(string imageFile, ReadResult detectedText)
+        {
+            Console.WriteLine($"\nAnnotating individual words in image...");
+            
+            // Load the image using SkiaSharp
+            using SKBitmap bitmap = SKBitmap.Decode(imageFile);
+            // Create canvas to draw on the bitmap
+            using SKCanvas canvas = new SKCanvas(bitmap);
+
+            // Create paint for drawing polygons (bounding boxes)
+            SKPaint paint = new SKPaint
+            {
+                Color = SKColors.Cyan,
+                StrokeWidth = 3,
+                Style = SKPaintStyle.Stroke,
+                IsAntialias = true
+            };
+
+            foreach (var line in detectedText.Blocks.SelectMany(block => block.Lines))
+            {
+                // Find individual words in the line
+                foreach (DetectedTextWord word in line.Words)
+                {
+                    // Convert the bounding polygon into an array of SKPoints
+                    var r = word.BoundingPolygon;    
+                    SKPoint[] polygonPoints = new SKPoint[]
+                    {
+                        new SKPoint(r[0].X, r[0].Y),
+                        new SKPoint(r[1].X, r[1].Y),
+                        new SKPoint(r[2].X, r[2].Y),
+                        new SKPoint(r[3].X, r[3].Y)
+                    };
+
+                    // Draw the word polygon on the canvas
+                    DrawPolygon(canvas, polygonPoints, paint);
+                }
+            }
+
+            // Save the annotated image using SkiaSharp
+            var textFile = "words.jpg";
+            using (SKFileWStream output = new SKFileWStream(textFile))
+            {
+                // Encode the bitmap into JPEG format with full quality (100)
+                bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
+            }
+            Console.WriteLine($"  Results saved in {textFile}\n");
+        }
 
         // Helper method to draw a polygon given an array of SKPoints
         static void DrawPolygon(SKCanvas canvas, SKPoint[] points, SKPaint paint)

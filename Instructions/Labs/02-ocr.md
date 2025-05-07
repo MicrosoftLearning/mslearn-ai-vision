@@ -151,23 +151,7 @@ In this exercise, you'll complete a partially implemented client application tha
    using Azure.AI.Vision.ImageAnalysis;
     ```
 
-1. Find the comment **Declare variable for Azure AI Vision client**, and add the following code:
-
-    **Python**
-    
-    ```python
-   # Declare variable for Azure AI Vision client
-   global cv_client
-    ```
-
-    **C#**
-    
-    ```csharp
-   // Declare variable for Azure AI Vision client
-   private static ImageAnalysisClient client;
-    ```
-
-1. In the **Main** function, the code to load the configuration settings has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following language-specific code to create and authenticate an Azure AI Vision client object:
+1. In the **Main** function, the code to load the configuration settings and determine the file to be analyzed has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following language-specific code to create and authenticate an Azure AI Vision Image Analysis client object:
 
     **Python**
 
@@ -182,152 +166,70 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
    // Authenticate Azure AI Vision client
-   client = new ImageAnalysisClient(
-        new Uri(aiSvcEndpoint),
-        new AzureKeyCredential(aiSvcKey));
+   ImageAnalysisClient client = new ImageAnalysisClient(
+                    new Uri(aiSvcEndpoint),
+                    new AzureKeyCredential(aiSvcKey));
     ```
 
-1. In the **Main** function, under the code you just added, note that the code passes an image path (which was obtained from the program's arguments) to the **GetTextRead** function. This function isn't yet fully implemented.
-
-1. Let's add some code to the body of the **GetTextRead** function. Find the comment **Use Analyze image function to read text in image** and add the following language-specific code, noting that the visual features are specified when calling the `Analyze` function:
+1. In the **Main** function, under the code you just added, find the comment **Read text in image** and add the following code to use the Image Analysis client to read the text in the image:
 
     **Python**
 
     ```python
-   # Use Analyze image function to read text in image
+   # Read text in image
+   with open(image_file, "rb") as f:
+        image_data = f.read()
+   print (f"\nReading text in {image_file}")
+
    result = cv_client.analyze(
         image_data=image_data,
         visual_features=[VisualFeatures.READ])
-
-   # Display the image and overlay it with the extracted text
-   if result.read is not None:
-        print("\nText:")
-
-        # Prepare image for drawing
-        image = Image.open(image_file)
-        fig = plt.figure(figsize=(image.width/100, image.height/100))
-        plt.axis('off')
-        draw = ImageDraw.Draw(image)
-        color = 'cyan'
-
-        for line in result.read.blocks[0].lines:
-
-            # Return the text detected in the image
-
-            
-        # Save image
-        plt.imshow(image)
-        plt.tight_layout(pad=0)
-        textfile = 'text.jpg'
-        fig.savefig(textfile)
-        print('\n  Results saved in', textfile)
     ```
 
     **C#**
 
     ```csharp
-   // Use Analyze image function to read text in image
-   ImageAnalysisResult result = client.Analyze(
-        BinaryData.FromStream(stream),
-        // Specify the features to be retrieved
-        VisualFeatures.Read);
+   // Read text in image
+   using FileStream stream = new FileStream(imageFile, FileMode.Open);
+   Console.WriteLine($"\nReading text from {imageFile} \n");
     
-   stream.Close();
-    
-   // Display analysis results
-   if (result.Read != null)
-   {
-        Console.WriteLine($"Text:");
-    
-        // Load the image using SkiaSharp
-        using SKBitmap bitmap = SKBitmap.Decode(imageFile);
-        // Create canvas to draw on the bitmap
-        using SKCanvas canvas = new SKCanvas(bitmap);
-
-        // Create paint for drawing polygons (bounding boxes)
-        SKPaint paint = new SKPaint
-        {
-            Color = SKColors.Cyan,
-            StrokeWidth = 3,
-            Style = SKPaintStyle.Stroke,
-            IsAntialias = true
-        };
-
-        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
-        {
-
-            // Return the text detected in the image
-    
-    
-        }
-            
-        // Save the annotated image using SkiaSharp
-        var textFile = "text.jpg";
-        using (SKFileWStream output = new SKFileWStream(textFile))
-        {
-            // Encode the bitmap into JPEG format with full quality (100)
-            bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-        }
-
-        Console.WriteLine($"\nResults saved in {textFile}\n");
-   }
+   ImageAnalysisResult result = client.Analyze(BinaryData.FromStream(stream),
+                                               VisualFeatures.Read);
     ```
 
-1. In the code you just added in the **GetTextRead** function, find the **Return the text detected in the image** comment and add the following code to print the image text to the console and generate an image file named **text.jpg** that highlights the image's text:
+1. Find the comment **Print the text** and add the following code (including the final comment) to print the lines of text that were found and call a function to annotate them in the image (using the **bounding_polygon** returned for each line of text):
 
     **Python**
 
     ```python
-   # Return the text detected in the image
-   print(f"  {line.text}")    
+   # Print the text
+   if result.read is not None:
+        print("\nText:")
     
-   drawLinePolygon = True
-    
-   r = line.bounding_polygon
-   bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
-    
-   # Return the position bounding box around each line
-    
-    
-   # Find individual words in the line
-    
-    
-   # Draw line bounding polygon
-   if drawLinePolygon:
-        draw.polygon(bounding_polygon, outline=color, width=3)
+        for line in result.read.blocks[0].lines:
+            print(f" {line.text}")        
+        # Annotate the text in the image
+        annotate_lines(image_file, result.read)
+
+        # Find individual words in each line
+        
     ```
 
     **C#**
 
     ```csharp
-   // Return the text detected in the image
-   Console.WriteLine($"   '{line.Text}'");
-    
-   // Draw bounding box around line
-   bool drawLinePolygon = true;
-    
-   // Return the position bounding box around each line
-    
-    
-    
-   // Find individual words in the line
-    
-    
-    
-   // Draw line bounding polygon
-   if (drawLinePolygon)
+   // Print the text
+   if (result.Read != null)
    {
-        var r = line.BoundingPolygon;
-        SKPoint[] polygonPoints = new SKPoint[]
+        Console.WriteLine($"Text:");
+        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
         {
-            new SKPoint(r[0].X, r[0].Y),
-            new SKPoint(r[1].X, r[1].Y),
-            new SKPoint(r[2].X, r[2].Y),
-            new SKPoint(r[3].X, r[3].Y)
-        };
+            Console.WriteLine($"  {line.Text}");
+        }
+        // Annotate the text in the image
+        AnnotateLines(imageFile, result.Read);
 
-        // Call helper method to draw a polygon
-        DrawPolygon(canvas, polygonPoints, paint);
+        // Find individual words in each line
    }
     ```
 
@@ -351,10 +253,10 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ![Photograph of a statue of Abraham Lincoln.](../media/Lincoln.jpg)
 
-1. In the **read-text** folder, a **text.jpg** image has been created. Use the (Azure cloud shell-specific) **download** command to download it:
+1. In the **read-text** folder, a **lines.jpg** image has been created. Use the (Azure cloud shell-specific) **download** command to download it:
 
     ```
-   download text.jpg
+   download lines.jpg
     ```
 
     The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
@@ -377,10 +279,10 @@ In this exercise, you'll complete a partially implemented client application tha
    dotnet run images/Business-card.jpg
     ```
 
-1. Download and view the resulting **text.jpg** file:
+1. Download and view the resulting **lines.jpg** file:
 
     ```
-   download text.jpg
+   download lines.jpg
     ```
 
 1. Run the program one more time, this time specifying the parameter *images/Note.jpg* to extract text from this image:
@@ -399,87 +301,53 @@ In this exercise, you'll complete a partially implemented client application tha
    dotnet run images/Note.jpg
     ```
 
-1. Download and view the resulting **text.jpg** file:
+1. Download and view the resulting **lines.jpg** file:
 
     ```
-   download text.jpg
+   download lines.jpg
     ```
 
-### Add code to return the position of each line of text
+### Add code to return the position of individual words
 
-1. Resize the panes so you can see more of the code file. Then find the comment **Return the position bounding box around each line** and add the following code:
+1. Resize the panes so you can see more of the code file. Then find the comment **Find individual words in each line** and add the following code (being careful to maintain the correct indentation level):
 
     **Python**
 
     ```python
-   # Return the position bounding box around each line
-   print("   Bounding Polygon: {}".format(bounding_polygon))
+        # Find individual words in each line
+        print ("\nIndividual words:")
+        for line in result.read.blocks[0].lines:
+            for word in line.words:
+                print(f"  {word.text} (Confidence: {word.confidence:.2f}%)")
+        # Annotate the words in the image
+        annotate_words(image_file, result.read)
     ```
 
     **C#**
 
     ```csharp
-   // Return the position bounding box around each line
-   Console.WriteLine($"   Bounding Polygon: [{string.Join(" ", line.BoundingPolygon)}]");
-    ```
-
-1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program to extract text from *images/Lincoln.jpg*.
-1. Observe the output, which should be each line of text in the image with their respective position in the image.
-1. Rerun the program for *images/Business-card.jpg* and *images/Note.jpg*.
-
-### Add code to identify individual words in an image
-
-1. In the code file, find the comment **Find individual words in the line** and add the following code:
-
-    **Python**
-    
-    ```python
-   # Find individual words in the line
-   for word in line.words:
-        r = word.bounding_polygon
-        bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
-        print(f"    Word: '{word.text}', Bounding Polygon: {bounding_polygon}, Confidence: {word.confidence:.4f}")
-    
-        # Draw word bounding polygon
-        drawLinePolygon = False
-        draw.polygon(bounding_polygon, outline=color, width=3)
-    ```
-
-    **C#**
-
-    ```C#
-   // Find individual words in the line
-   foreach (DetectedTextWord word in line.Words)
-   {
-        Console.WriteLine($"     Word: '{word.Text}', Confidence {word.Confidence:F4}, Bounding Polygon: [{string.Join(" ", word.BoundingPolygon)}]");
-        
-        // Draw word bounding polygon
-        drawLinePolygon = false;
-        var r = word.BoundingPolygon;
-    
-        // Convert the bounding polygon into an array of SKPoints    
-        SKPoint[] polygonPoints = new SKPoint[]
+        // Find individual words in each line
+        Console.WriteLine ("\nIndividual words:");
+        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
         {
-            new SKPoint(r[0].X, r[0].Y),
-            new SKPoint(r[1].X, r[1].Y),
-            new SKPoint(r[2].X, r[2].Y),
-            new SKPoint(r[3].X, r[3].Y)
-        };
-
-        // Draw the word polygon on the canvas
-        DrawPolygon(canvas, polygonPoints, paint);
-   }
+            foreach (DetectedTextWord word in line.Words)
+            {
+                Console.WriteLine($"  {word.Text} (Confidence: {word.Confidence:P2})");
+            }
+        }
+        // Annotate the words in the image
+        AnnotateWords(imageFile, result.Read);
     ```
 
 1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program to extract text from *images/Lincoln.jpg*.
-1. Observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
-1. Download and view the **text.jpg** image again and notice how there's a polygon around each *word*.
+1. Observe the output, which should include each individual word in the image, and the confidence associated with their prediction.
+1. In the **read-text** folder, a **words.jpg** image has been created. Use the (Azure cloud shell-specific) **download** command to download and view it:
 
     ```
-   download text.jpg
+   download words.jpg
     ```
 
-1. Rerun the program for *images/Business-card.jpg* and *images/Note.jpg*.
+1. Rerun the program for *images/Business-card.jpg* and *images/Note.jpg*; viewing the **words.jpg** file generated for each image.
 
 ## Clean up resources
 

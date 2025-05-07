@@ -100,7 +100,7 @@ namespace image_analysis
             var objectFile = "objects.jpg";
             using SKFileWStream output = new SKFileWStream(objectFile);
             bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-            Console.WriteLine($"Results saved in {objectFile}\n");
+            Console.WriteLine($"  Results saved in {objectFile}\n");
         }
 
         static async Task ShowPeople(string imageFile, PeopleResult detectedPeople)
@@ -132,7 +132,7 @@ namespace image_analysis
             var peopleFile = "people.jpg";
             using SKFileWStream output = new SKFileWStream(peopleFile);
             bitmap.Encode(output, SKEncodedImageFormat.Jpeg, 100);
-            Console.WriteLine($"Results saved in {peopleFile}\n");
+            Console.WriteLine($"  Results saved in {peopleFile}\n");
         }
     }
 }
