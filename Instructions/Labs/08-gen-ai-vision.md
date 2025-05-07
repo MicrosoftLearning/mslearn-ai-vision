@@ -95,7 +95,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the cloud shell pane, enter the following commands to clone the GitHub repo containing the code files for this exercise (type the command, or copy it to the clipboard and then right-click in the command line and paste as plain text):
 
-
     ```
     rm -r mslearn-ai-vision -f
     git clone https://github.com/MicrosoftLearning/mslearn-ai-vision
