@@ -40,7 +40,7 @@ namespace analyze_faces
 
 
 
-                /// Specify facial features to be retrieved
+                // Specify facial features to be retrieved
 
 
 

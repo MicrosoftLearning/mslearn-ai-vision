@@ -22,7 +22,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: *Choose from **East US**, **West US**, **France Central**, **Korea Central**, **North Europe**, **Southeast Asia**, **West Europe**, or **East Asia**\**
-    - **Name**: *A valid name for your resource*
+    - **Name**: *A valid name for your Computer Vision resource*
     - **Pricing tier**: Free F0
 
     \*Azure AI Vision 4.0 full feature sets are currently only available in these regions.

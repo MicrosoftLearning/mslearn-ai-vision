@@ -24,7 +24,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: *Choose any available region*
-    - **Name**: *A valid name for your resource*
+    - **Name**: *A valid name for your Face resource*
     - **Pricing tier**: Free F0
 
 1. Create the resource and wait for deployment to complete, and then view the deployment details.

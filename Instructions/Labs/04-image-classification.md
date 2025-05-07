@@ -23,7 +23,7 @@ Before you can train a model, you will need Azure resources for *training* and *
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: *Choose any available region*
-    - **Name**: *A valid name for your resource*
+    - **Name**: *A valid name for your Custom Vision resource*
     - **Training pricing tier**: F0
     - **Prediction pricing tier**: F0
 
