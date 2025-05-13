@@ -48,7 +48,7 @@ We also need a storage account to store the training images.
     - **Primary workload**: Other
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
-1. While your storage account is being created, go to Visual studio code, and expand the **Labfiles/02-image-classification** folder.
+1. While your storage account is being created, go to Visual studio code, and expand the **ExerciseFiles/02-image-classification** folder.
 1. In that folder, select **replace.ps1** and review the code. You'll see that it replaces the name of your storage account for the placeholder in a JSON file (the COCO file) we use in a later step. Replace the placeholder *in the first line only* of the file with the name of your storage account. Save the file.
 1. Right-click on the **02-image-classification** folder and open an Integrated Terminal. Run the following command.
 
@@ -64,7 +64,7 @@ We also need a storage account to store the training images.
 
     > **Note**: If the **Anonymous access level** is disabled, refresh the browser page.
 
-1. Navigate to `fruit`, select **Upload**, and upload the images (and the one JSON file) in **Labfiles/02-image-classification/training-images** to that container.
+1. Navigate to `fruit`, select **Upload**, and upload the images (and the one JSON file) in **ExerciseFiles/02-image-classification/training-images** to that container.
 
 ## Create a custom model training project
 
