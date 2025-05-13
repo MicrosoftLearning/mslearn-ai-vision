@@ -61,7 +61,7 @@ Now you're ready to deploy a multimodal model that can support image-based input
 Now that you have a multimodal model deployment, you can test it with an image-based prompt in the chat playground.
 
 1. In the navigation pane on the left, select the **Playgrounds** page and open the **Chat** playground.
-1. 1. In a new browser tab, download [mango.jpeg](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/mango.jpeg) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/mango.jpeg` and save it to a folder on your local file system.
+1. 1. In a new browser tab, download [mango.jpeg](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/ExerciseFiles/08-gen-ai-vision/mango.jpeg) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/ExerciseFiles/08-gen-ai-vision/mango.jpeg` and save it to a folder on your local file system.
 1. On the chat playground page, in the **Setup** pane, ensure that your **Phi-4-multimodal-instruct** model model deployment is selected.
 1. In the main chat session panel, under the chat input box, use the attach button (**&#128206;**) to upload the *mango.jpeg* image file, and then add the text `What desserts could I make with this fruit?` and submit the prompt.
 
@@ -108,13 +108,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **Python**
 
     ```
-   cd mslearn-ai-vision/Labfiles/08-gen-ai-vision/python
+   cd mslearn-ai-vision/ExerciseFiles/08-gen-ai-vision/python
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-vision/Labfiles/08-gen-ai-vision/c-sharp
+   cd mslearn-ai-vision/ExerciseFiles/08-gen-ai-vision/c-sharp
     ```
 
 8. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -245,7 +245,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
    # Get a response to image input
-   image_url = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/orange.jpeg"
+   image_url = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/ExerciseFiles/08-gen-ai-vision/orange.jpeg"
    image_format = "jpeg"
    request = Request(image_url, headers={"User-Agent": "Mozilla/5.0"})
    image_data = base64.b64encode(urlopen(request).read()).decode("utf-8")
@@ -267,7 +267,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
    // Get a response to image input
-   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/08-gen-ai-vision/orange.jpeg";
+   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/ExerciseFiles/08-gen-ai-vision/orange.jpeg";
    ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
    {
         Messages = {

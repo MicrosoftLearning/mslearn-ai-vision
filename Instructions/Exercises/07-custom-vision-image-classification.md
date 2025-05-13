@@ -46,7 +46,7 @@ In this exercise, you'll create **Custom Vision** resources for training and pre
 
 To train an image classification model, you need to create a Custom Vision project based on your training resource. To do this, you'll use the Custom Vision portal.
 
-1. In Visual Studio Code, view the training images in the **LabFiles/07-custom-vision-image-classification/training-images** folder where you cloned the repository. This folder contains subfolders of apple, banana, and orange images.
+1. In Visual Studio Code, view the training images in the **ExerciseFiles/07-custom-vision-image-classification/training-images** folder where you cloned the repository. This folder contains subfolders of apple, banana, and orange images.
 2. In a new browser tab, open the Custom Vision portal at `https://customvision.ai`. If prompted, sign in using the Microsoft account associated with your Azure subscription and agree to the terms of service.
 3. In the Custom Vision portal, create a new project with the following settings:
     - **Name**: Classify Fruit
@@ -55,7 +55,7 @@ To train an image classification model, you need to create a Custom Vision proje
     - **Project Types**: Classification
     - **Classification Types**: Multiclass (single tag per image)
     - **Domains**: Food
-4. In the new project, click **\[+\] Add images**, and select all of the files in the **LabFiles/07-custom-vision-image-classification/training-images/apple** folder you viewed previously. Then upload the image files, specifying the tag *apple*, like this:
+4. In the new project, click **\[+\] Add images**, and select all of the files in the **ExerciseFiles/07-custom-vision-image-classification/training-images/apple** folder you viewed previously. Then upload the image files, specifying the tag *apple*, like this:
 
 ![Upload apple with apple tag](../media/upload_apples.jpg)
    

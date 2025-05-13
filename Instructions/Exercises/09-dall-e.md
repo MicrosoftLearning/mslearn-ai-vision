@@ -96,13 +96,13 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
     **Python**
 
     ```
-   cd mslearn-ai-vision/Labfiles/09-dalle-client/python
+   cd mslearn-ai-vision/ExerciseFiles/09-dalle-client/python
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-vision/Labfiles/09-dalle-client/c-sharp
+   cd mslearn-ai-vision/ExerciseFiles/09-dalle-client/c-sharp
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
