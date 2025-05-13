@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Azure;
 using SkiaSharp;
+using System.Drawing;
 
 // Import namespaces
 
@@ -38,6 +39,7 @@ namespace image_analysis
                     imageFile = args[0];
                 }
                 
+                var stream = File.OpenRead(imageFile);
 
                 // Authenticate Azure AI Vision client
 
