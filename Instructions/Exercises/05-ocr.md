@@ -49,7 +49,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
     
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.3
+    dotnet add package Azure.AI.Vision.ImageAnalysis
     ```
 
     > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
@@ -57,7 +57,7 @@ In this exercise, you'll complete a partially implemented client application tha
     **Python**
     
     ```
-    pip install azure-ai-vision-imageanalysis==1.0.0b3
+    pip install azure-ai-vision-imageanalysis
     ```
 
 3. View the contents of the **read-text** folder, and note that it contains a file for configuration settings:
@@ -116,137 +116,138 @@ One of the features of the **Azure AI Vision SDK** is to read text from an image
     )
     ```
 
-3. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to the **GetTextRead** function. This function isn't yet fully implemented.
+3. In the **Main** function, under the code you just added, note that the code specifies the path to an image file and then passes the image path to the **GetTextRead** function. This function isn't yet fully implemented. Let's implement **GetTextRead** function before function name **AnnotateLines** / **annotate_lines**. Noting that the visual features are specified when calling the `Analyze` function:
 
-4. Let's add some code to the body of the **GetTextRead** function. Find the comment **Use Analyze image function to read text in image**. Then, under this comment, add the following language-specific code, noting that the visual features are specified when calling the `Analyze` function:
+    **C#**
+    
+    ```C#
+    static ImageAnalysisResult GetTextRead(ImageAnalysisClient client, string imageFile)
+    {
+        // Read image file
+        FileStream stream = new FileStream(imageFile, FileMode.Open, FileAccess.Read);
+        Console.WriteLine($"Reading image file {imageFile}...\n");
+
+        // Use Analyze image function to read text in image
+        Console.WriteLine($"Analyzing image for text...\n");
+        ImageAnalysisResult result = client.Analyze(
+            BinaryData.FromStream(stream),
+            // Specify the features to be retrieved
+            VisualFeatures.Read);
+
+        stream.Close();
+
+        return result;
+    }
+    ```
+    
+    **Python**
+    
+    ```Python
+    def GetTextRead(client, image_file):
+        print(f'\nReading text in image {image_file}...')
+
+        # Read image file
+        with open(image_file, "rb") as image:
+            # Use Analyze image function to read text in image
+            print('  Analyzing image for text...')
+            result = client.analyze(
+                image_data=image,
+                # Specify the features to be retrieved
+                visual_features=[VisualFeatures.READ]
+            )
+        
+        return result
+    ```
+
+4. Let's add some code to invoke the **GetTextRead** function. Find the comment **Read text in image**. Then, under this comment, add the following language-specific code, noting that how the return result is being verify:
 
     **C#**
 
     ```C#
-    // Use Analyze image function to read text in image
-    ImageAnalysisResult result = client.Analyze(
-        BinaryData.FromStream(stream),
-        // Specify the features to be retrieved
-        VisualFeatures.Read);
-    
-    stream.Close();
-    
-    // Display analysis results
-    if (result.Read != null)
+    // Read text in image
+    var result = GetTextRead(client, imageFile);
+    // Check if text is detected
+    if (result.Read == null)
     {
-        Console.WriteLine($"Text:");
+        Console.WriteLine("No text detected in image.");
+        return;
+    }
+
+    // Annotate lines of text in image
+    AnnotateLines(imageFile, result.Read);
     
-        // Prepare image for drawing
-        System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
-        Graphics graphics = Graphics.FromImage(image);
-        Pen pen = new Pen(Color.Cyan, 3);
-        
-        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
+    // Annotate individual words in image
+    AnnotateWords(imageFile, result.Read);
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Read text in image
+    result = GetTextRead(cv_client, image_file)
+    if result.read is not None:
+        detected_text = result.read
+    else:
+        print('No text detected in image.')
+        exit()
+
+    # Annotate lines of text in image
+    annotate_lines(image_file, detected_text)
+
+    # Annotate individual words in image
+    annotate_words(image_file, detected_text)
+    ```
+
+5. From the implemented code, as you can see the result and original image path is use to create the annotate result image.
+
+6. In the **Main** function, under the code you just added, note that the detected text pass to the **PrintDetectedText** function. This function isn't yet fully implemented. Let's implement **PrintDetectedText** function before function name **AnnotateLines** / **annotate_lines**:
+
+    **C#**
+    
+    ```C#
+    static void PrintDetectedText(ReadResult detectedText)
+    {
+        // Print the detected text
+        Console.WriteLine($"Detected text in image:");
+        foreach (var line in detectedText.Blocks.SelectMany(block => block.Lines))
         {
             // Return the text detected in the image
-    
-    
+            Console.WriteLine($"Line: {line.Text}");
+
+            // Return the position bounding box around each line
+            Console.WriteLine($"   Bounding Polygon: [{string.Join(" ", line.BoundingPolygon)}]");
+
+            foreach (DetectedTextWord word in line.Words)
+            {
+                // Return the text detected in the image
+                Console.WriteLine($"     Word: '{word.Text}', Confidence {word.Confidence:F4}, Bounding Polygon: [{string.Join(" ", word.BoundingPolygon)}]");
+            }
         }
-            
-        // Save image
-        String output_file = "text.jpg";
-        image.Save(output_file);
-        Console.WriteLine("\nResults saved in " + output_file + "\n");   
     }
     ```
     
     **Python**
     
     ```Python
-    # Use Analyze image function to read text in image
-    result = cv_client.analyze(
-        image_data=image_data,
-        visual_features=[VisualFeatures.READ]
-    )
+    def PrintDetectedText(detected_text):
+    # Print the detected text
+    for line in detected_text.blocks[0].lines:
+        # Return the text detected in the image
+        print(f"Line: {line.text}")
 
-    # Display the image and overlay it with the extracted text
-    if result.read is not None:
-        print("\nText:")
+        # Return the position bounding box around each line
+        r = line.bounding_polygon
+        bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
+        print("   Bounding Polygon: {}".format(bounding_polygon))
 
-        # Prepare image for drawing
-        image = Image.open(image_file)
-        fig = plt.figure(figsize=(image.width/100, image.height/100))
-        plt.axis('off')
-        draw = ImageDraw.Draw(image)
-        color = 'cyan'
-
-        for line in result.read.blocks[0].lines:
+        for word in line.words:
             # Return the text detected in the image
-
-            
-        # Save image
-        plt.imshow(image)
-        plt.tight_layout(pad=0)
-        outputfile = 'text.jpg'
-        fig.savefig(outputfile)
-        print('\n  Results saved in', outputfile)
+            r = word.bounding_polygon
+            bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
+            print(f"    Word: '{word.text}', Bounding Polygon: {bounding_polygon}, Confidence: {word.confidence:.4f}")
     ```
 
-5. In the code you just added in the **GetTextRead** function, and under the **Return the text detected in the image** comment, add the following code (this code prints the image text to the console and generates the image **text.jpg** which highlights the image's text):
-
-    **C#**
-    
-    ```C#
-    // Return the text detected in the image
-    Console.WriteLine($"   '{line.Text}'");
-    
-    // Draw bounding box around line
-    var drawLinePolygon = true;
-    
-    // Return the position bounding box around each line
-    
-    
-    
-    // Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-    
-    
-    
-    // Draw line bounding polygon
-    if (drawLinePolygon)
-    {
-        var r = line.BoundingPolygon;
-    
-        Point[] polygonPoints = {
-            new Point(r[0].X, r[0].Y),
-            new Point(r[1].X, r[1].Y),
-            new Point(r[2].X, r[2].Y),
-            new Point(r[3].X, r[3].Y)
-        };
-    
-        graphics.DrawPolygon(pen, polygonPoints);
-    }
-    ```
-    
-    **Python**
-    
-    ```Python
-    # Return the text detected in the image
-    print(f"  {line.text}")    
-    
-    drawLinePolygon = True
-    
-    r = line.bounding_polygon
-    bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
-    
-    # Return the position bounding box around each line
-    
-    
-    # Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-    
-    
-    # Draw line bounding polygon
-    if drawLinePolygon:
-        draw.polygon(bounding_polygon, outline=color, width=3)
-    ```
-
-6. In the **read-text/images** folder, select **Lincoln.jpg** to view the file that your code processes.
-
-7. In the code file for your application, in the **Main** function, examine the code that runs if the user selects menu option **1**. This code calls the **GetTextRead** function, passing the path to the *Lincoln.jpg* image file.
+7. In the **read-text/images** folder, select **Lincoln.jpg** to view the file that your code processes.
 
 8. Save your changes and return to the integrated terminal for the **read-text** folder, and enter the following command to run the program:
 
@@ -262,99 +263,10 @@ One of the features of the **Azure AI Vision SDK** is to read text from an image
     python read-text.py
     ```
 
-9. When prompted, enter **1** and observe the output, which is the text extracted from the image.
+9. When error **Lincoln.jpg** not found happen on **C#** program. Copy **images** folder to the bin folder locate at **bin\Debug\netcoreapp8.0** and run the program again.
 
-10. In the **read-text** folder, select the **text.jpg** image and noticed how there's a polygon around each *line* of text.
+10. In the **read-text** folder, select the **lines.jpg** or **words.jpg** image and noticed how there's a polygon around each *word* of the note.
 
-11. Return to the code file in Visual Studio Code, and find the comment **Return the position bounding box around each line**. Then, under this comment, add the following code:
-
-    **C#**
-    
-    ```C#
-    // Return the position bounding box around each line
-    Console.WriteLine($"   Bounding Polygon: [{string.Join(" ", line.BoundingPolygon)}]");  
-    ```
-    
-    **Python**
-    
-    ```Python
-    # Return the position bounding box around each line
-    print("   Bounding Polygon: {}".format(bounding_polygon))
-    ```
-
-12. Save your changes and return to the integrated terminal for the **read-text** folder, and enter the following command to run the program:
-
-    **C#**
-    
-    ```
-    dotnet run
-    ```
-    
-    **Python**
-    
-    ```
-    python read-text.py
-    ```
-
-13. When prompted, enter **1** and observe the output, which should be each line of text in the image with their respective position in the image.
-
-
-14. Return to the code file in Visual Studio Code, and find the comment **Return each word detected in the image and the position bounding box around each word with the confidence level of each word**. Then, under this comment, add the following code:
-
-    **C#**
-    
-    ```C#
-    // Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-    foreach (DetectedTextWord word in line.Words)
-    {
-        Console.WriteLine($"     Word: '{word.Text}', Confidence {word.Confidence:F4}, Bounding Polygon: [{string.Join(" ", word.BoundingPolygon)}]");
-        
-        // Draw word bounding polygon
-        drawLinePolygon = false;
-        var r = word.BoundingPolygon;
-    
-        Point[] polygonPoints = {
-            new Point(r[0].X, r[0].Y),
-            new Point(r[1].X, r[1].Y),
-            new Point(r[2].X, r[2].Y),
-            new Point(r[3].X, r[3].Y)
-        };
-    
-        graphics.DrawPolygon(pen, polygonPoints);
-    }
-    ```
-    
-    **Python**
-    
-    ```Python
-    # Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-    for word in line.words:
-        r = word.bounding_polygon
-        bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
-        print(f"    Word: '{word.text}', Bounding Polygon: {bounding_polygon}, Confidence: {word.confidence:.4f}")
-    
-        # Draw word bounding polygon
-        drawLinePolygon = False
-        draw.polygon(bounding_polygon, outline=color, width=3)
-    ```
-
-15. Save your changes and return to the integrated terminal for the **read-text** folder, and enter the following command to run the program:
-
-    **C#**
-    
-    ```
-    dotnet run
-    ```
-    
-    **Python**
-    
-    ```
-    python read-text.py
-    ```
-
-16. When prompted, enter **1** and observe the output, which should be each word of text in the image with their respective position in the image. Notice how the confidence level of each word is also returned.
-
-17. In the **read-text** folder, select the **text.jpg** image and noticed how there's a polygon around each *word*.
 
 ## Use the Azure AI Vision SDK to read handwritten text from an image
 
@@ -362,7 +274,7 @@ In the previous exercise, you read well defined text from an image, but sometime
 
 1. In the **read-text/images** folder, select on **Note.jpg** to view the file that your code processes.
 
-2. In the code file for your application, in the **Main** function, examine the code that runs if the user selects menu option **2**. This code calls the **GetTextRead** function, passing the path to the *Note.jpg* image file.
+2. In the code file for your application, in the **Main** function. Find the comment **Get image**. Change the path to the *images/Lincoln.jpg* image file.
 
 3. From the integrated terminal for the **read-text** folder, enter the following command to run the program:
 
@@ -378,9 +290,7 @@ In the previous exercise, you read well defined text from an image, but sometime
     python read-text.py
     ```
 
-4. When prompted, enter **2** and observe the output, which is the text extracted from the note image.
-
-5. In the **read-text** folder, select the **text.jpg** image and noticed how there's a polygon around each *word* of the note.
+4. In the **read-text** folder, select the **lines.jpg** or **words.jpg** image and noticed how there's a polygon around each *word* of the note.
 
 ## Clean up resources
 
