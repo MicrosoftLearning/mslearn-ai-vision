@@ -20,7 +20,7 @@ Let's start by signing into Azure AI Foundry portal.
 
 1. Review the information on the home page.
 
-## Create a project
+## Choose a model to start a project
 
 An Azure AI *project* provides a collaborative workspace for AI development. Let's start by choosing a model that we want to work with and creating a project to use it in.
 
@@ -74,7 +74,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
 
-1. In the **Project details** area, note the **Project connection string**. You'll use this connection string to connect to your project in a client application.
+1. In the **Endpoints and keys** area, ensure the **Azure AI Foundry** library is selected, and note the **Azure AI Foundry project endpoint**. You'll use this connection string to connect to your project in a client application.
 
 1. Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
 
