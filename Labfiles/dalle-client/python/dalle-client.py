@@ -16,11 +16,10 @@ def main():
         project_connection = os.getenv("PROJECT_CONNECTION")
         model_deployment =  os.getenv("MODEL_DEPLOYMENT")
         
-        # Initialize the project client
+        # Initialize the OpenAI client1
         
         
-        ## Get an OpenAI client
-        
+
          
         img_no = 0
         # Loop until the user types 'quit'

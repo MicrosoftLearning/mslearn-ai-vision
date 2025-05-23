@@ -68,7 +68,10 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 ### Prepare the application configuration
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
-1. In the **Endpoints and keys** area, ensure the **Azure AI Foundry** library is selected, and note the **Azure AI Foundry project endpoint**. You'll use this connection string to connect to your project in a client application.
+1. Select **Models + endpoints** area, then select the **Get endpoint** button. You'll use this connection string to connect to your model in a client application.
+
+    ![Screenshot showing the location of the Get endpoint button.](./media/ai-foundry-openai-get-endpoint.png)
+
 1. Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
 1. Use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
@@ -136,7 +139,7 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_endpoint** placeholder with the connection string for your project (copied from the project **Overview** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your dall-e-3 model deployment.
+1. In the code file, replace the **your_project_endpoint** placeholder with the connection string (copied from the  **Models + endpoints** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your dall-e-3 model deployment.
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ### Write code to connect to your project and chat with your model
@@ -180,56 +183,36 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
     ```
 
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
-1. Under the comment **Initialize the project client**, add the following code to connect to your Azure AI Foundry project using the Azure credentials you are currently signed in with:
+
+1. Under the comment **Initialize the client**, add the following code to connect to your Azure AI Foundry project using the Azure credentials you are currently signed in with:
 
     **Python**
 
     ```python
-   # Initialize the project client
+   # Initialize the OpenAI client
    project_client = AIProjectClient(
         endpoint=project_connection,
         credential=DefaultAzureCredential
             (exclude_environment_credential=True,
              exclude_managed_identity_credential=True)
     )
-    ```
 
-    **C#**
-
-    ```csharp
-   // Initialize the project client
-   DefaultAzureCredentialOptions options = new()
-       { ExcludeEnvironmentCredential = true,
-        ExcludeManagedIdentityCredential = true };
-   var projectClient = new AIProjectClient(
-        new Uri(project_connection),
-        new DefaultAzureCredential(options));
-    ```
-
-1. Under the comment **Get an OpenAI client**, add the following code to create a client object for chatting with a model:
-
-    **Python**
-
-    ```python
-   # Get an OpenAI client
    openai_client = project_client.inference.get_azure_openai_client(api_version="2024-06-01")
-
     ```
 
     **C#**
 
     ```csharp
-   // Get an OpenAI client
-   ConnectionResponse connection = projectClient.GetConnectionsClient().GetDefaultConnection(ConnectionType.AzureOpenAI, withCredential: true);
-
-   var connectionProperties = connection.Properties as ConnectionPropertiesApiKeyAuth;
-
-   AzureOpenAIClient openAIClient = new(
-        new Uri(connectionProperties.Target),
-        new AzureKeyCredential(connectionProperties.Credentials.Key));
-
-   ImageClient openAIimageClient = openAIClient.GetImageClient(model_deployment);
-
+   // Initialize the OpenAI client
+   DefaultAzureCredentialOptions options = new()
+   {
+       ExcludeEnvironmentCredential = true,
+       ExcludeManagedIdentityCredential = true
+   };
+   
+   ImageClient openAIimageClient = new AzureOpenAIClient(
+       new Uri(project_connection),
+       new DefaultAzureCredential(options)).GetImageClient(model_deployment);
     ```
 
 1. Note that the code includes a loop to allow a user to input a prompt until they enter "quit". Then in the loop section, under the comment **Generate an image**, add the following code to submit the prompt and retrieve the URL for the generated image from your model:
@@ -252,14 +235,14 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     ```csharp
    // Generate an image
-   var imageGeneration = await openAIimageClient.GenerateImageAsync(
-            input_text,
-            new ImageGenerationOptions()
-            {
-                Size = GeneratedImageSize.W1024xH1024
-            }
+   GeneratedImage imageGeneration = await openAIimageClient.GenerateImageAsync(
+   input_text,
+   new ImageGenerationOptions()
+   {
+       Size = GeneratedImageSize.W1024xH1024
+   }
    );
-   imageUrl= imageGeneration.Value.ImageUri;
+   imageUrl = imageGeneration.ImageUri;
     ```
 
 1. Note that the code in the remainder of the **main** function passes the image URL and a filename to a provided function, which downloads the generated image and saves it as a .png file.
