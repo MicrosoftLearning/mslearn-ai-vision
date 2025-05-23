@@ -26,12 +26,9 @@ namespace dalle_client
                 string project_connection = configuration["PROJECT_CONNECTION"];
                 string model_deployment = configuration["MODEL_DEPLOYMENT"];
 
-                // Initialize the project client
+                // Initialize the OpenAI client
 
 
-
-                // Get an OpenAI client
- 
 
 
                 // Loop until the user types 'quit'

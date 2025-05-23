@@ -16,8 +16,11 @@ First, you'll need to sign into the Video Indexer portal and upload a video.
 
 1. In your browser, open the [Video Indexer portal](https://www.videoindexer.ai) at `https://www.videoindexer.ai`.
 1. If you have an existing Video Indexer account, sign in. Otherwise, sign up for a free account and sign in using your Microsoft account (or any other valid account type). If you have difficulty signing in, try opening a private browser session.
+
+    > Note: If this is your first time signing in you might see a pop-up form asking you to verify how you're going to use the service. 
+
 1. In a new tab, download the Responsible AI video by visiting `https://aka.ms/responsible-ai-video`. Save the file.
-1. In Video Indexer, select the **Upload** option. Then select the option to **Browse for files**, select the downloaded video, and click **Add**. Change the default name to **Responsible AI**, review the default settings, select the checkbox to verify compliance with Microsoft's policies for facial recognition, and upload the file.
+1. In Video Indexer, select the **Upload** option. Then select the option to **Browse for files**, select the downloaded video, and click **Add**. Change the text in the **File  name** field to **Responsible AI**. Select **Review + upload**, review the summary overview, select the checkbox to verify compliance with Microsoft's policies for facial recognition, and upload the file.
 1. After the file has uploaded, wait a few minutes while Video Indexer automatically indexes it.
 
 > **Note**: In this exercise, we're using this video to explore Video Indexer functionality; but you should take the time to watch it in full when you've finished the exercise as it contains useful information and guidance for developing AI-enabled applications responsibly! 
@@ -30,15 +33,15 @@ The indexing process extracts insights from the video, which you can view in the
 
     > **Note**: Due to the limited access policy to protect individuals identities, you may not see names when you index the video.
 
-![Video Indexer with a video player and Insights pane](../media/video-indexer-insights.png)
+    ![Video Indexer with a video player and Insights pane](../media/video-indexer-insights.png)
 
 1. As the video plays, select the **Timeline** tab to view a transcript of the video audio.
 
-![Video Indexer with a video player and Timeline pane showing the video transcript.](../media/video-indexer-transcript.png)
+    ![Video Indexer with a video player and Timeline pane showing the video transcript.](../media/video-indexer-transcript.png)
 
 1. At the top right of the portal, select the **View** symbol (which looks similar to &#128455;), and in the list of insights, in addition to **Transcript**, select **OCR** and **Speakers**.
 
-![Video Indexer view menu with Transcript, OCR, and Speakers selected](../media/video-indexer-view-menu.png)
+    ![Video Indexer view menu with Transcript, OCR, and Speakers selected](../media/video-indexer-view-menu.png)
 
 1. Observe that the **Timeline** pane now includes:
     - Transcript of audio narration.
@@ -61,9 +64,10 @@ You can use Video Indexer to search the video for insights.
 1. In the **Insights** pane, in the **Search** box, enter *Bee*. You may need to scroll down in the Insights pane to see results for all types of insight.
 1. Observe that one matching *label* is found, with its location in the video indicated beneath.
 1. Select the beginning of the section where the presence of a bee is indicated, and view the video at that point (you may need to pause the video and select carefully - the bee only appears briefly!)
-1. Clear the **Search** box to show all insights for the video.
 
-![Video Indexer search results for Bee](../media/video-indexer-search.png)
+    ![Video Indexer search results for Bee](../media/video-indexer-search.png)
+
+1. Clear the **Search** box to show all insights for the video.
 
 ## Use the Video Indexer REST API
 
