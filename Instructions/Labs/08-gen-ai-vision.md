@@ -412,18 +412,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     > **Note**: In this simple app, we haven't implemented logic to retain conversation history; so the model will treat each prompt as a new request with no context of the previous prompt.
 
-## Explore further: (If time permits)
-
-You've learned how to use the Azure AI Inference SDK and a multimodal model to implement a generative AI app that can respond to image-based prompts. If you have time, here are some ideas for further exploration.
-
-You've used a *Phi-4-multimodal-instruct* model to generate a response to an image-based prompt. Now let's try an OpenAI *gpt-4o* model.
-
-1. In Azure AI Foundry, deploy a **gpt-4o** model to an Azure AI Model Inference endpoint (you may need to create a new resource in a different region).
-
-1. Update the code configuration file for your app (*.env* for Python, *appsettings.json* for C#) to specify the name of your gpt-4o model.
-
-1. Run the app as before, using the same prompts (you can revert to the code that uses a URL-based image if you like).
-
 ## Clean up
 
 If you've finished exploring Azure AI Foundry portal, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
