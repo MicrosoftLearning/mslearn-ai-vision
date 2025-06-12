@@ -401,6 +401,8 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 1. Rerun the program for the **images/building.jpg** and **images/person.jpg** files, downloading the generated people.jpg file after each run.
 
+   > **Tip:** If you see bounding boxes returned from the model that don't make sense, check the JSON confidence score and try increasing the confidence score filtering in your app.
+
 ## Clean up resources
 
 If you've finished exploring Azure AI Vision, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs:
