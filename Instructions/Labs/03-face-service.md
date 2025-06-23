@@ -6,7 +6,7 @@ lab:
 
 # Detect and analyze faces
 
-The ability to detect and analyze human faces is a core AI capability. In this exercise, you'll explore two Azure AI Services that you can use to work with faces in images: the **Azure AI Vision** service, and the **Face** service.
+The ability to detect and analyze human faces is a core AI capability. In this exercise, you'll explore the **Face** service to work with faces.
 
 This exercise takes approximately **30** minutes.
 
