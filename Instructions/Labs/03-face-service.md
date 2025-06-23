@@ -48,7 +48,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
-1. Resize the cloud shell pane so you can still see the **Keys and Endpoint** page for your Computer Vision resource.
+1. Resize the cloud shell pane so you can still see the **Keys and Endpoint** page for your Face resource.
 
     > **Tip**" You can resize the pane by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
 
@@ -111,7 +111,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The file is opened in a code editor.
 
-1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Computer Vision resource (copied from its **Keys and Endpoint** page in the Azure portal).
+1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for your Face resource (copied from its **Keys and Endpoint** page in the Azure portal).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ### Add code to create a Face API client
