@@ -139,7 +139,7 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_endpoint** placeholder with the connection string (copied from the  **Models + endpoints** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your dall-e-3 model deployment.
+1. In the code file, replace the **your_project_endpoint** placeholder with the **Azure OpenAI endpoint** (copied from the project **Overview** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your dall-e-3 model deployment.
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ### Write code to connect to your project and chat with your model
@@ -250,6 +250,18 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
 1. Use the **CTRL+S** command to save your changes to the code file and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ### Run the client application
+
+1. In the cloud shell command-line pane, enter the following command to sign into Azure.
+
+    ```
+   az login
+    ```
+
+    **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to open the sign-in page in a new tab and enter the authentication code provided and your Azure credentials. Then complete the sign in process in the command line, selecting the subscription containing your Azure AI Foundry hub if prompted.
 
 1. In the cloud shell command line pane, enter the following command to run the app:
 
