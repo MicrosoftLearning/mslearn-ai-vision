@@ -292,6 +292,8 @@ In this exercise, you'll complete a partially implemented client application tha
    dotnet run images/face1.jpg
     ```
 
+    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+
     The app runs and analyzes the following image:
 
     ![Photograph of a statue of a person.](../media/face1.jpg)
