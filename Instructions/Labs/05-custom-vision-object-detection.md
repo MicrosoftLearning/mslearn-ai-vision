@@ -208,7 +208,7 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
    dotnet run
     ```
 
-    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **train-detector.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. Wait for the program to end.
 1. Switch back to the browser tab containing the Custom Vision portal (keeping the Azure portal cloud shell tab open), and view the **Training Images** page for your project (refreshing the browser if necessary).
@@ -324,6 +324,8 @@ Now that you've published the image classification model, you can use it from a 
     ```
    dotnet run
     ```
+
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **test-detector.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. Review the program output, which lists each object detected in the image.
 1. Note that an image file named **output.jpg** is generated. Use the (Azure cloud shell-specific) **download** command to download it:

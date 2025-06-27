@@ -212,7 +212,7 @@ The Custom Vision portal provides a convenient user interface that you can use t
    dotnet run
     ```
 
-    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **train-classifier.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. Wait for the program to end. Then return to the browser tab containing the Custom Vision portal, and view the **Training Images** page for your project (refreshing the browser if necessary).
 1. Verify that some new tagged images have been added to the project. Then view the **Performance** page and verify that a new iteration has been created.
@@ -306,6 +306,8 @@ Now you're ready to publish your trained model and use it in a client applicatio
     ```
    dotnet run
     ```
+
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **test-classifier.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
     The program submits each of the following images to the model for classification:
 

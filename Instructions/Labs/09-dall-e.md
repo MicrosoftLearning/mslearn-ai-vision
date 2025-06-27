@@ -277,7 +277,7 @@ The model seems to work in the playground. Now you can use the Azure OpenAI SDK 
    dotnet run
     ```
 
-    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **dalle-client.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. When prompted, enter a request for an image, such as `Create an image of a robot eating pizza`. After a moment or two, the app should confirm that the image has been saved.
 1. Try a few more prompts. When you're finished, enter `quit` to exit the program.

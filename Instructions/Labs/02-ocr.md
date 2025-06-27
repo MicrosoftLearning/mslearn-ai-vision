@@ -249,7 +249,7 @@ In this exercise, you'll complete a partially implemented client application tha
    dotnet run images/Lincoln.jpg
     ```
 
-    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **read-text.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. The program reads the text in the specified image file (*images/Lincoln.jpg*), which looks like this:
 
