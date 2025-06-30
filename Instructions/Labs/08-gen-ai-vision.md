@@ -147,7 +147,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_connection_string** placeholder with the Foundry project endpoint (copied from the project **Overview** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your Phi-4-multimodal-instruct model deployment.
+1. In the code file, replace the **your_project_endpoint** placeholder with the Foundry project endpoint (copied from the project **Overview** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your Phi-4-multimodal-instruct model deployment.
 
 1. After you've replaced the placeholders, in the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
@@ -176,15 +176,10 @@ Now that you've deployed the model, you can use the deployment in a client appli
     ```python
    # Add references
    from dotenv import load_dotenv
+   from urllib.parse import urlparse
    from azure.identity import DefaultAzureCredential
-   from azure.ai.projects import AIProjectClient
-   from azure.ai.inference.models import (
-        SystemMessage,
-        UserMessage,
-        TextContentItem,
-        ImageContentItem,
-        ImageUrl,
-   )
+   from azure.ai.inference import ChatCompletionsClient
+   from azure.ai.inference.models import SystemMessage, UserMessage, AssistantMessage, TextContentItem, ImageContentItem, ImageUrl
     ```
 
     **C#**
@@ -198,45 +193,37 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
 
-1. Find the comment **Initialize the project client**, add the following code to connect to your Azure AI Foundry project using the Azure credentials you are currently signed in with:
-
-    **Python**
-
-    ```python
-   # Initialize the project client
-   project_client = AIProjectClient(
-        endpoint=project_connection,
-        credential=DefaultAzureCredential
-            (exclude_environment_credential=True,
-             exclude_managed_identity_credential=True)
-    )
-    ```
-
-    **C#**
-
-    ```csharp
-   // Initialize the project client
-   DefaultAzureCredentialOptions options = new()
-       { ExcludeEnvironmentCredential = true,
-        ExcludeManagedIdentityCredential = true };
-   var projectClient = new AIProjectClient(
-        new Uri(project_connection),
-        new DefaultAzureCredential(options));
-    ```
-
 1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
+
+    > **Tip**: Be careful to maintain the correct indentation level for your code.
 
     **Python**
 
     ```python
    # Get a chat client
-   chat_client = project_client.inference.get_chat_completions_client(model=model_deployment)
+   inference_endpoint = f"https://{urlparse(project_endpoint).netloc}/models"
+
+   credential = DefaultAzureCredential(exclude_environment_credential=True,
+                                        exclude_managed_identity_credential=True,
+                                        exclude_interactive_browser_credential=False)
+
+   chat_client = ChatCompletionsClient(
+            endpoint=inference_endpoint,
+            credential=credential,
+            credential_scopes=["https://ai.azure.com/.default"])
     ```
 
     **C#**
 
     ```csharp
    // Get a chat client
+   DefaultAzureCredentialOptions options = new() { 
+        ExcludeEnvironmentCredential = true,
+        ExcludeManagedIdentityCredential = true
+   };
+   var projectClient = new AIProjectClient(
+        new Uri(project_connection),
+        new DefaultAzureCredential(options));
    ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
     ```
 
@@ -257,6 +244,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
    data_url = f"data:image/{image_format};base64,{image_data}"
 
    response = chat_client.complete(
+        model=model_deployment,
         messages=[
             SystemMessage(system_message),
             UserMessage(content=[
@@ -350,6 +338,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     # Include the image file data in the prompt
     data_url = f"data:{mime_type};base64,{base64_encoded_data}"
     response = chat_client.complete(
+        model=model_deployment,
         messages=[
             SystemMessage(system_message),
             UserMessage(content=[
