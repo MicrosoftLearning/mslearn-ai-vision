@@ -120,15 +120,15 @@ Now that you've deployed the model, you can use the deployment in a client appli
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-identity azure-ai-projects azure-ai-inference
+   pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 
     **C#**
 
     ```
-   dotnet add package Azure.Identity
-   dotnet add package Azure.AI.Projects --version 1.0.0-beta.9
-   dotnet add package Azure.AI.Inference --version 1.0.0-beta.5
+   dotnet add package Azure.Identity --prerelease
+   dotnet add package Azure.AI.Projects --prerelease
+   dotnet add package Azure.AI.OpenAI --prerelease
     ```
 
 1. Enter the following command to edit the configuration file that has been provided:
@@ -175,11 +175,9 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
    # Add references
-   from dotenv import load_dotenv
-   from urllib.parse import urlparse
    from azure.identity import DefaultAzureCredential
-   from azure.ai.inference import ChatCompletionsClient
-   from azure.ai.inference.models import SystemMessage, UserMessage, AssistantMessage, TextContentItem, ImageContentItem, ImageUrl
+   from azure.ai.projects import AIProjectClient
+   from openai import AzureOpenAI
     ```
 
     **C#**
@@ -188,43 +186,55 @@ Now that you've deployed the model, you can use the deployment in a client appli
    // Add references
    using Azure.Identity;
    using Azure.AI.Projects;
-   using Azure.AI.Inference;
+   using Azure.AI.OpenAI;
+   using OpenAI.Chat;
     ```
 
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
-
-1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
+1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
+1. Find the comment **Initialize the project client**, and add the following code to connect to your Azure AI Foundry project:
 
     > **Tip**: Be careful to maintain the correct indentation level for your code.
 
     **Python**
 
     ```python
+   # Initialize the project client
+   project_client = AIProjectClient(            
+            credential=DefaultAzureCredential(
+                exclude_environment_credential=True,
+                exclude_managed_identity_credential=True
+            ),
+            endpoint=project_endpoint,
+        )
+    ```
+
+    **C#**
+
+    ```csharp
+   // Initialize the project client
+   DefaultAzureCredentialOptions options = new()
+           { ExcludeEnvironmentCredential = true,
+            ExcludeManagedIdentityCredential = true };
+   var projectClient = new AIProjectClient(
+            new Uri(project_connection),
+            new DefaultAzureCredential(options));
+    ```
+
+1. Find the comment **Get a chat client**, and add the following code to create a client object for chatting with a model:
+
+    **Python**
+
+    ```python
    # Get a chat client
-   inference_endpoint = f"https://{urlparse(project_endpoint).netloc}/models"
-
-   credential = DefaultAzureCredential(exclude_environment_credential=True,
-                                        exclude_managed_identity_credential=True,
-                                        exclude_interactive_browser_credential=False)
-
-   chat_client = ChatCompletionsClient(
-            endpoint=inference_endpoint,
-            credential=credential,
-            credential_scopes=["https://ai.azure.com/.default"])
+   openai_client = project_client.inference.get_azure_openai_client(api_version="2024-10-21")
     ```
 
     **C#**
 
     ```csharp
    // Get a chat client
-   DefaultAzureCredentialOptions options = new() { 
-        ExcludeEnvironmentCredential = true,
-        ExcludeManagedIdentityCredential = true
-   };
-   var projectClient = new AIProjectClient(
-        new Uri(project_connection),
-        new DefaultAzureCredential(options));
-   ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
+   ChatClient openaiClient = projectClient.GetAzureOpenAIChatClient(deploymentName: model_deployment, connectionName: null, apiVersion: "2024-10-21");
     ```
 
 ### Write code to submit a URL-based image prompt
@@ -243,14 +253,14 @@ Now that you've deployed the model, you can use the deployment in a client appli
    image_data = base64.b64encode(urlopen(request).read()).decode("utf-8")
    data_url = f"data:image/{image_format};base64,{image_data}"
 
-   response = chat_client.complete(
+   response = openai_client.chat.completions.create(
         model=model_deployment,
         messages=[
-            SystemMessage(system_message),
-            UserMessage(content=[
-                TextContentItem(text=prompt),
-                ImageContentItem(image_url=ImageUrl(url=data_url))
-            ]),
+            {"role": "system", "content": system_message},
+            { "role": "user", "content": [  
+                { "type": "text", "text": prompt},
+                { "type": "image_url", "image_url": {"url": data_url}}
+            ] } 
         ]
    )
    print(response.choices[0].message.content)
@@ -261,23 +271,21 @@ Now that you've deployed the model, you can use the deployment in a client appli
     ```csharp
    // Get a response to image input
    string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/gen-ai-vision/orange.jpeg";
-   ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
-   {
-        Messages = {
-           new ChatRequestSystemMessage(system_message),
-           new ChatRequestUserMessage([
-                new ChatMessageTextContentItem(prompt),
-                new ChatMessageImageContentItem(new Uri(imageUrl))
-            ]),
-        },
-        Model = model_deployment
-   };
-   var response = chat.Complete(requestOptions);
-   Console.WriteLine(response.Value.Content);
+
+   List<ChatMessage> messages =
+   [
+        new SystemChatMessage(system_message),
+        new UserChatMessage(
+            ChatMessageContentPart.CreateTextPart(prompt),
+            ChatMessageContentPart.CreateImagePart(new Uri(imageUrl)))
+   ];
+
+   ChatCompletion completion = openaiClient.CompleteChat(messages);
+
+   Console.WriteLine(completion.Content[0].Text);
     ```
 
 1. Use the **CTRL+S** command to save your changes to the code file - don't close it yet though.
-
 
 ## Sign into Azure and run the app
 
@@ -331,23 +339,23 @@ Now that you've deployed the model, you can use the deployment in a client appli
    image_path = script_dir / 'mystery-fruit.jpeg'
    mime_type = "image/jpeg"
 
-    # Read and encode the image file
-    with open(image_path, "rb") as image_file:
+   # Read and encode the image file
+   with open(image_path, "rb") as image_file:
         base64_encoded_data = base64.b64encode(image_file.read()).decode('utf-8')
 
-    # Include the image file data in the prompt
-    data_url = f"data:{mime_type};base64,{base64_encoded_data}"
-    response = chat_client.complete(
-        model=model_deployment,
-        messages=[
-            SystemMessage(system_message),
-            UserMessage(content=[
-                TextContentItem(text=prompt),
-                ImageContentItem(image_url=ImageUrl(url=data_url))
-            ]),
-        ]
-    )
-    print(response.choices[0].message.content)
+   # Include the image file data in the prompt
+   data_url = f"data:{mime_type};base64,{base64_encoded_data}"
+   response = openai_client.chat.completions.create(
+            model=model_deployment,
+            messages=[
+                {"role": "system", "content": system_message},
+                { "role": "user", "content": [  
+                    { "type": "text", "text": prompt},
+                    { "type": "image_url", "image_url": {"url": data_url}}
+                ] } 
+            ]
+   )
+   print(response.choices[0].message.content)
     ```
 
     **C#**
@@ -360,21 +368,18 @@ Now that you've deployed the model, you can use the deployment in a client appli
    // Read and encode the image file
    byte[] imageBytes = File.ReadAllBytes(imagePath);
    var binaryImage = new BinaryData(imageBytes);
-    
-   // Include the image file data in the prompt
-   ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
-   {
-        Messages = {
-            new ChatRequestSystemMessage(system_message),
-            new ChatRequestUserMessage([
-                new ChatMessageTextContentItem(prompt),
-                new ChatMessageImageContentItem(bytes: binaryImage, mimeType: mimeType) 
-            ]),
-        },
-        Model = model_deployment
-   };
-   var response = chat.Complete(requestOptions);
-   Console.WriteLine(response.Value.Content);
+
+   List<ChatMessage> messages =
+   [
+        new SystemChatMessage(system_message),
+        new UserChatMessage(
+            ChatMessageContentPart.CreateTextPart(prompt),
+            ChatMessageContentPart.CreateImagePart(binaryImage, mimeType)),
+   ];
+
+   ChatCompletion completion = openaiClient.CompleteChat(messages);
+
+   Console.WriteLine(completion.Content[0].Text);
     ```
 
 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
