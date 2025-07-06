@@ -21,7 +21,7 @@ def main():
         ai_key = os.getenv('AI_SERVICE_KEY')
 
         # Get image
-        image_file = 'images/street.jpg'
+        image_file = 'images/Lincoln.jpg'
         if len(sys.argv) > 1:
             image_file = sys.argv[1]
 
