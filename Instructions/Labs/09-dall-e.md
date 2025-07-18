@@ -6,7 +6,15 @@ lab:
 
 # Generate images with AI
 
-In this exercise, you use the the OpenAI DALL-E generative AI model to generate images. You'll develop your app by using Azure AI Foundry and the Azure OpenAI service.
+In this exercise, you use the OpenAI DALL-E generative AI model to generate images. You also use the OpenAI Python SDK to create a simple app to generate images based on your prompts.
+
+> **Note**: This exercise is based on pre-release SDK software, which may be subject to change. Where necessary, we've used specific versions of packages; which may not reflect the latest available versions. You may experience some unexpected behavior, warnings, or errors.
+
+While this exercise is based on the OpenAI Python SDK, you can develop AI chat applications using multiple language-specific SDKs; including:
+
+* [Azure AI Projects for Python](https://pypi.org/project/azure-ai-projects)
+* [Azure AI Projects for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Projects)
+* [Azure AI Projects for JavaScript](https://www.npmjs.com/package/@azure/ai-projects)
 
 This exercise takes approximately **30** minutes.
 
