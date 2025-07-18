@@ -10,6 +10,15 @@ The **Azure AI Custom Vision** service enables you to create computer vision mod
 
 In this exercise, you will use the Custom Vision service to train an *object detection* model that can detect and locate three classes of fruit (apple, banana, and orange) in an image.
 
+While this exercise is based on the Azure Custom Vision Python SDK, you can develop vision applications using multiple language-specific SDKs; including:
+
+* [Azure Custom Vision for JavaScript (training)](https://www.npmjs.com/package/@azure/cognitiveservices-customvision-training)
+* [Azure Custom Vision for JavaScript (prediction)](https://www.npmjs.com/package/@azure/cognitiveservices-customvision-prediction)
+* [Azure Custom Vision for Microsoft .NET (training)](https://www.nuget.org/packages/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training/)
+* [Azure Custom Vision for Microsoft .NET (prediction)](https://www.nuget.org/packages/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction/)
+* [Azure Custom Vision for Java (training)](https://search.maven.org/artifact/com.azure/azure-cognitiveservices-customvision-training/1.1.0-preview.2/jar)
+* [Azure Custom Vision for Java (prediction)](https://search.maven.org/artifact/com.azure/azure-cognitiveservices-customvision-prediction/1.1.0-preview.2/jar)
+
 This exercise takes approximately **45** minutes.
 
 ## Create Custom Vision resources
@@ -111,19 +120,10 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
     > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):
-
-    **Python**
+1. After the repo has been cloned, use the following command to navigate to the application code files:
 
     ```
    cd mslearn-ai-vision/Labfiles/object-detection/python/train-detector
-   ls -a -l
-    ```
-
-    **C#**
-
-    ```
-   cd mslearn-ai-vision/Labfiles/object-detection/c-sharp/train-detector
    ls -a -l
     ```
 
@@ -131,32 +131,16 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 1. Install the Azure AI Custom Vision SDK package for training and any other required packages by running the appropriate commands for your language preference:
 
-    **Python**
-
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
    pip install -r requirements.txt azure-cognitiveservices-vision-customvision
     ```
 
-    **C#**
-
-    ```
-   dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training
-    ```
-
 1. Enter the following command to edit the configuration file for your app:
-
-    **Python**
 
     ```
    code .env
-    ```
-
-    **C#**
-
-    ```
-   code appsettings.json
     ```
 
     The file is opened in a code editor.
@@ -177,16 +161,8 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
-    **Python**
-
     ```
    code add-tagged-images.py
-    ```
-
-    **C#**
-
-    ```
-   code Program.cs
     ```
 
 1. Note the following details in the code file:
@@ -196,19 +172,9 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
 1. Close the code editor (*CTRL+Q*) and enter the following command to run the program:
 
-    **Python**
-
     ```
    python add-tagged-images.py
     ```
-
-    **C#**
-
-    ```
-   dotnet run
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **train-detector.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. Wait for the program to end.
 1. Switch back to the browser tab containing the Custom Vision portal (keeping the Azure portal cloud shell tab open), and view the **Training Images** page for your project (refreshing the browser if necessary).
@@ -259,9 +225,7 @@ Now that you've published the image classification model, you can use it from a 
 
     ![Image of some fruit.](../media/produce.jpg)
 
-1. Install the Azure AI Custom Vision SDK package for prediction and any other required packages by running the appropriate commands for your language preference:
-
-    **Python**
+1. Install the Azure AI Custom Vision SDK package for prediction and any other required packages by running the following commands:
 
     ```
    python -m venv labenv
@@ -269,24 +233,10 @@ Now that you've published the image classification model, you can use it from a 
    pip install -r requirements.txt azure-cognitiveservices-vision-customvision
     ```
 
-    **C#**
-
-    ```
-   dotnet add package Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction
-    ```
-
 1. Enter the following command to edit the configuration file for your app:
-
-    **Python**
 
     ```
    code .env
-    ```
-
-    **C#**
-
-    ```
-   code appsettings.json
     ```
 
     The file is opened in a code editor.
@@ -295,16 +245,8 @@ Now that you've published the image classification model, you can use it from a 
 
 1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
-    **Python**
-
     ```
    code test-detector.py
-    ```
-
-    **C#**
-
-    ```
-   code Program.cs
     ```
 
 1. Review the code, noting the following details:
@@ -313,19 +255,9 @@ Now that you've published the image classification model, you can use it from a 
     - The prediction client object is used to get object detection predictions for the **produce.jpg** image, specifying the project ID and model name in the request. The predicted tagged regions are then drawn on the image, and the result is saved as **output.jpg**.
 1. Close the code editor and enter the following command to run the program:
 
-    **Python**
-
     ```
    python test-detector.py
     ```
-
-    **C#**
-
-    ```
-   dotnet run
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **test-detector.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. Review the program output, which lists each object detected in the image.
 1. Note that an image file named **output.jpg** is generated. Use the (Azure cloud shell-specific) **download** command to download it:

@@ -8,6 +8,14 @@ lab:
 
 In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include images. You'll develop an app that provides AI assistance with fresh produce in a grocery store by using Azure AI Foundry and the Azure AI Model Inference service.
 
+> **Note**: This exercise is based on pre-release SDK software, which may be subject to change. Where necessary, we've used specific versions of packages; which may not reflect the latest available versions. You may experience some unexpected behavior, warnings, or errors.
+
+While this exercise is based on the Azure AI Foundry Python SDK, you can develop AI chat applications using multiple language-specific SDKs; including:
+
+- [Azure AI Projects for Python](https://pypi.org/project/azure-ai-projects)
+- [Azure AI Projects for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Projects)
+- [Azure AI Projects for JavaScript](https://www.npmjs.com/package/@azure/ai-projects)
+
 This exercise takes approximately **30** minutes.
 
 ## Open Azure AI Foundry portal
@@ -68,8 +76,6 @@ Now you can test your multimodal model deployment with an image-based prompt in 
 
 Now that you've deployed the model, you can use the deployment in a client application.
 
-> **Tip**: You can choose to develop your solution using Python or Microsoft C# *(coming soon)*. Follow the instructions in the appropriate section for your chosen language.
-
 ### Prepare the application configuration
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
@@ -101,21 +107,11 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
-    **Python**
-
     ```
    cd mslearn-ai-vision/Labfiles/gen-ai-vision/python
     ```
 
-    **C#**
-
-    ```
-   cd mslearn-ai-vision/Labfiles/gen-ai-vision/c-sharp
-    ```
-
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
-
-    **Python**
 
     ```
    python -m venv labenv
@@ -123,26 +119,10 @@ Now that you've deployed the model, you can use the deployment in a client appli
    pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 
-    **C#**
-
-    ```
-   dotnet add package Azure.Identity --prerelease
-   dotnet add package Azure.AI.Projects --prerelease
-   dotnet add package Azure.AI.OpenAI --prerelease
-    ```
-
 1. Enter the following command to edit the configuration file that has been provided:
-
-    **Python**
 
     ```
    code .env
-    ```
-
-    **C#**
-
-    ```
-   code appsettings.json
     ```
 
     The file is opened in a code editor.
@@ -157,21 +137,11 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. Enter the following command to edit the code file that has been provided:
 
-    **Python**
-
     ```
    code chat-app.py
     ```
 
-    **C#**
-
-    ```
-   code Program.cs
-    ```
-
 1. In the code file, note the existing statements that have been added at the top of the file to import the necessary SDK namespaces. Then, Find the comment **Add references**, add the following code to reference the namespaces in the libraries you installed previously:
-
-    **Python**
 
     ```python
    # Add references
@@ -180,23 +150,11 @@ Now that you've deployed the model, you can use the deployment in a client appli
    from openai import AzureOpenAI
     ```
 
-    **C#**
-
-    ```csharp
-   // Add references
-   using Azure.Identity;
-   using Azure.AI.Projects;
-   using Azure.AI.OpenAI;
-   using OpenAI.Chat;
-    ```
-
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
 1. Find the comment **Initialize the project client**, and add the following code to connect to your Azure AI Foundry project:
 
     > **Tip**: Be careful to maintain the correct indentation level for your code.
-
-    **Python**
 
     ```python
    # Initialize the project client
@@ -209,32 +167,11 @@ Now that you've deployed the model, you can use the deployment in a client appli
         )
     ```
 
-    **C#**
-
-    ```csharp
-   // Initialize the project client
-   DefaultAzureCredentialOptions options = new()
-           { ExcludeEnvironmentCredential = true,
-            ExcludeManagedIdentityCredential = true };
-   var projectClient = new AIProjectClient(
-            new Uri(project_connection),
-            new DefaultAzureCredential(options));
-    ```
-
 1. Find the comment **Get a chat client**, and add the following code to create a client object for chatting with a model:
-
-    **Python**
 
     ```python
    # Get a chat client
    openai_client = project_client.inference.get_azure_openai_client(api_version="2024-10-21")
-    ```
-
-    **C#**
-
-    ```csharp
-   // Get a chat client
-   ChatClient openaiClient = projectClient.GetAzureOpenAIChatClient(deploymentName: model_deployment, connectionName: null, apiVersion: "2024-10-21");
     ```
 
 ### Write code to submit a URL-based image prompt
@@ -242,8 +179,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
 1. Note that the code includes a loop to allow a user to input a prompt until they enter "quit". Then in the loop section, find the comment **Get a response to image input**, add the following code to submit a prompt that includes the following image:
 
     ![A photo of a mango.](../media/orange.jpeg)
-
-    **Python**
 
     ```python
    # Get a response to image input
@@ -266,25 +201,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
    print(response.choices[0].message.content)
     ```
 
-    **C#**
-
-    ```csharp
-   // Get a response to image input
-   string imageUrl = "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/gen-ai-vision/orange.jpeg";
-
-   List<ChatMessage> messages =
-   [
-        new SystemChatMessage(system_message),
-        new UserChatMessage(
-            ChatMessageContentPart.CreateTextPart(prompt),
-            ChatMessageContentPart.CreateImagePart(new Uri(imageUrl)))
-   ];
-
-   ChatCompletion completion = openaiClient.CompleteChat(messages);
-
-   Console.WriteLine(completion.Content[0].Text);
-    ```
-
 1. Use the **CTRL+S** command to save your changes to the code file - don't close it yet though.
 
 ## Sign into Azure and run the app
@@ -303,19 +219,9 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. After you have signed in, enter the following command to run the application:
 
-    **Python**
-
     ```
    python chat-app.py
     ```
-
-    **C#**
-
-    ```
-   dotnet run
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **chat_app.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. When prompted, enter the following prompt:
 
@@ -330,8 +236,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
 1. In the code editor for your app code, in the loop section, find the code you added previously under the comment **Get a response to image input**. Then modify the code as follows, to upload this local image file:
 
     ![A photo of a dragon fruit.](../media/mystery-fruit.jpeg)
-
-    **Python**
 
     ```python
    # Get a response to image input
@@ -358,44 +262,12 @@ Now that you've deployed the model, you can use the deployment in a client appli
    print(response.choices[0].message.content)
     ```
 
-    **C#**
-
-    ```csharp
-   // Get a response to image input
-   string imagePath = "mystery-fruit.jpeg";
-   string mimeType = "image/jpeg";
-    
-   // Read and encode the image file
-   byte[] imageBytes = File.ReadAllBytes(imagePath);
-   var binaryImage = new BinaryData(imageBytes);
-
-   List<ChatMessage> messages =
-   [
-        new SystemChatMessage(system_message),
-        new UserChatMessage(
-            ChatMessageContentPart.CreateTextPart(prompt),
-            ChatMessageContentPart.CreateImagePart(binaryImage, mimeType)),
-   ];
-
-   ChatCompletion completion = openaiClient.CompleteChat(messages);
-
-   Console.WriteLine(completion.Content[0].Text);
-    ```
-
 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
 
 1. In the cloud shell command line pane beneath the code editor, enter the following command to run the app:
 
-    **Python**
-
     ```
    python chat-app.py
-    ```
-
-    **C#**
-
-    ```
-   dotnet run
     ```
 
 1. When prompted, enter the following prompt:
