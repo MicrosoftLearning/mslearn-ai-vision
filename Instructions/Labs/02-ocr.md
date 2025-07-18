@@ -8,6 +8,14 @@ lab:
 
 Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The **Azure AI Vision** Image Analysis service provides an API for reading text, which you'll explore in this exercise.
 
+> **Note**: This exercise is based on pre-release SDK software, which may be subject to change. Where necessary, we've used specific versions of packages; which may not reflect the latest available versions. You may experience some unexpected behavior, warnings, or errors.
+
+While this exercise is based on the Azure Vision Analysis Python SDK, you can develop vision applications using multiple language-specific SDKs; including:
+
+* [Azure AI Vision Analysis for JavaScript](https://www.npmjs.com/package/@azure-rest/ai-vision-image-analysis)
+* [Azure AI Vision Analysis for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Vision.ImageAnalysis)
+* [Azure AI Vision Analysis for Java](https://mvnrepository.com/artifact/com.azure/azure-ai-vision-imageanalysis)
+
 This exercise takes approximately **30** minutes.
 
 ## Provision an Azure AI Vision resource
@@ -35,8 +43,6 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Vision SDK to extract text from images.
 
-> **Note**: You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
-
 ### Prepare the application configuration
 
 1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment with no storage in your subscription.
@@ -60,21 +66,12 @@ In this exercise, you'll complete a partially implemented client application tha
     git clone https://github.com/MicrosoftLearning/mslearn-ai-vision
     ```
 
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    > **Tip**: As you paste commands into the cloudshell, the output may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):
-
-    **Python**
+1. After the repo has been cloned, use the following command to navigate to the application code files:
 
     ```
    cd mslearn-ai-vision/Labfiles/ocr/python/read-text
-   ls -a -l
-    ```
-
-    **C#**
-
-    ```
-   cd mslearn-ai-vision/Labfiles/ocr/c-sharp/read-text
    ls -a -l
     ```
 
@@ -82,32 +79,16 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. Install the Azure AI Vision SDK package and other required packages by running the appropriate commands for your language preference:
 
-    **Python**
-
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
    pip install -r requirements.txt azure-ai-vision-imageanalysis==1.0.0
     ```
 
-    **C#**
-
-    ```
-   dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
-    ``` 
-
 1. Enter the following command to edit the configuration file for your app:
-
-    **Python**
 
     ```
    code .env
-    ```
-
-    **C#**
-
-    ```
-   code appsettings.json
     ```
 
     The file is opened in a code editor.
@@ -119,23 +100,13 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
-    **Python**
-
     ```
    code read-text.py
-    ```
-
-    **C#**
-
-    ```
-   code Program.cs
     ```
 
     > **Tip**: You might want to maximize the cloud shell pane and move the split-bar between the command line cosole and the code editor so you can see the code more easily.
 
 1. In the code file, find the comment **Import namespaces**, and add the following code to import the namespaces you will need to use the Azure AI Vision SDK:
-
-    **Python**
 
     ```python
    # import namespaces
@@ -144,16 +115,7 @@ In this exercise, you'll complete a partially implemented client application tha
    from azure.core.credentials import AzureKeyCredential
     ```
 
-    **C#**
-
-    ```csharp
-   // Import namespaces
-   using Azure.AI.Vision.ImageAnalysis;
-    ```
-
 1. In the **Main** function, the code to load the configuration settings and determine the file to be analyzed has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following language-specific code to create and authenticate an Azure AI Vision Image Analysis client object:
-
-    **Python**
 
     ```python
    # Authenticate Azure AI Vision client
@@ -162,18 +124,7 @@ In this exercise, you'll complete a partially implemented client application tha
         credential=AzureKeyCredential(ai_key))
     ```
 
-    **C#**
-
-    ```csharp
-   // Authenticate Azure AI Vision client
-   ImageAnalysisClient client = new ImageAnalysisClient(
-                    new Uri(aiSvcEndpoint),
-                    new AzureKeyCredential(aiSvcKey));
-    ```
-
 1. In the **Main** function, under the code you just added, find the comment **Read text in image** and add the following code to use the Image Analysis client to read the text in the image:
-
-    **Python**
 
     ```python
    # Read text in image
@@ -186,20 +137,7 @@ In this exercise, you'll complete a partially implemented client application tha
         visual_features=[VisualFeatures.READ])
     ```
 
-    **C#**
-
-    ```csharp
-   // Read text in image
-   using FileStream stream = new FileStream(imageFile, FileMode.Open);
-   Console.WriteLine($"\nReading text from {imageFile} \n");
-    
-   ImageAnalysisResult result = client.Analyze(BinaryData.FromStream(stream),
-                                               VisualFeatures.Read);
-    ```
-
 1. Find the comment **Print the text** and add the following code (including the final comment) to print the lines of text that were found and call a function to annotate them in the image (using the **bounding_polygon** returned for each line of text):
-
-    **Python**
 
     ```python
    # Print the text
@@ -215,41 +153,13 @@ In this exercise, you'll complete a partially implemented client application tha
         
     ```
 
-    **C#**
-
-    ```csharp
-   // Print the text
-   if (result.Read != null)
-   {
-        Console.WriteLine($"Text:");
-        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
-        {
-            Console.WriteLine($"  {line.Text}");
-        }
-        // Annotate the text in the image
-        AnnotateLines(imageFile, result.Read);
-
-        // Find individual words in each line
-   }
-    ```
-
 1. Save your changes (*CTRL+S*) but keep the code editor open in case you need to fix any typo's.
 
 1. Resize the panes so you can see more of the console, then enter the following command to run the program:
 
-    **Python**
-
     ```
    python read-text.py images/Lincoln.jpg
     ```
-
-    **C#**
-
-    ```
-   dotnet run images/Lincoln.jpg
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **read-text.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. The program reads the text in the specified image file (*images/Lincoln.jpg*), which looks like this:
 
@@ -269,16 +179,8 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ![Image of a scanned buisness card.](../media/Business-card.jpg)
 
-    **Python**
-
     ```
    python read-text.py images/Business-card.jpg
-    ```
-
-    **C#**
-
-    ```
-   dotnet run images/Business-card.jpg
     ```
 
 1. Download and view the resulting **lines.jpg** file:
@@ -291,16 +193,8 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ![Photograph of a handwritten shopping list.](../media/Note.jpg)
 
-    **Python**
-
     ```
    python read-text.py images/Note.jpg
-    ```
-
-    **C#**
-
-    ```
-   dotnet run images/Note.jpg
     ```
 
 1. Download and view the resulting **lines.jpg** file:
@@ -313,8 +207,6 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. Resize the panes so you can see more of the code file. Then find the comment **Find individual words in each line** and add the following code (being careful to maintain the correct indentation level):
 
-    **Python**
-
     ```python
    # Find individual words in each line
    print ("\nIndividual words:")
@@ -323,22 +215,6 @@ In this exercise, you'll complete a partially implemented client application tha
             print(f"  {word.text} (Confidence: {word.confidence:.2f}%)")
    # Annotate the words in the image
    annotate_words(image_file, result.read)
-    ```
-
-    **C#**
-
-    ```csharp
-   // Find individual words in each line
-   Console.WriteLine ("\nIndividual words:");
-   foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
-   {
-        foreach (DetectedTextWord word in line.Words)
-        {
-            Console.WriteLine($"  {word.Text} (Confidence: {word.Confidence:P2})");
-        }
-   }
-   // Annotate the words in the image
-   AnnotateWords(imageFile, result.Read);
     ```
 
 1. Save your changes (*CTRL+S*). Then, in the command line pane, rerun the program to extract text from *images/Lincoln.jpg*.

@@ -8,6 +8,14 @@ lab:
 
 The ability to detect and analyze human faces is a core AI capability. In this exercise, you'll explore the **Face** service to work with faces.
 
+> **Note**: This exercise is based on pre-release SDK software, which may be subject to change. Where necessary, we've used specific versions of packages; which may not reflect the latest available versions. You may experience some unexpected behavior, warnings, or errors.
+
+While this exercise is based on the Azure Vision Face Python SDK, you can develop vision applications using multiple language-specific SDKs; including:
+
+* [Azure AI Vision Face for JavaScript](https://www.npmjs.com/package/@azure-rest/ai-vision-face)
+* [Azure AI Vision Face for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Vision.Face)
+* [Azure AI Vision Face for Java](https://central.sonatype.com/artifact/com.azure/azure-ai-vision-face)
+
 This exercise takes approximately **30** minutes.
 
 > **Note**: Capabilities of Azure AI services that return personally identifiable information are restricted to customers who have been granted [limited access](https://learn.microsoft.com/legal/cognitive-services/computer-vision/limited-access-identity). This exercise does not include facial recognition tasks, and can be completed without requesting any additional access to restricted features.
@@ -34,8 +42,6 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure Face SDK to detect and analyze human faces in images.
 
-> **Note**: You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
-
 ### Prepare the application configuration
 
 1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment with no storage in your subscription.
@@ -59,21 +65,12 @@ In this exercise, you'll complete a partially implemented client application tha
     git clone https://github.com/MicrosoftLearning/mslearn-ai-vision
     ```
 
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    > **Tip**: As you paste commands into the cloudshell, the output may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):
-
-    **Python**
+1. After the repo has been cloned, use the following command to navigate to the application code files:
 
     ```
    cd mslearn-ai-vision/Labfiles/face/python/face-api
-   ls -a -l
-    ```
-
-    **C#**
-
-    ```
-   cd mslearn-ai-vision/Labfiles/face/c-sharp/face-api
    ls -a -l
     ```
 
@@ -81,32 +78,16 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. Install the Azure AI Vision SDK package and other required packages by running the appropriate commands for your language preference:
 
-    **Python**
-
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
    pip install -r requirements.txt azure-ai-vision-face==1.0.0b2
     ```
 
-    **C#**
-
-    ```
-   dotnet add package Azure.AI.Vision.Face -v 1.0.0-beta.2
-    ```
-
 1. Enter the following command to edit the configuration file for your app:
-
-    **Python**
 
     ```
    code .env
-    ```
-
-    **C#**
-
-    ```
-   code appsettings.json
     ```
 
     The file is opened in a code editor.
@@ -118,23 +99,13 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
-    **Python**
-
     ```
    code analyze-faces.py
-    ```
-
-    **C#**
-
-    ```
-   code Program.cs
     ```
 
     > **Tip**: You might want to maximize the cloud shell pane and move the split-bar between the command line cosole and the code editor so you can see the code more easily.
 
 1. In the code file, find the comment **Import namespaces**, and add the following code to import the namespaces you will need to use the Azure AI Vision SDK:
-
-    **Python**
 
     ```python
    # Import namespaces
@@ -143,16 +114,7 @@ In this exercise, you'll complete a partially implemented client application tha
    from azure.core.credentials import AzureKeyCredential
     ```
 
-    **C#**
-
-    ```C#
-   // Import namespaces
-   using Azure.AI.Vision.Face;
-    ```
-
 1. In the **Main** function, note that the code to load the configuration settings and determine the image to be analyzed has been provided. Then find the comment **Authenticate Face client** and add the following code to create and authenticate a **FaceClient** object:
-
-    **Python**
 
     ```python
    # Authenticate Face client
@@ -161,20 +123,9 @@ In this exercise, you'll complete a partially implemented client application tha
         credential=AzureKeyCredential(cog_key))
     ```
 
-    **C#**
-
-    ```C#
-   // Authenticate Face client
-   FaceClient faceClient = new FaceClient(
-        new Uri(cogSvcEndpoint),
-        new AzureKeyCredential(cogSvcKey));
-    ```
-
 ### Add code to detect and analyze faces
 
 1. In the code file for your application, in the **Main** function, find the comment **Specify facial features to be retrieved** and add the following code:
-
-    **Python**
 
     ```python
    # Specify facial features to be retrieved
@@ -183,21 +134,7 @@ In this exercise, you'll complete a partially implemented client application tha
                 FaceAttributeTypeDetection01.ACCESSORIES]
     ```
 
-    **C#**
-
-    ```C#
-   // Specify facial features to be retrieved
-   FaceAttributeType[] features = new FaceAttributeType[]
-   {
-        FaceAttributeType.Detection01.HeadPose,
-        FaceAttributeType.Detection01.Occlusion,
-        FaceAttributeType.Detection01.Accessories
-   };
-    ```
-
 1. In the **Main** function, under the code you just added, find the comment **Get faces** and add the following code to print the facial feature information and call a function that annotates the image with the bounding box for each detected face (based on the **face_rectangle** property of each face):
-
-     **Python**
 
     ```Python
    # Get faces
@@ -231,68 +168,14 @@ In this exercise, you'll complete a partially implemented client application tha
             annotate_faces(image_file, detected_faces)
     ```
 
-    **C#**
-
-    ```C#
-   // Get faces
-   using (var imageData = File.OpenRead(imageFile))
-   {    
-        var response = faceClient.Detect(
-            BinaryData.FromStream(imageData),
-            FaceDetectionModel.Detection01,
-            FaceRecognitionModel.Recognition01,
-            returnFaceId: false,
-            returnFaceAttributes: features);
-
-        IReadOnlyList<FaceDetectionResult> detectedFaces = response.Value;
-
-        if (detectedFaces.Count() > 0)
-        {
-            Console.WriteLine($"{detectedFaces.Count()} faces detected.");
-
-            int faceCount=0;
-            foreach (var face in detectedFaces)
-            {
-                faceCount++;
-                Console.WriteLine($"\nFace number {faceCount}");
-
-                // Get face properties
-                Console.WriteLine($" - Head Pose (Yaw): {face.FaceAttributes.HeadPose.Yaw}");
-                Console.WriteLine($" - Head Pose (Pitch): {face.FaceAttributes.HeadPose.Pitch}");
-                Console.WriteLine($" - Head Pose (Roll): {face.FaceAttributes.HeadPose.Roll}");
-                Console.WriteLine($" - Forehead occluded: {face.FaceAttributes.Occlusion.ForeheadOccluded}");
-                Console.WriteLine($" - Eye occluded: {face.FaceAttributes.Occlusion.EyeOccluded}");
-                Console.WriteLine($" - Mouth occluded: {face.FaceAttributes.Occlusion.MouthOccluded}");
-                Console.WriteLine($" - Accessories:");
-                foreach (AccessoryItem accessory in face.FaceAttributes.Accessories)
-                {
-                    Console.WriteLine($"   - {accessory.Type}");
-                }
-            }
-            // Annotate faces in the image
-            AnnotateFaces(imageFile, detectedFaces);
-        }
-   }
-    ```
-
 1. Examine the code you added to the **Main** function. It analyzes an image file and detects any faces it contains, including attributes for head pose, occlusion, and the presence of accessories such as glasses. Additionally, a function is called to annotate the original image with a bounding box for each detected face.
 1. Save your changes (*CTRL+S*) but keep the code editor open in case you need to fix any typo's.
 
 1. Resize the panes so you can see more of the console, then enter the following command to run the program with the argument *images/face1.jpg*:
 
-    **Python**
-
     ```
    python analyze-faces.py images/face1.jpg
     ```
-
-    **C#**
-
-    ```
-   dotnet run images/face1.jpg
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **analyze-faces.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
     The app runs and analyzes the following image:
 
@@ -313,16 +196,8 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ![Image of another persn.](../media/face2.jpg)
 
-    **Python**
-
     ```
    python analyze-faces.py images/face2.jpg
-    ```
-
-    **C#**
-
-    ```
-   dotnet run images/face2.jpg
     ```
 
 1. Download and view the resulting **detected_faces.jpg** file:
@@ -339,16 +214,8 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ![Photograph of both people.](../media/faces.jpg)
 
-    **Python**
-
     ```
    python analyze-faces.py images/faces.jpg
-    ```
-
-    **C#**
-
-    ```
-   dotnet run images/faces.jpg
     ```
 
 1. Download and view the resulting **detected_faces.jpg** file:
