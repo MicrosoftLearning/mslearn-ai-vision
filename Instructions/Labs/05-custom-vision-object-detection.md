@@ -91,8 +91,6 @@ The Custom Vision portal includes visual tools that you can use to upload images
 
 You can use the UI in the Custom Vision portal to tag your images, but many AI development teams use other tools that generate files containing information about tags and object regions in images. In scenarios like this, you can use the Custom Vision training API to upload tagged images to the project.
 
-> **Note**: In this exercise, you can choose to use the API from either the **C#** or **Python** SDK. In the steps below, perform the actions appropriate for your preferred language.
-
 1. Click the *settings* (&#9881;) icon at the top right of the **Training Images** page in the Custom Vision portal to view the project settings.
 1. Under **General** (on the left), note the **Project Id** that uniquely identifies this project.
 1. On the right, under **Resources** note that the **Key** and **Endpoint** are shown. These are the details for the *training* resource (you can also obtain this information by viewing the resource in the Azure portal).
@@ -129,7 +127,7 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
     The folder contains application configuration and code files for your app. It also contains a **tagged-images.json** file which contains bounding box coordinates for objects in multiple images, and an **/images** subfolder, which contains the images.
 
-1. Install the Azure AI Custom Vision SDK package for training and any other required packages by running the appropriate commands for your language preference:
+1. Install the Azure AI Custom Vision SDK package for training and any other required packages by running the following commands:
 
     ```
    python -m venv labenv

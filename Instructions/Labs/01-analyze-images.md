@@ -77,7 +77,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     The folder contains application configuration and code files for your app. It also contains a **/images** subfolder, which contains some image files for your app to analyze.
     
-1. Install the Azure AI Vision SDK package and other required packages by running the appropriate commands for your language preference:
+1. Install the Azure AI Vision SDK package and other required packages by running the following commands:
 
     ```
    python -m venv labenv
