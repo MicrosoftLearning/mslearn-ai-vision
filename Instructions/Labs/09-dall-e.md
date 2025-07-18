@@ -12,9 +12,8 @@ In this exercise, you use the OpenAI DALL-E generative AI model to generate imag
 
 While this exercise is based on the OpenAI Python SDK, you can develop AI chat applications using multiple language-specific SDKs; including:
 
-* [Azure AI Projects for Python](https://pypi.org/project/azure-ai-projects)
-* [Azure AI Projects for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Projects)
-* [Azure AI Projects for JavaScript](https://www.npmjs.com/package/@azure/ai-projects)
+* [OpenAI Projects for Microsoft .NET](https://www.nuget.org/packages/OpenAI)
+* [OpenAI Projects for JavaScript](https://www.npmjs.com/package/openai)
 
 This exercise takes approximately **30** minutes.
 

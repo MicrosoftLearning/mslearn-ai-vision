@@ -8,6 +8,14 @@ lab:
 
 Azure AI Vision is an artificial intelligence capability that enables software systems to interpret visual input by analyzing images. In Microsoft Azure, the **Vision** Azure AI service provides pre-built models for common computer vision tasks, including analysis of images to suggest captions and tags, detection of common objects and people. You can also use the Azure AI Vision service to remove the background or create a foreground matting of images.
 
+> **Note**: This exercise is based on pre-release SDK software, which may be subject to change. Where necessary, we've used specific versions of packages; which may not reflect the latest available versions. You may experience some unexpected behavior, warnings, or errors.
+
+While this exercise is based on the Azure Vision Python SDK, you can develop vision applications using multiple language-specific SDKs; including:
+
+* [Azure AI Vision Analysis for JavaScript](https://www.npmjs.com/package/@azure-rest/ai-vision-image-analysis)
+* [Azure AI Vision Analysis for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Vision.ImageAnalysis)
+* [Azure AI Vision Analysis for Java](https://mvnrepository.com/artifact/com.azure/azure-ai-vision-imageanalysis)
+
 This exercise takes approximately **30** minutes.
 
 ## Provision an Azure AI Vision resource
@@ -35,8 +43,6 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Vision SDK to analyze images.
 
-> **Note**: You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
-
 ### Prepare the application configuration
 
 1. In the Azure portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment with no storage in your subscription.
@@ -62,19 +68,10 @@ In this exercise, you'll complete a partially implemented client application tha
 
     > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-1. After the repo has been cloned, use the following commands to navigate to and view the language-specific folder containing the application code files, based on the programming language of your choice (Python or C#):   
-
-    **Python**
+1. After the repo has been cloned, use the following commands to navigate to and view the folder containing the application code files:   
 
     ```
    cd mslearn-ai-vision/Labfiles/analyze-images/python/image-analysis
-   ls -a -l
-    ```
-
-    **C#**
-
-    ```
-   cd mslearn-ai-vision/Labfiles/analyze-images/c-sharp/image-analysis
    ls -a -l
     ```
 
@@ -82,32 +79,16 @@ In this exercise, you'll complete a partially implemented client application tha
     
 1. Install the Azure AI Vision SDK package and other required packages by running the appropriate commands for your language preference:
 
-    **Python**
-    
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
    pip install -r requirements.txt azure-ai-vision-imageanalysis==1.0.0
     ```
 
-    **C#**
-    
-    ```
-   dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0
-    ``` 
-
 1. Enter the following command to edit the configuration file for your app:
-
-    **Python**
 
     ```
    code .env
-    ```
-
-    **C#**
-
-    ```
-   code appsettings.json
     ```
 
     The file is opened in a code editor.
@@ -119,24 +100,14 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. In the cloud shell command line, enter the following command to open the code file for the client application:
 
-    **Python**
-
     ```
    code image-analysis.py
-    ```
-
-    **C#**
-
-    ```
-   code Program.cs
     ```
 
     > **Tip**: You might want to maximize the cloud shell pane and move the split-bar between the command line cosole and the code editor so you can see the code more easily.
 
 1. In the code file, find the comment **Import namespaces**, and add the following code to import the namespaces you will need to use the Azure AI Vision SDK:
 
-    **Python**
-    
     ```python
    # import namespaces
    from azure.ai.vision.imageanalysis import ImageAnalysisClient
@@ -144,17 +115,8 @@ In this exercise, you'll complete a partially implemented client application tha
    from azure.core.credentials import AzureKeyCredential
     ```
 
-    **C#**
-    
-    ```csharp
-   // Import namespaces
-   using Azure.AI.Vision.ImageAnalysis;
-    ```
-
 1. In the **Main** function, note that the code to load the configuration settings and determine the image file to be analyzed has been provided. Then find the comment **Authenticate Azure AI Vision client** and add the following code to create and authenticate a Azure AI Vision client object (be sure to maintain the correct indentation levels):
 
-    **Python**
-    
     ```python
    # Authenticate Azure AI Vision client
    cv_client = ImageAnalysisClient(
@@ -162,18 +124,7 @@ In this exercise, you'll complete a partially implemented client application tha
         credential=AzureKeyCredential(ai_key))
     ```
 
-    **C#**
-    
-    ```csharp
-   // Authenticate Azure AI Vision client
-   ImageAnalysisClient client = new ImageAnalysisClient(
-        new Uri(aiSvcEndpoint),
-        new AzureKeyCredential(aiSvcKey));
-    ```
-
 1. In the **Main** function, under the code you just added, find the comment **Analyze image** and add the following code:
-
-    **Python**
 
     ```python
    # Analyze image
@@ -192,25 +143,7 @@ In this exercise, you'll complete a partially implemented client application tha
    )
     ```
 
-    **C#**
-
-    ```csharp
-   // Analyze image
-   using FileStream stream = new FileStream(imageFile, FileMode.Open);
-   Console.WriteLine($"\nAnalyzing {imageFile} \n");
-
-   ImageAnalysisResult result = client.Analyze(
-        BinaryData.FromStream(stream),
-        VisualFeatures.Caption | 
-        VisualFeatures.DenseCaptions |
-        VisualFeatures.Objects |
-        VisualFeatures.Tags |
-        VisualFeatures.People);
-    ```
-
 1. Find the comment **Get image captions**, add the following code to display image captions and dense captions:
-
-    **Python**
 
     ```python
    # Get image captions
@@ -224,38 +157,11 @@ In this exercise, you'll complete a partially implemented client application tha
             print(" Caption: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
     ```
 
-    **C#**
-    
-    ```csharp
-   // Get image captions
-   if (result.Caption.Text != null)
-   {
-        Console.WriteLine("\nCaption:");
-        Console.WriteLine($"   \"{result.Caption.Text}\", Confidence {result.Caption.Confidence:0.00}\n");
-   }
-
-   Console.WriteLine(" Dense Captions:");
-   foreach (DenseCaption denseCaption in result.DenseCaptions.Values)
-   {
-        Console.WriteLine($"   Caption: '{denseCaption.Text}', Confidence: {denseCaption.Confidence:0.00}");
-   }
-    ```
-
 1. Save your changes (*CTRL+S*) and resize the panes so you can clearly see the command line console while keeping the code editor open. Then enter the following command to run the program with the argument **images/street.jpg**:
-
-    **Python**
 
     ```
    python image-analysis.py images/street.jpg
     ```
-
-    **C#**
-
-    ```
-   dotnet run images/street.jpg
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **image-analysis.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. Observe the output, which should include a suggested caption for the **street.jpg** image, which looks like this:
 
@@ -275,8 +181,6 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 
 1. In the code editor, in the **AnalyzeImage** function, find the comment **Get image tags** and add the following code:
 
-    **Python**
-    
     ```python
    # Get image tags
    if result.tags is not None:
@@ -285,28 +189,12 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
             print(" Tag: '{}' (confidence: {:.2f}%)".format(tag.name, tag.confidence * 100))
     ```
 
-    **C#**
-
-    ```csharp
-   // Get image tags
-   if (result.Tags.Values.Count > 0)
-   {
-        Console.WriteLine($"\n Tags:");
-        foreach (DetectedTag tag in result.Tags.Values)
-        {
-            Console.WriteLine($"   '{tag.Name}', Confidence: {tag.Confidence:P2}");
-        }
-   }
-    ```
-
 1. Save your changes (*CTRL+S*) and run the program with the argument **images/street.jpg**, observing that in addition to the image caption, a list of suggested tags is displayed.
 1. Rerun the program for the **images/building.jpg** and **images/person.jpg** files.
 
 ### Add code to detect and locate objects
 
 1. In the code editor, in the **AnalyzeImage** function, find the comment **Get objects in the image** and add the following code to list the objects detected in the image, and call the provided function to annotate an image with the detected objects:
-
-    **Python**
 
     ```python
    # Get objects in the image
@@ -319,24 +207,6 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
         show_objects(image_file, result.objects.list)
     ```
 
-    **C#**
-
-    ```csharp
-   // Get objects in the image
-   if (result.Objects.Values.Count > 0)
-   {
-        Console.WriteLine("\nObjects:");
-        foreach (DetectedObject detectedObject in result.Objects.Values)
-        {
-            // PPrint object tag and confidence
-            Console.WriteLine($"  {detectedObject.Tags[0].Name} ({detectedObject.Tags[0].Confidence:P2})");
-        }
-        // Annotate objects in the image
-        await ShowObjects(imageFile, result.Objects);
-
-   }
-    ```
-
 1. Save your changes (*CTRL+S*) and run the program with the argument **images/street.jpg**, observing that in addition to the image caption and suggested tags; a file named **objects.jpg** is generated.
 1. Use the (Azure cloud shell-specific) **download** command to download the **objects.jpg** file:
 
@@ -344,7 +214,7 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
    download objects.jpg
     ```
 
-    The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
+    The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look similar to this:
 
     ![An image with object boundary boxes.](../media/objects.jpg)
 
@@ -353,8 +223,6 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
 ### Add code to detect and locate people
 
 1. In the code editor, in the **AnalyzeImage** function, find the comment **Get people in the image** and add the following code to list any detected people with a confidence level of 20% or more, and call a provided function to annotate them in an image:
-
-    **Python**
 
     ```Python
    # Get people in the image
@@ -369,35 +237,15 @@ It can sometimes be useful to identify relevant *tags* that provide clues about 
         show_people(image_file, result.people.list)
     ```
 
-    **C#**
-
-    ```C#
-   // Get people in the image
-   if (result.People.Values.Count > 0)
-   {
-        Console.WriteLine($" People:");
-
-        foreach (DetectedPerson person in result.People.Values)
-        {
-            // Print location and confidence of each person detected
-            if (person.Confidence > 0.2)
-            {
-                Console.WriteLine($"   Bounding box {person.BoundingBox}, Confidence: {person.Confidence:P2}");
-            }
-        }
-        // Annotate people in the image
-        await ShowPeople(imageFile, result.People);
-   }
-    ```
-
 1. Save your changes (*CTRL+S*) and run the program with the argument **images/street.jpg**, observing that in addition to the image caption, suggested tags, and objects.jpg file; a list of person locations and file named **people.jpg** is generated.
+
 1. Use the (Azure cloud shell-specific) **download** command to download the **objects.jpg** file:
 
     ```
    download people.jpg
     ```
 
-    The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look simlar to this:
+    The download command creates a popup link at the bottom right of your browser, which you can select to download and open the file. The image should look similar to this:
 
     ![An image with boundary boxes for detected people.](../media/people.jpg)
 
