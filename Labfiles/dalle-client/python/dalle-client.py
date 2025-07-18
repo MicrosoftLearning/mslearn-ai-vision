@@ -13,10 +13,11 @@ def main():
     
         # Get configuration settings 
         load_dotenv()
-        project_connection = os.getenv("PROJECT_CONNECTION")
+        endpoint = os.getenv("ENDPOINT")
         model_deployment =  os.getenv("MODEL_DEPLOYMENT")
+        api_version = os.getenv("API_VERSION")
         
-        # Initialize the OpenAI client1
+        # Initialize the client
         
         
 
