@@ -171,7 +171,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
    # Get a chat client
-   openai_client = project_client.inference.get_azure_openai_client(api_version="2024-10-21")
+   openai_client = project_client.get_openai_client(api_version="2024-10-21")
     ```
 
 ### Write code to submit a URL-based image prompt
