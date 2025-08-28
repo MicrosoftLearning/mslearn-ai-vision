@@ -44,7 +44,7 @@ An Azure AI *project* provides a collaborative workspace for AI development. Let
     - **Azure AI Foundry resource**: *A valid name for your Azure AI Foundry resource*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: *Select any **AI Services supported location***\*
+    - **Region**: *Select any **AI Foundry recommended***\*
 
     > \* Some Azure AI resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region.
 
