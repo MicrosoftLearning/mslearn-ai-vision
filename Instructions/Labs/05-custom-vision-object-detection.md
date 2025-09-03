@@ -101,6 +101,8 @@ You can use the UI in the Custom Vision portal to tag your images, but many AI d
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
+    > **Note**: If the portal asks you to select a storage to persist your files, choose **No storage account required**, select the subscription you are using and press **Apply**.
+
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
     **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
