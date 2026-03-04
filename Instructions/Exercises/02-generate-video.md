@@ -97,19 +97,15 @@ Now that you've explored the playground, let's build a Python application that p
 
 ### Prepare the application configuration
 
-1. In the Microsoft Foundry portal, go to the **Overview** page for your project.
-
-1. Find the **Resource name** displayed on the overview page (for example, `your-resource-name`). Copy this resource name — you'll use it to construct the API endpoint.
-
 1. Open **Visual Studio Code** on your local computer. If you don't have it installed, download it from [https://code.visualstudio.com](https://code.visualstudio.com).
 
 1. Open a terminal in VS Code (**Terminal > New Terminal**) and clone the GitHub repo containing the code files for this exercise:
 
     ```
-    git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
+    git clone https://github.com/microsoftlearning/mslearn-ai-vision mslearn-ai-vision
     ```
 
-1. After the repo has been cloned, open the folder in VS Code (**File > Open Folder**), and navigate to the `mslearn-ai-foundry/labfiles/foundry-chat/python` folder.
+1. After the repo has been cloned, open the folder in VS Code (**File > Open Folder**), and navigate to the `mslearn-ai-vision/labfiles/video-generation/python` folder.
 
 1. In the VS Code Explorer pane, review the files in the folder:
 
@@ -120,7 +116,7 @@ Now that you've explored the playground, let's build a Python application that p
 1. Open a terminal in VS Code and navigate to the project folder, then install the required libraries:
 
     ```
-    cd mslearn-ai-foundry/labfiles/video-generation/python
+    cd mslearn-ai-vision/labfiles/video-generation/python
     python -m venv labenv
     ```
 
@@ -170,7 +166,7 @@ Now that you've explored the playground, let's build a Python application that p
     #Initialize the OpenAI client with the endpoint and token provider
     client = OpenAI(
         base_url=endpoint,
-        api_key=token_provider(),
+        api_key=token_provider,
     )
     ```
 
