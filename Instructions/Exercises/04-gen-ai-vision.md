@@ -237,9 +237,9 @@ Now that you've deployed the model, you can use the deployment in a client appli
    print(response.choices[0].message.content)
     ```
 
-1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
+1. Use the **CTRL+S** command to save your changes to the code file.
 
-1. In the cloud shell command line pane beneath the code editor, enter the following command to run the app:
+1. In the terminal, enter the following command to run the app:
 
     ```
    python chat-app.py
