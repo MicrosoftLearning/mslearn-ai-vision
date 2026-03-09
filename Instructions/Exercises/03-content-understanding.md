@@ -37,7 +37,7 @@ Let's start by creating a Foundry resource.
 
 1. You may be prompted to create a new project before continuing to the New Foundry experience. Select **Create a new project**.
 
-    <img src="../Media/ai-foundry-new-project.png" alt="Screenshot of the Create project pane." width="600">
+    <img src="../media/foundry-new-project.png" alt="Screenshot of the Create project pane." width="600">
 
     If you're not prompted, select the projects drop down menu on the upper left, and then select **Create new project**.
 
