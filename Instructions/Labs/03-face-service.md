@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Detect and analyze faces'
-    description: 'Use the Azure AI Vision Face service to implement face detection and analysis solutions.'
+  title: Detect and analyze faces
+  description: Use the Azure AI Vision Face service to implement face detection and
+    analysis solutions.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Detect and analyze faces
