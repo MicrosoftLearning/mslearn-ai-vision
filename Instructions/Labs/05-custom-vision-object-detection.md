@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Detect objects in images'
-    description: 'Use the Azure AI Custom Vision service to train an object detection model.'
+  title: Detect objects in images
+  description: Use the Azure AI Custom Vision service to train an object detection model.
+  duration: 45 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Detect objects in images
