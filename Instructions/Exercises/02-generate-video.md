@@ -1,9 +1,13 @@
 ---
 lab:
-    title: 'Generate video with Sora in Microsoft Foundry'
-    description: 'Learn how to generate AI-powered video content using the Sora model in Microsoft Foundry.'
-    level: 300
-    duration: 45
+  title: Generate video with Sora in Microsoft Foundry
+  description: Learn how to generate AI-powered video content using the Sora model
+    in Microsoft Foundry.
+  level: 300
+  duration: 45
+  islab: true
+  primarytopics:
+  - Microsoft Foundry
 ---
 
 # Generate video with Sora in Microsoft Foundry
