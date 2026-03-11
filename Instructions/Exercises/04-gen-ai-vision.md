@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Develop a vision-enabled chat app'
-    description: 'Use Azure AI Foundry to build a generative AI app that supports image input.'
+  title: Develop a vision-enabled chat app
+  description: Use Azure AI Foundry to build a generative AI app that supports image
+    input.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Develop a vision-enabled chat app
