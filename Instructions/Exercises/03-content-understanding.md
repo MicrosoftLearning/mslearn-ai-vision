@@ -1,9 +1,13 @@
 ---
 lab:
-    title: 'Analyze images with Azure Content Understanding'
-    description: 'Learn how to use Azure Content Understanding to analyze images and generate descriptive metadata.'
-    level: 300
-    duration: 30
+  title: Analyze images with Azure Content Understanding
+  description: Learn how to use Azure Content Understanding to analyze images and generate descriptive metadata.
+  level: 300
+  duration: 30
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Content Understanding
 ---
 
 # Analyze images with Azure Content Understanding

@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Read text in images'
-    description: 'Use optical character recognition (OCR) in the Azure AI Vision Image Analysis service to locate and extract text in images.'
+  title: Read text in images
+  description: Use optical character recognition (OCR) in the Azure AI Vision Image Analysis service to locate and extract text in images.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Read text in images
