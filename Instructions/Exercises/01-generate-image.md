@@ -131,8 +131,9 @@ Now you can use the OpenAI SDK to generate images in a client application.
    # Add references
    from dotenv import load_dotenv
    from azure.identity import DefaultAzureCredential, get_bearer_token_provider
-   from openai import AzureOpenAI
+   from openai import OpenAI
    import requests
+   import base64
     ```
 
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the endpoint and model deployment name values you defined in the configuration file.
@@ -149,7 +150,7 @@ Now you can use the OpenAI SDK to generate images in a client application.
     
    client = OpenAI(
         base_url=endpoint,
-        api_key=token_provider,
+        api_key=token_provider(),
     )
     ```
 
@@ -166,10 +167,13 @@ Now you can use the OpenAI SDK to generate images in a client application.
     )
 
    json_response = json.loads(result.model_dump_json())
-   image_url = json_response["data"][0]["url"] 
+   image_data = json_response["data"][0].get("b64_json")
+   image_url = json_response["data"][0].get("url")
     ```
 
-1. Note that the code in the remainder of the **main** function passes the image URL and a filename to a provided function, which downloads the generated image and saves it as a .png file.
+    > **Note**: The FLUX model returns the generated image as base64-encoded data in `b64_json`. The `url` field will be `None` for this model.
+
+1. Note that the code in the remainder of the **main** function passes the image data and a filename to a provided function, which decodes and saves the generated image as a .png file.
 
 1. Use the **CTRL+S** command to save your changes to the code file.
 

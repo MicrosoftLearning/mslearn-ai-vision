@@ -1,4 +1,4 @@
-python-dotenv
-openai
-azure-identity
-requests
+python-dotenv==1.2.2
+openai==2.26.0
+azure-identity==1.25.2
+requests==2.32.5
