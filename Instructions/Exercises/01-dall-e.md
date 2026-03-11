@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Generate images with AI'
-    description: 'Use an OpenAI image generation model in Microsoft Foundry to generate images.'
+  title: Generate images with AI
+  description: Use an OpenAI image generation model in Microsoft Foundry to generate
+    images.
+  duration: 30 minutes
+  level: 200
+  islab: true
+  primarytopics:
+  - Microsoft Foundry
 ---
 
 # Generate images with AI
