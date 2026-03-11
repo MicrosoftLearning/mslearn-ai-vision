@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Classify images'
-    description: "Use the Azure AI Custom Vision service to train an image classification model."
+  title: Classify images
+  description: Use the Azure AI Custom Vision service to train an image classification
+    model.
+  duration: 45 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Classify images
