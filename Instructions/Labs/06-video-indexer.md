@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Analyze video'
-    description: 'Use Azure AI Video Indexer to analyze a video.'
+  title: Analyze video
+  description: Use Azure AI Video Indexer to analyze a video.
+  duration: 110 minutes
+  level: 200
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Analyze video
