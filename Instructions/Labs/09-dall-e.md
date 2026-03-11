@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Generate images with AI'
-    description: 'Use an OpenAI a DALL-E model in Azure AI Foundry to generate images.'
+  title: Generate images with AI
+  description: Use an OpenAI a DALL-E model in Azure AI Foundry to generate images.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Generate images with AI
