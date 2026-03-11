@@ -75,9 +75,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 ### Prepare the application configuration
 
-
-### Prepare the application configuration
-
 1. Open **Visual Studio Code** on your local computer. If you don't have it installed, download it from [https://code.visualstudio.com](https://code.visualstudio.com).
 
 1. Open a terminal in VS Code (**Terminal > New Terminal**) and clone the GitHub repo containing the code files for this exercise:
@@ -117,6 +114,8 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. Replace the **your_endpoint** and **your_model_deployment**  placeholders with the values you recorded from the from the **Images playground**.
 
+    > **Note**: The `PROJECT_CONNECTION` value should be your Azure AI Foundry resource base URL (e.g. `https://<resource-name>.services.ai.azure.com/models`), **not** the full project URL. If your URL contains `/api/projects/...`, remove that portion and append `/models` instead.
+
 1. Save the `.env` file.
 
 ### Write code to connect to your project and get a chat client for your model
@@ -143,9 +142,12 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
    # Initialize the project client
+   credential = DefaultAzureCredential()
+   token_provider = get_bearer_token_provider(credential, "https://ai.azure.com/.default")
    client = OpenAI(
        base_url=endpoint,
-       api_key=token_provider
+       api_key=token_provider(),
+       default_query={"api-version": "2024-05-01-preview"}
    )
     ```
 
