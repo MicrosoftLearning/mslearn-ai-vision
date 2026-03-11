@@ -16,7 +16,7 @@ def getSummaryValue(result):
 image_urls = [
     "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/content-understanding/python/images/image-1.png",
     "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/content-understanding/python/images/image-2.png",
-    "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/content-understanding/python/images/image-3.png"
+    "https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/content-understanding/python/images/image-3.jpg"
 ]
 
 # Store summaries for each image
