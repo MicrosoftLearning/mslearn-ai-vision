@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Analyze images'
-    description: 'Use Azure AI Vision Image Analysis to analyze images, suggest captions and tags, and detect objects and people.'
+  title: Analyze images
+  description: Use Azure AI Vision Image Analysis to analyze images, suggest captions
+    and tags, and detect objects and people.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Analyze images
