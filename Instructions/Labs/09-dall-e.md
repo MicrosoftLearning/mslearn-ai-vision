@@ -27,33 +27,6 @@ Let's start by signing into Azure AI Foundry portal.
 
 1. Review the information on the home page.
 
-# For the new Foundry toggle on
-## Create a project
-1. Click on the **New Foundry** toggle to set it on
-
-1. Select **Create a new project** option and confirm.
-
-1. When prompted to create a project, enter a valid name for your project and expand **Advanced options**.
-
-1. Under the **Advanced options** specify the following settings for your project:
-    - **Microsoft Foundry resource**: *A valid name for your Microsoft Foundry resource*
-    - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Create or select a resource group*
-    - **Region**: *Select any **AI Foundry recommended***\*
-
-    > \* Some Microsoft Foundry resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region.
-
-    ![Screenshot of Microsoft Foundry portal.](./media/new-foundry-home-page.png)
-
-## Choose a model
-1. Now the project is created and the page is redirected to the Microsoft Foundry main page.
-
-1. Select the menu **Start building** and select the **Browse models** option.
-
-1. Search for the `dall-e-3` model; which we'll use in our project.
-
-1. On the gpt-4o page, look for the **Deploy** menu and select **Default settings**.
-
 ## Choose a model to start a project
 
 An Azure AI *project* provides a collaborative workspace for AI development. Let's start by choosing a model that we want to work with and creating a project to use it in.
@@ -80,7 +53,7 @@ An Azure AI *project* provides a collaborative workspace for AI development. Let
 
 1. When your project is created, your model will be displayed in the **Models + endpoints** page.
 
-## Test the model in the playground -TO BE REVISITED ONCE SUPPORT FOR NEW FOUNDRY COMES
+## Test the model in the playground
 
 Before creating a client application, let's test the DALL-E model in the playground.
 

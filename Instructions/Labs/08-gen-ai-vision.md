@@ -28,47 +28,6 @@ Let's start by signing into Azure AI Foundry portal.
 
 1. Review the information on the home page.
 
-# For the new Foundry toggle on
-## Create a project
-1. Click on the **New Foundry** toggle to set it on
-
-1. Select **Create a new project** option and confirm.
-
-1. When prompted to create a project, enter a valid name for your project and expand **Advanced options**.
-
-1. Under the **Advanced options** specify the following settings for your project:
-    - **Microsoft Foundry resource**: *A valid name for your Microsoft Foundry resource*
-    - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Create or select a resource group*
-    - **Region**: *Select any **AI Foundry recommended***\*
-
-    > \* Some Microsoft Foundry resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region.
-
-    ![Screenshot of Microsoft Foundry portal.](./media/new-foundry-home-page.png)
-
-## Choose a model
-1. Now the project is created and the page is redirected to the new Foundry main page.
-
-1. Select the menu **Start building** and select the **Browse models** option.
-
-1. Search for the `gpt-4o` model; which we'll use in our project.
-
-1. On the gpt-4o page, look for the **Deploy** menu and select **Default settings**.
-
-## Test the model in the playground
-
-Now you can test your multimodal model deployment with an image-based prompt in the chat playground.
-
-1. If not already redirected to **playground** tab on the newly deployed model, you can select on the nav-bar at the left **models** and select the model on the list.
-
-1. In a new browser tab, download [mango.jpeg](https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/gen-ai-vision/mango.jpeg) from `https://github.com/MicrosoftLearning/mslearn-ai-vision/raw/refs/heads/main/Labfiles/gen-ai-vision/mango.jpeg` and save it to a folder on your local file system.
-
-1. On the chat playground page, in the **Setup** pane, ensure that your **gpt-4o** model model deployment is selected.
-
-1. In the main chat session panel, under the chat input box, use the attach button (**&#128206;**) to upload the *mango.jpeg* image file, and then add the text `What desserts could I make with this fruit?` and submit the prompt.
-
-    ![Screenshot of the chat playground page.](../media/new-foundry-playground.png)
-
 ## Choose a model to start a project
 
 An Azure AI *project* provides a collaborative workspace for AI development. Let's start by choosing a model that we want to work with and creating a project to use it in.
