@@ -2,6 +2,8 @@
 lab:
     title: 'Generate images with AI'
     description: 'Use an image generation model in Microsoft Foundry to generate images.'
+    level: 300
+    duration: 30
 ---
 
 # Generate images with AI
