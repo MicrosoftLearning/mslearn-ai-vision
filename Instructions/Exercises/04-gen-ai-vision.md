@@ -2,6 +2,8 @@
 lab:
     title: 'Develop a vision-enabled chat app'
     description: 'Use Azure AI Foundry to build a generative AI app that supports image input.'
+    level: 300
+    duration: 30
 ---
 
 # Develop a vision-enabled chat app
