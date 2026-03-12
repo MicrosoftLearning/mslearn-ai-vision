@@ -116,7 +116,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. Replace the **your_endpoint** and **your_model_deployment**  placeholders with the values you recorded from the from the **Images playground**.
 
-    > **Note**: The `PROJECT_CONNECTION` value should be your Azure AI Foundry resource base URL (e.g. `https://<resource-name>.services.ai.azure.com/models`), **not** the full project URL. If your URL contains `/api/projects/...`, remove that portion and append `/models` instead.
+    > **Note**: The `PROJECT_CONNECTION` value should be your Microsoft Foundry resource base URL (e.g. `https://<resource-name>.services.ai.azure.com/models`), **not** the full project URL. If your URL contains `/api/projects/...`, remove that portion and append `/models` instead.
 
 1. Save the `.env` file.
 
