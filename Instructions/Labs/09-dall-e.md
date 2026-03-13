@@ -1,12 +1,12 @@
 ---
 lab:
     title: 'Generate images with AI'
-    description: 'Use an OpenAI a DALL-E model in Azure AI Foundry to generate images.'
+    description: 'Use an image generation model in Azure AI Foundry to generate images.'
 ---
 
 # Generate images with AI
 
-In this exercise, you use the OpenAI DALL-E generative AI model to generate images. You also use the OpenAI Python SDK to create a simple app to generate images based on your prompts.
+In this exercise, you use an image generation model to generate images. You also use the OpenAI Python SDK to create a simple app to generate images based on your prompts.
 
 > **Note**: This exercise is based on pre-release SDK software, which may be subject to change. Where necessary, we've used specific versions of packages; which may not reflect the latest available versions. You may experience some unexpected behavior, warnings, or errors.
 
@@ -33,9 +33,9 @@ An Azure AI *project* provides a collaborative workspace for AI development. Let
 
 > **Note**: AI Foundry projects can be based on an *Azure AI Foundry* resource, which provides access to AI models (including Azure OpenAI), Azure AI services, and other resources for developing AI agents and chat solutions. Alternatively, projects can be based on *AI hub* resources; which include connections to Azure resources for secure storage, compute, and specialized tools. Azure AI Foundry based projects are great for developers who want to manage resources for AI agent or chat app development. AI hub based projects are more suitable for enterprise development teams working on complex AI solutions.
 
-1. In the home page, in the **Explore models and capabilities** section, search for the `dall-e-3` model; which we'll use in our project.
+1. In the home page, in the **Explore models and capabilities** section, search for `Flux`; which we'll use in our project.
 
-1. In the search results, select the **dall-e-3** model to see its details, and then at the top of the page for the model, select **Use this model**.
+1. In the search results, select the **FLUX.2-pro** model to see its details, and then at the top of the page for the model, select **Use this model**.
 
 1. When prompted to create a project, enter a valid name for your project and expand **Advanced options**.
 
@@ -47,7 +47,7 @@ An Azure AI *project* provides a collaborative workspace for AI development. Let
 
     > \* Some Azure AI resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region.
 
-1. Select **Create** and wait for your project, including the dall-e-3 model deployment you selected, to be created.
+1. Select **Create** and wait for your project, including the FLUX.2-pro model deployment you selected, to be created.
 
     > Note: Depending on your model selection you might receive additional prompts during the project creation process. Agree to the terms and finalize the deployment.
 
@@ -55,11 +55,11 @@ An Azure AI *project* provides a collaborative workspace for AI development. Let
 
 ## Test the model in the playground
 
-Before creating a client application, let's test the DALL-E model in the playground.
+Before creating a client application, let's test the Flux model in the playground.
 
 1. Select **Playgrounds**, and then **Images playground**.
 
-1. Ensure your DALL-E model deployment is selected. Then, in the box near the bottom of the page, enter a prompt such as `Create an image of an robot eating spaghetti` and select **Generate**.
+1. Ensure your Flux model deployment is selected. Then, in the box near the bottom of the page, enter a prompt such as `Create an image of an robot eating spaghetti` and select **Generate**.
 
 1. Review the resulting image in the playground:
 
@@ -71,9 +71,8 @@ Before creating a client application, let's test the DALL-E model in the playgro
 
 1. Select the **\</\> View Code** button and ensure you are on the **Entra ID authentication** tab. Then record the following information for use later in the exercise. Note the values are examples, be sure to record the information from your deployment.
 
-    * OpenAI Endpoint: *https://dall-e-aus-resource.cognitiveservices.azure.com/*
-    * OpenAI API version: *2024-04-01-preview*
-    * Deployment name (model name): *dall-e-3*
+    * OpenAI Endpoint: *https://flux-resource.cognitiveservices.azure.com/*
+    * Deployment name (model name): *FLUX.2-pro*
 
 ## Create a client application
 
@@ -113,7 +112,7 @@ The model seems to work in the playground. Now you can use the OpenAI SDK to use
     ```
    python -m venv labenv
    ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-identity openai requests
+   pip install -r requirements.txt
     ```
 
 1. Enter the following command to edit the configuration file that has been provided:
@@ -124,7 +123,7 @@ The model seems to work in the playground. Now you can use the OpenAI SDK to use
 
     The file is opened in a code editor.
 
-1. Replace the **your_endpoint**, **your_model_deployment**, and **your_api_version**  placeholders with the values you recorded from the from the **Images playground**.
+1. Replace the **your_endpoint** and **your_model_deployment**  placeholders with the values you recorded from the from the **Images playground**.
 
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
@@ -148,7 +147,7 @@ The model seems to work in the playground. Now you can use the OpenAI SDK to use
    import requests
     ```
 
-1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the endpoint, API version, and model deployment name values you defined in the configuration file.
+1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the endpoint and model deployment name values you defined in the configuration file.
 
 1. Under the comment **Initialize the client**, add the following code to connect to your model using the Azure credentials you are currently signed in with:
 
@@ -161,7 +160,6 @@ The model seems to work in the playground. Now you can use the OpenAI SDK to use
    )
     
    client = AzureOpenAI(
-       api_version=api_version,
        azure_endpoint=endpoint,
        azure_ad_token_provider=token_provider
    )
@@ -223,11 +221,11 @@ The model seems to work in the playground. Now you can use the OpenAI SDK to use
 
 ## Summary
 
-In this exercise, you used Azure AI Foundry and the Azure OpenAI SDK to create a client application uses a DALL-E model to generate images.
+In this exercise, you used Azure AI Foundry and the Azure OpenAI SDK to create a client application uses a Flux model to generate images.
 
 ## Clean up
 
-If you've finished exploring DALL-E, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
+If you've finished exploring Flux, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
 
 1. Return to the browser tab containing the Azure portal (or re-open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com` in a new browser tab) and view the contents of the resource group where you deployed the resources used in this exercise.
 1. On the toolbar, select **Delete resource group**.

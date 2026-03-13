@@ -15,7 +15,6 @@ def main():
         load_dotenv()
         endpoint = os.getenv("ENDPOINT")
         model_deployment =  os.getenv("MODEL_DEPLOYMENT")
-        api_version = os.getenv("API_VERSION")
         
         # Initialize the client
         
