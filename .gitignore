@@ -3,3 +3,5 @@ bin
 *.sln
 /labenv
 /labenv/*
+*.env
+.env
