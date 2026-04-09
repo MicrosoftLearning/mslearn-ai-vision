@@ -1,3 +1,5 @@
+**This course was retired on 2026-3-31. Once course is retired, all GitHub repos will be removed. Thank you!**
+
 # Develop computer vision solutions in Azure
 
 The exercises in this repo are designed to provide you with a hands-on learning experience in which you'll explore common tasks that developers perform when creating computer vision solutions on Microsoft Azure.
