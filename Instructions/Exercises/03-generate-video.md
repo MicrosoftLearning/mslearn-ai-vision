@@ -195,7 +195,7 @@ The initial application files you'll need to develop the translation application
     video = generate_video_from_image(
         image_path="reference.png",
         prompt="The scene comes to life with gentle movement and ambient lighting",
-        size="720x1280",
+        size="1280x720",
         seconds='4'
     )
     if video.status == "completed":
