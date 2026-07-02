@@ -56,7 +56,7 @@ You'll need a model that can generate images.
 
     After the model is deployed, the playground for the model is displayed.
 
-    > **TIP**: Note the model deployment name (which by default should be *gpt-image-2*) - you'll need this later!
+    > **TIP**: Note the model deployment name you use - you'll need this later!
 
 ## Test the model in the playground
 

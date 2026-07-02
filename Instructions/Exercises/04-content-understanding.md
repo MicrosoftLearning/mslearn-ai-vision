@@ -84,7 +84,7 @@ Now that you have a Foundry project, you can deploy the AI models needed for con
     - **Project name**: *A unique name for your image analysis project*
     - **Description**: Image analysis project
     - **Type of project**: Extract content and field with custom schema
-    - **Advanced settings**: Ensure your Foundry resource and storage account are selected, a new container will be created, and a chat completion model such as gpt-4.1 is selected.
+    - **Advanced settings**: Ensure your Foundry resource and storage account are selected, a new container will be created, and a current chat completion model such as `gpt-5`, `gpt-5.1`, or another available equivalent is selected.
 1. When the project has been created, in a new browser tab, download the [lion.jpg](https://microsoftlearning.github.io/mslearn-ai-vision/Labfiles/content-understanding/lion.jpg) image from `https://microsoftlearning.github.io/mslearn-ai-vision/Labfiles/content-understanding/lion.jpg` and save it in a local folder.
 
     Then return to the Content Understanding project, and upload the **lion.jpg** file to the project.

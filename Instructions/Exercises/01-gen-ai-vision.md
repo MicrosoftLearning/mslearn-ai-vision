@@ -54,13 +54,13 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 You'll need a model that can process image-based input.
 
 1. Now you're ready to explore models. On the **Discover** page, select the **Models** tab to view the Microsoft Foundry model catalog.
-1. Search for and deploy the `gpt-4.1` model using the default settings. Deployment may take a minute or so.
+1. Search for and deploy a vision-capable chat model that supports image input, such as `gpt-5`, `gpt-5.1`, or another current equivalent available in your region. Deployment may take a minute or so.
 
     > **Tip**: Model deployments are subject to regional quotas. If you don't have enough quota to deploy the model in your project's region, you can use a different model - such as gpt-4.1-mini, or gpt-4o. Alternatively, you can create a new project in a different region.
 
 1. When the model has been deployed, view the model playground page that is opened, in which you can chat with the model.
 
-    > **TIP**: Note the model deployment name (which by default should be *gpt-4.1*) - you'll need this later!
+    > **TIP**: Note the model deployment name you use - you'll need this later!
 
 ## Test the model in the playground
 
