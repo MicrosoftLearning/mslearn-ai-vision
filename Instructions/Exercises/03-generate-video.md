@@ -5,6 +5,7 @@ lab:
     level: 300
     duration: 45
     islab: true
+    status: 'released'
 ---
 
 # Generate video with Sora in Microsoft Foundry
@@ -44,7 +45,7 @@ Before starting this exercise, ensure you have:
 
 Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
 
-1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` to start building; signing in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
@@ -61,8 +62,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 You'll need a model that can process image-based input.
 
-1. Now you're ready to **Start building**. Select **Find models** (or on the **Discover** page, select the **Models** tab) to view the Microsoft Foundry model catalog.
-
+1. Now you're ready to explore models. On the **Discover** page, select the **Models** tab to view the Microsoft Foundry model catalog.
 1. Search for and deploy the `Sora-2` model using the default settings. Deployment may take a minute or so.
 
     > **Note**: Access to video-generation models is restricted - you may need to register your subscription for the Sora-2 model to be availalable.
@@ -195,7 +195,7 @@ The initial application files you'll need to develop the translation application
     video = generate_video_from_image(
         image_path="reference.png",
         prompt="The scene comes to life with gentle movement and ambient lighting",
-        size="720x1280",
+        size="1280x720",
         seconds='4'
     )
     if video.status == "completed":

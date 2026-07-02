@@ -5,6 +5,7 @@ lab:
     level: 300
     duration: 30
     islab: true
+    status: 'released'
 ---
 
 # Generate images with AI
@@ -34,7 +35,7 @@ Before starting this exercise, ensure you have:
 
 Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
 
-1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` to start building; signing in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
     * **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
@@ -42,8 +43,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     * **Resource group**: *Create or select a resource group*
     * **Region**: Select any available region
 
-1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note that the API key, project endpoint, and OpenAI endpoint are displayed here.
+1. Wait for your project to be created. Then, on the home page for your project, note that the API key, project endpoint, and Azure OpenAI endpoint are displayed here.
 
     > **TIP**: You're going to need the Azure OpenAI endpoint later!
 
@@ -51,19 +51,18 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 You'll need a model that can generate images.
 
-1. On the project home page, in the **Start building** menu, select **Find models** to view the Microsoft Foundry model catalog.
-
-1. Search for and deploy the `FLUX.1-Kontext-pro` model using the default settings. Deployment may take a minute or so.
+1. Now you're ready to explore models. On the **Discover** page, select the **Models** tab to view the Microsoft Foundry model catalog.
+1. Search for and deploy the `gpt-image-2` model using the default settings. Deployment may take a minute or so.
 
     After the model is deployed, the playground for the model is displayed.
 
-    > **TIP**: Note the model deployment name (which by default should be *FLUX.1-Kontext-pro*) - you'll need this later!
+    > **TIP**: Note the model deployment name (which by default should be *gpt-image-2*) - you'll need this later!
 
 ## Test the model in the playground
 
-Before creating a client application, let's test the Flux model in the playground.
+Before creating a client application, let's test the gpt-image model in the playground.
 
-1. In the playground, e your Flux model deployment is selected. Then, in the box near the bottom of the page, select the smallest available size and enter a prompt such as `A robot eating spaghetti`.
+1. In the playground, ensure your gpt-image model deployment is selected. Then, in the box near the bottom of the page, select the smallest available size and enter a prompt such as `A robot eating spaghetti`.
 
 1. Review the resulting image in the playground:
 
@@ -90,8 +89,6 @@ The initial application files you'll need to develop the translation application
 1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
 
     > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */labfiles/image-client/python* folder; but it's OK if you don't - we'll install them later!
-
-    > **Tip**: If you prefer to use the terminal, you can create your **Venv** environment with `python -m venv labenv`, then activate it with `\labenv\Scripts\activate`.
 
 ### Prepare the application configuration
 
@@ -172,10 +169,9 @@ The initial application files you'll need to develop the translation application
    image_data_in_bytes = base64.b64decode(image_data)
     ```
 
-    > **Note**: The FLUX model returns the generated image as base64-encoded data in `b64_json`.
+    > **Note**: The gpt-image model returns the generated image as base64-encoded data in `b64_json`.
 
 1. Note that the code in the remainder of the **main** function passes the image data and a filename to a provided function, which decodes and saves the generated image as a .png file.
-    > **Note**: The FLUX model returns the generated image as base64-encoded data in `b64_json`.
 
 1. Note that the code in the remainder of the **main** function passes the image data and a filename to a provided function, which decodes and saves the generated image as a .png file.
 
@@ -210,11 +206,11 @@ The initial application files you'll need to develop the translation application
 
 ## Summary
 
-In this exercise, you used Microsoft Foundry and the Azure OpenAI SDK to create a client application uses a Flux model to generate images.
+In this exercise, you used Microsoft Foundry and the Azure OpenAI SDK to create a client application uses a gpt-image model to generate images.
 
 ## Clean up
 
-If you've finished exploring Flux, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
+If you've finished exploring image generation, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
 
 1. Return to the browser tab containing the Azure portal (or re-open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com` in a new browser tab) and view the contents of the resource group where you deployed the resources used in this exercise.
 1. On the toolbar, select **Delete resource group**.
