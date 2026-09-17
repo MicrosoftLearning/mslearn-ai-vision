@@ -92,11 +92,11 @@ The initial application files you'll need to develop the translation application
 1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
 1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.13.x installation.
 
-    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */labfiles/gen-ai-vision/python* folder; but it's OK if you don't - we'll install them later!
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the *labfiles/gen-ai-vision/python* folder; but it's OK if you don't - we'll install them later!
 
 ### Prepare the application configuration
 
-1. After the repo has been cloned, open the folder in VS Code (**File > Open Folder**), and navigate to the `/labfiles/gen-ai-vision/python` folder.
+1. After the repo has been cloned, open the folder in VS Code (**File > Open Folder**), and navigate to the `Labfiles/gen-ai-vision/python` folder.
 
 1. In the VS Code Explorer pane, review the files in the folder:
 
@@ -111,11 +111,11 @@ The initial application files you'll need to develop the translation application
 
     Save the modified configuration file.
 
-1. In the **Explorer** pane, right-click the **python** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */labfiles/gen-ai-vision/python* folder.)
+1. In the **Explorer** pane, right-click the **python** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the *labfiles/gen-ai-vision/python* folder.)
 
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
-1. Ensure that the terminal is open in the **/labfiles/gen-ai-vision/python** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
+1. Ensure that the terminal is open in the **Labfiles/gen-ai-vision/python** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
 1. Install the required Python packages by running the following command:
 
     ```

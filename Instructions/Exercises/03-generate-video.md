@@ -10,6 +10,9 @@ lab:
 
 # Generate video with Sora in Microsoft Foundry
 
+> **Important**: Sora 2 might be unavailable for new deployments in some regions. Before starting this lab, check whether you can deploy the model in Microsoft Foundry with your subscription and selected region. If it is unavailable, you might not be able to complete the lab as written.
+
+
 Sora is an AI model from OpenAI that creates realistic and imaginative video scenes from text instructions. The model can generate a wide range of video content, including realistic scenes, animations, and special effects. It supports several video resolutions and durations, and can also use reference images and remix existing videos.
 
 In this exercise, you'll explore how to deploy the Sora model and generate video content using the Microsoft Foundry portal. You'll also build an application that generates videos from images, polls for completion status, and remixes existing videos.
@@ -63,13 +66,13 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 You'll need a model that can process image-based input.
 
 1. Now you're ready to explore models. On the **Discover** page, select the **Models** tab to view the Microsoft Foundry model catalog.
-1. Search for and deploy the `Sora-2` model using the default settings. Deployment may take a minute or so.
+1. Search for and deploy a video-generation model, such as `Sora-2` or another current equivalent available in your region. Deployment may take a minute or so.
 
     > **Note**: Access to video-generation models is restricted - you may need to register your subscription for the Sora-2 model to be availalable.
 
 1. When the model has been deployed, view the model playground page that is opened, in which you can chat with the model.
 
-    > **TIP**: Note the model deployment name (which by default should be *Sora-2*) - you'll need this later!
+    > **TIP**: Note the model deployment name you use - you'll need this later!
 
 ## Test the model in the playground
 
@@ -97,7 +100,7 @@ Now you can test your vide-generation model deployment in the chat playground.
 
 ## Create a video generation application
 
-Now that you've explored the playground, let's build a Python application that programmatically generates videos using the Sora 2 API.
+Now that you've explored the playground, let's build a Python application that programmatically generates videos using a Foundry video-generation model, such as Sora 2.
 
 ### Get application files from GitHub
 
