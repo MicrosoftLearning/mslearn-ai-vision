@@ -100,7 +100,7 @@ Now you can test your vide-generation model deployment in the chat playground.
 
 ## Create a video generation application
 
-Now that you've explored the playground, let's build a Python application that programmatically generates videos using a Foundry video-generation model, such as Sora 2 when it's available to your subscription.
+Now that you've explored the playground, let's build a Python application that programmatically generates videos using a Foundry video-generation model, such as Sora 2.
 
 ### Get application files from GitHub
 
