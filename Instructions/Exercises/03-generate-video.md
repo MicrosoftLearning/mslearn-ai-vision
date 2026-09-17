@@ -10,7 +10,7 @@ lab:
 
 # Generate video with Sora in Microsoft Foundry
 
-> **Warning**: Sora 2 might be unavailable for new deployments in some regions. Before starting this lab, check whether you can deploy the model in Microsoft Foundry with your subscription and selected region. If it is unavailable, you might not be able to complete the lab as written.
+> **Important**: Sora 2 might be unavailable for new deployments in some regions. Before starting this lab, check whether you can deploy the model in Microsoft Foundry with your subscription and selected region. If it is unavailable, you might not be able to complete the lab as written.
 
 
 Sora is an AI model from OpenAI that creates realistic and imaginative video scenes from text instructions. The model can generate a wide range of video content, including realistic scenes, animations, and special effects. It supports several video resolutions and durations, and can also use reference images and remix existing videos.
