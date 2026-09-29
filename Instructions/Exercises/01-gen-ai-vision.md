@@ -107,7 +107,7 @@ The initial application files you'll need to develop the translation application
 
 1. In the **Explorer** pane, in the **python** folder, select the **.env** file to open it. Then update the configuration values to include the **Azure OpenAI endpoint** for your Foundry resource, and the model deployment name for the generative AI model you deployed.
 
-    > **Important**: Be sure to add the `https://{foundry-resource-name}.openai.azure.com/openai/v1/` Azure OpenAI endpoint, <u>not</u> the project endpoint!
+    > **Important**: Be sure to add the `https://{foundry-resource-name}.openai.azure.com/openai/v1` Azure OpenAI endpoint, <u>not</u> the project endpoint!
 
     Save the modified configuration file.
 
