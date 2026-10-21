@@ -1,0 +1,4 @@
+python-dotenv
+azure-identity
+openai
+azure-ai-contentunderstanding==1.1.0
