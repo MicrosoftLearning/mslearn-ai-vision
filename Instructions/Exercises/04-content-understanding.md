@@ -39,7 +39,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any available region
+    - **Region**: Select a [region supported by Azure Content Understanding](https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/language-region-support#region-support), such as **East US 2**.
 
 1. Wait for your project to be created. Then on the home page for your project, view the project details.
 
