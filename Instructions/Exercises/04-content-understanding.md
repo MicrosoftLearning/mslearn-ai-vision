@@ -58,7 +58,7 @@ You'll need an Azure storage account for the content assets you're going to anal
     - **Resource group**: *The resource group containing your Foundry resource*
     - **Storage account name**: *A unique name for your storage account*
     - **Region**: *The same region as your Foundry resource*
-    - **Preferred storage type**: Azure Blob Storage or Azure Data Lake Storage Gen 2
+    - **Primary service**: Azure Blob Storage or Azure Data Lake Storage Gen 2
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
 1. Wait for your storage account to be created.
